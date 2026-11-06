@@ -24,9 +24,15 @@ def capture_rng_state() -> dict[str, object]:
 def restore_rng_state(state: dict[str, object]) -> None:
     random.setstate(state["python"])
     np.random.set_state(state["numpy"])
-    torch.set_rng_state(state["torch"])
+    # ``map_location='cuda'`` also moves the saved CPU generator tensor.
+    # Both RNG restoration APIs require CPU ByteTensors.
+    torch.set_rng_state(
+        state["torch"].detach().to(device="cpu", dtype=torch.uint8))
     if "cuda" in state and torch.cuda.is_available():
-        torch.cuda.set_rng_state_all(state["cuda"])
+        torch.cuda.set_rng_state_all([
+            value.detach().to(device="cpu", dtype=torch.uint8)
+            for value in state["cuda"]
+        ])
 
 
 def atomic_torch_save(payload: dict[str, object], path: Path) -> None:

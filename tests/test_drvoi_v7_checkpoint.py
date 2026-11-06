@@ -30,3 +30,10 @@ def test_rng_capture_restore_reproduces_next_draws():
     assert expected[0] == actual[0]
     assert expected[1] == actual[1]
     assert torch.equal(expected[2], actual[2])
+
+
+def test_restore_normalizes_cpu_rng_state_to_byte():
+    state = capture_rng_state()
+    state["torch"] = state["torch"].to(torch.int64)
+    restore_rng_state(state)
+    assert torch.get_rng_state().dtype == torch.uint8

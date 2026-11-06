@@ -54,6 +54,18 @@
     "cover_frozen_b0_fraction": 0.5,
     "episode_isolation": true
   },
+  "b0": {
+    "algorithm": "extrinsic-only-rhppo",
+    "training_seeds": [85, 185, 285],
+    "training_environment_decisions": 1007616,
+    "num_envs": 96,
+    "rollout_steps": 256,
+    "updates": 41,
+    "ppo_epochs": 2,
+    "fixed_opponent_evaluation_episodes": 192,
+    "evaluation_seed": 10085,
+    "freeze_after_training": true
+  },
   "q_model": {
     "folds": 2,
     "hidden_sizes": [256, 256],
