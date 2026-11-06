@@ -408,6 +408,10 @@ def evaluate_pair(episodes, dataset, delta, branch, input_kind, args,
         "variance_scale": variance_scale,
         "input_dim": int(inputs.shape[-1]),
         "response_dim": int(test.target.shape[-1]),
+        "hidden_size": int(args.hidden_size),
+        "members": 5,
+        "sigma_min": 1.0e-3,
+        "sigma_max": 10.0,
     }
     return result, artifacts
 
