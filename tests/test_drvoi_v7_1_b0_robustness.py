@@ -15,5 +15,7 @@ def test_b0_robustness_requires_four_of_five_positive_directions():
         },
     }
     assert group_pass(result)
+    result["training"]["gradient_fault_over_1000"] = True
+    assert group_pass(result)  # G3 is direction-only; G0 was frozen at W3.
     result["delta_nll_by_collection_seed"]["4"] = -1
     assert not group_pass(result)

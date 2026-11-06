@@ -210,6 +210,7 @@ def train_models(train: HistoryResponseData, validation: HistoryResponseData,
     stale = 0
     gradient_max = 0.0
     gradient_fault = False
+    gradient_fault_events = []
     history = []
     for epoch in range(1, args.epochs + 1):
         order = torch.randperm(
@@ -232,7 +233,38 @@ def train_models(train: HistoryResponseData, validation: HistoryResponseData,
                 loss.backward()
                 norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
                 gradient_max = max(gradient_max, float(norm))
-                gradient_fault |= not math.isfinite(float(norm)) or float(norm) > 1000.0
+                fault = not math.isfinite(float(norm)) or float(norm) > 1000.0
+                gradient_fault |= fault
+                if fault:
+                    member_diagnostics = []
+                    with torch.no_grad():
+                        for member_index, member in enumerate(model.members):
+                            selected = indices[sample_masks[member_index, indices]]
+                            means, variances = member(
+                                train.context[selected], actions[name][selected])
+                            sigma = variances.sqrt()
+                            standardized_residual = (
+                                train.target[selected] - means) / sigma
+                            member_diagnostics.append({
+                                "sigma_min": float(sigma.min()),
+                                "sigma_max": float(sigma.max()),
+                                "target_abs_max": float(
+                                    train.target[selected].abs().max()),
+                                "mean_abs_max": float(means.abs().max()),
+                                "standardized_residual_abs_max": float(
+                                    standardized_residual.abs().max()),
+                            })
+                    gradient_fault_events.append({
+                        "epoch": epoch,
+                        "batch_start": start,
+                        "model": name,
+                        "raw_gradient_norm": float(norm),
+                        "loss_per_dimension": float(loss.detach()) / response_dim,
+                        "member_sample_counts": [
+                            int(indices[sample_masks[index, indices]].numel())
+                            for index in range(args.members)],
+                        "member_diagnostics": member_diagnostics,
+                    })
                 optimizers[name].step()
                 epoch_losses[name].append(float(loss.detach()) / response_dim)
         scores = {}
@@ -267,6 +299,7 @@ def train_models(train: HistoryResponseData, validation: HistoryResponseData,
         "epochs_executed": len(history),
         "raw_gradient_norm_max": gradient_max,
         "gradient_fault_over_1000": gradient_fault,
+        "gradient_fault_events": gradient_fault_events,
         "history": history,
     }
 

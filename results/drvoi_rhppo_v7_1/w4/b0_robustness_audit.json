@@ -1,0 +1,184 @@
+{
+  "suite": "DRVOI-RHPPO-V7.1-W4-G3-freeze",
+  "protocol_version": "DRVOI-RHPPO-V7.1-history-response-1",
+  "scientific_result": false,
+  "confirmation_test_accessed": false,
+  "robustness_report_sha256": "a03c6ed3ba4a0ec22e3f46e1a8f497091b654b004ee98fdbc01607918b6879b6",
+  "data_manifest": [
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed185-collection10185.pt",
+      "bytes": 456073421,
+      "sha256": "d97e02016d30580025718e3f2d7becd804187af401c116760d02439b943f8350"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed185-collection11185.pt",
+      "bytes": 466655053,
+      "sha256": "209320d89095abdfd658dbcbbe1615657704c67cc2a2194880bb9192cd5f3991"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed185-collection12185.pt",
+      "bytes": 471662669,
+      "sha256": "b449f4b081c5142fe555e0e6b5d4578d24ec63b848cad7dfc95c9dd1fb169154"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed185-collection13185.pt",
+      "bytes": 474397837,
+      "sha256": "e7fcdee232baa5fd32ecc8f0ee448a6e0aa4c5eaab400977ceeef949522eb8a4"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed185-collection14185.pt",
+      "bytes": 456475149,
+      "sha256": "4d9c1ab22feb17bbc616100d036ab067b673adee3fe581a1fba4f19e0e08e004"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed285-collection10185.pt",
+      "bytes": 637440717,
+      "sha256": "e5da0042093ad9499b1799fc870ef2c934cace42f8e7baa71f64f8dd185a9008"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed285-collection11185.pt",
+      "bytes": 629874189,
+      "sha256": "2485a9bed6cd31fc3e8eda7c73ee40edb0a7560481e2f66e0e8e07e4c781dce8"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed285-collection12185.pt",
+      "bytes": 657368653,
+      "sha256": "6195b80ab28862382dc49c81181271054bd9b1244dd0b21197921e1c5ba16b7e"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed285-collection13185.pt",
+      "bytes": 650475277,
+      "sha256": "42a539f316b56494d56688be9d680b3d6121e077ca3ad49011cdc021ae0925e2"
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7_1/w4-b0-robustness/data/onpolicy-b0seed285-collection14185.pt",
+      "bytes": 637656077,
+      "sha256": "fddfe0a708266653348311aa9de48fd8c0116ef64bc68f2bba928982ba6561e5"
+    }
+  ],
+  "data_total_bytes": 5538079042,
+  "B0_seed185": {
+    "mean_delta_nll_per_dimension": 0.03998188674449921,
+    "delta_nll_by_collection_seed": {
+      "10185": 0.03967723250389099,
+      "11185": 0.03942139819264412,
+      "12185": 0.04157288372516632,
+      "13185": 0.04347188025712967,
+      "14185": 0.03576602041721344
+    },
+    "permutation_gain_per_dimension": 0.10523048788309097,
+    "permutation_gain_by_collection_seed": {
+      "10185": 0.10576073825359344,
+      "11185": 0.10624302923679352,
+      "12185": 0.10665302723646164,
+      "13185": 0.10881157964468002,
+      "14185": 0.09868407994508743
+    }
+  },
+  "B0_seed285": {
+    "mean_delta_nll_per_dimension": 0.0978599414229393,
+    "delta_nll_by_collection_seed": {
+      "10185": 0.09946207702159882,
+      "11185": 0.0963892862200737,
+      "12185": 0.09732908010482788,
+      "13185": 0.09429232776165009,
+      "14185": 0.10182692110538483
+    },
+    "permutation_gain_per_dimension": 0.19581516087055206,
+    "permutation_gain_by_collection_seed": {
+      "10185": 0.20839378237724304,
+      "11185": 0.1863454282283783,
+      "12185": 0.19471418857574463,
+      "13185": 0.18913061916828156,
+      "14185": 0.200491800904274
+    }
+  },
+  "numerical_diagnostics": {
+    "B0_seed185": {
+      "raw_gradient_norm_max": 1003.0062866210938,
+      "gradient_fault_over_1000": true,
+      "gradient_fault_events": [
+        {
+          "epoch": 13,
+          "batch_start": 237568,
+          "model": "H0",
+          "raw_gradient_norm": 1003.0062866210938,
+          "loss_per_dimension": 0.6709864139556885,
+          "member_sample_counts": [
+            3404,
+            3275,
+            3278,
+            3335,
+            3305
+          ],
+          "member_diagnostics": [
+            {
+              "sigma_min": 0.0074848695658147335,
+              "sigma_max": 5.379476070404053,
+              "target_abs_max": 18.98029899597168,
+              "mean_abs_max": 16.34085464477539,
+              "standardized_residual_abs_max": 8.849632263183594
+            },
+            {
+              "sigma_min": 0.013707566075026989,
+              "sigma_max": 5.247919082641602,
+              "target_abs_max": 18.98029899597168,
+              "mean_abs_max": 14.90246868133545,
+              "standardized_residual_abs_max": 9.30369758605957
+            },
+            {
+              "sigma_min": 0.008037133142352104,
+              "sigma_max": 7.624849796295166,
+              "target_abs_max": 17.1900634765625,
+              "mean_abs_max": 10.34129524230957,
+              "standardized_residual_abs_max": 11.821037292480469
+            },
+            {
+              "sigma_min": 0.0076751005835831165,
+              "sigma_max": 6.189158916473389,
+              "target_abs_max": 12.320694923400879,
+              "mean_abs_max": 10.195719718933105,
+              "standardized_residual_abs_max": 7.93607234954834
+            },
+            {
+              "sigma_min": 0.017961708828806877,
+              "sigma_max": 5.337709426879883,
+              "target_abs_max": 17.1900634765625,
+              "mean_abs_max": 9.425614356994629,
+              "standardized_residual_abs_max": 8.831127166748047
+            }
+          ]
+        }
+      ],
+      "sigma_boundary_fraction": {
+        "lower": 0.0,
+        "upper": 0.0
+      },
+      "hard_gate": false,
+      "reason": "G3 is pre-registered as a direction-robustness gate; G0 was already passed by the once-only confirmation models"
+    },
+    "B0_seed285": {
+      "raw_gradient_norm_max": 698.636962890625,
+      "gradient_fault_over_1000": false,
+      "gradient_fault_events": [],
+      "sigma_boundary_fraction": {
+        "lower": 0.0,
+        "upper": 0.0
+      },
+      "hard_gate": false,
+      "reason": "G3 is pre-registered as a direction-robustness gate; G0 was already passed by the once-only confirmation models"
+    }
+  },
+  "gates": {
+    "G3_B0_seed185_direction": {
+      "pass": true
+    },
+    "G3_B0_seed285_direction": {
+      "pass": true
+    }
+  },
+  "all_g3_gates_pass": true,
+  "p1q_authorized": true,
+  "o0_authorized": false,
+  "long_training_authorized": false
+}
