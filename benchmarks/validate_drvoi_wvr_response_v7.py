@@ -187,6 +187,7 @@ def train_paired_ensembles(train: FlatResponseData, validation: FlatResponseData
     best_states = None
     stale = 0
     raw_gradient_max = 0.0
+    gradient_fault = False
     history = []
     for epoch in range(1, args.epochs + 1):
         order = torch.randperm(inputs.shape[0], device=inputs.device, generator=generator)
@@ -209,8 +210,13 @@ def train_paired_ensembles(train: FlatResponseData, validation: FlatResponseData
                 loss.backward()
                 raw_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
                 raw_gradient_max = max(raw_gradient_max, float(raw_norm))
-                if not math.isfinite(float(raw_norm)) or float(raw_norm) > 1000.0:
-                    raise FloatingPointError("response gradient gate failed")
+                if not math.isfinite(float(raw_norm)):
+                    raise FloatingPointError("non-finite response gradient")
+                if float(raw_norm) > 1000.0:
+                    # Offline fitting continues with the pre-registered clip
+                    # so a complete diagnostic report can be written, but the
+                    # numerical-health gate remains irreversibly failed.
+                    gradient_fault = True
                 optimizer.step()
                 losses[model_index].append(float(loss.detach()))
         conditioned_val = float(mixture_nll_batched(
@@ -244,6 +250,7 @@ def train_paired_ensembles(train: FlatResponseData, validation: FlatResponseData
         "best_epoch": best_epoch,
         "epochs_executed": len(history),
         "raw_gradient_norm_max": raw_gradient_max,
+        "gradient_fault_over_1000": gradient_fault,
         "history": history,
     }
 
@@ -466,6 +473,9 @@ def main() -> None:
         and item["delta_nll_ci95"][0] > 0.0
         for item in reactive_positive)
     g2_pass = bool(main_result["calibration"]["pass"])
+    numerical_pass = all(
+        not item["training"]["gradient_fault_over_1000"]
+        for item in sensitivity + reactive_positive)
     report = {
         "suite": "DRVOI-RHPPO-V7-P1R-P1C",
         "protocol_version": "DRVOI-RHPPO-V7-WVR-1",
@@ -485,8 +495,10 @@ def main() -> None:
             "G1_action_identifiability": {"pass": g1_pass},
             "G1_reactive_positive_control": {"pass": reactive_pass},
             "G2_probability_calibration": {"pass": g2_pass},
+            "G0_response_numerical_health": {"pass": numerical_pass},
         },
-        "all_gates_pass": g1_pass and reactive_pass and g2_pass,
+        "all_gates_pass": (
+            g1_pass and reactive_pass and g2_pass and numerical_pass),
         "long_training_authorized": False,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
