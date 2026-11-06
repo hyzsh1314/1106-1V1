@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from collections import Counter
 from pathlib import Path
@@ -21,6 +22,10 @@ from envs.torch6dof import TorchWVRConfig, TorchWVRVecEnv
 
 OPPONENT_NAMES = ("hold", "pursuit", "evasive")
 SPLIT_COUNTS = {"train": 120, "validation": 30, "calibration": 30, "test": 30}
+
+
+def file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def parse_args() -> argparse.Namespace:
@@ -259,6 +264,9 @@ def main() -> None:
     report = {
         "suite": "DRVOI-RHPPO-V7-response-collection",
         "protocol_version": "DRVOI-RHPPO-V7-WVR-1",
+        "collector_sha256": file_sha256(Path(__file__)),
+        "protocol_config_sha256": file_sha256(
+            Path("configs/drvoi_rhppo_v7_wvr.json")),
         "scientific_result": False,
         "dataset": args.dataset,
         "requested_episodes_per_opponent_split": requested_counts,

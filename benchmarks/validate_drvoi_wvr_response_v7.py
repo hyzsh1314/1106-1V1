@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import math
 from dataclasses import dataclass
@@ -63,12 +64,20 @@ def parse_args() -> argparse.Namespace:
 def load_episodes(paths: list[Path], expected_dataset: str) -> list[dict[str, object]]:
     episodes: list[dict[str, object]] = []
     seen_ids: set[tuple[int, int]] = set()
+    expected_collector_hash = hashlib.sha256(Path(
+        "benchmarks/collect_drvoi_v7_response_data.py").read_bytes()).hexdigest()
+    expected_protocol_hash = hashlib.sha256(Path(
+        "configs/drvoi_rhppo_v7_wvr.json").read_bytes()).hexdigest()
     for path_index, path in enumerate(paths):
         payload = torch.load(path, map_location="cpu", weights_only=False)
         if payload["report"]["dataset"] != expected_dataset:
             raise ValueError(f"{path} is not {expected_dataset}")
         if not payload["report"]["complete_episode_invariants"]["all_end_done"]:
             raise ValueError(f"{path} contains incomplete episodes")
+        if payload["report"].get("collector_sha256") != expected_collector_hash:
+            raise ValueError(f"{path} was produced by a different collector")
+        if payload["report"].get("protocol_config_sha256") != expected_protocol_hash:
+            raise ValueError(f"{path} was produced under a different protocol config")
         for episode in payload["episodes"]:
             key = (path_index, int(episode["episode_id"]))
             if key in seen_ids:
