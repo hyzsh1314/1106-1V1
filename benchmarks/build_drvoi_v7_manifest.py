@@ -41,6 +41,8 @@ def main() -> None:
         "dynamics": root / "envs" / "torch6dof" / "f16_dynamics.py",
         "missile": root / "envs" / "torch6dof" / "missile.py",
         "b0_trainer": root / "benchmarks" / "train_torch_wvr_b0_rhppo_v7.py",
+        "response_collector": root / "benchmarks" / "collect_drvoi_v7_response_data.py",
+        "response_validator": root / "benchmarks" / "validate_drvoi_wvr_response_v7.py",
         "response_targets": root / "benchmarks" / "drvoi" / "targets.py",
         "response_model": root / "benchmarks" / "drvoi" / "response.py",
         "calibration": root / "benchmarks" / "drvoi" / "calibration.py",
