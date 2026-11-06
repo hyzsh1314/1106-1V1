@@ -109,6 +109,15 @@ class ContinuousResponseMember(nn.Module):
             nn.Linear(hidden_size, hidden_size), nn.SiLU())
         self.mean = nn.Linear(hidden_size, response_dim)
         self.raw_log_sigma = nn.Linear(hidden_size, response_dim)
+        # Targets are standardized to unit scale.  The midpoint of the log
+        # bounds would initialize sigma to 0.1, producing unnecessarily steep
+        # initial NLL gradients.  Initialize exactly at sigma=1 while keeping
+        # the registered sigmoid bounds unchanged.
+        initial_fraction = (0.0 - math.log(self.sigma_min)) / (
+            math.log(self.sigma_max) - math.log(self.sigma_min))
+        initial_logit = math.log(initial_fraction / (1.0 - initial_fraction))
+        nn.init.zeros_(self.raw_log_sigma.weight)
+        nn.init.constant_(self.raw_log_sigma.bias, initial_logit)
 
     def forward(self, inputs: torch.Tensor, action_one_hot: torch.Tensor):
         features = self.network(torch.cat((inputs, action_one_hot), dim=-1))

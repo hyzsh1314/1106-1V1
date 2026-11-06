@@ -105,6 +105,13 @@ def test_v7_continuous_response_has_bounded_variance_and_no_side_head():
     assert nll.shape == (7,) and torch.isfinite(nll).all()
 
 
+def test_v7_standardized_response_initializes_at_unit_variance():
+    model = ContinuousResponseEnsemble(
+        input_dim=8, response_dim=3, members=2, hidden_size=16)
+    _, variances = model(torch.randn(5, 8), torch.zeros(5, 13))
+    assert torch.allclose(variances, torch.ones_like(variances), atol=1.0e-6)
+
+
 def test_v7_candidate_sampling_is_continuous_only_and_calibrated():
     model = ContinuousResponseEnsemble(
         input_dim=8, response_dim=3, members=2, hidden_size=16)
