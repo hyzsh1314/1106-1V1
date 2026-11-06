@@ -1,0 +1,34 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V7.1-P1Q-1",
+  "authorization": {
+    "source": "results/drvoi_rhppo_v7_1/w4/b0_robustness_audit.json",
+    "p1q_authorized": true,
+    "o0_authorized": false,
+    "long_training_authorized": false
+  },
+  "hot_development": {
+    "train_contexts": 6000,
+    "validation_contexts": 1500,
+    "test_contexts": 1500,
+    "structured_flip_all_cases_required": true,
+    "irrelevant_perturbation_all_cases_required": true
+  },
+  "wvr_value_gate": {
+    "extrinsic_only": true,
+    "delta": 3,
+    "gamma": 0.99,
+    "pairwise_accuracy_min": 0.60,
+    "pairwise_accuracy_ci_lower_min": 0.50,
+    "normalized_argmax_regret_max": 0.10,
+    "random_action_regret_must_be_worse": true,
+    "episode_spearman_min_auxiliary": 0.20
+  },
+  "data_isolation": {
+    "episode_level": true,
+    "collection_seed_level": true,
+    "validation_for_early_stopping_only": true,
+    "test_access": "once_after_hot_and_wvr_mc_development_freeze"
+  },
+  "target_network_candidates": [1, 2, 4],
+  "output_root": "runs/drvoi_rhppo_v7_1/p1q"
+}
