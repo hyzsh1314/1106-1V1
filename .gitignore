@@ -17,6 +17,8 @@ results/
 results/*
 !results/drvoi_rhppo_v7/
 !results/drvoi_rhppo_v7/**
+!results/drvoi_rhppo_v7_1/
+!results/drvoi_rhppo_v7_1/**
 runs/
 artifacts/
 checkpoints/
