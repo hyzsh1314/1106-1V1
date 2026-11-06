@@ -45,13 +45,16 @@ class ActionEmbeddingQ(nn.Module):
 @torch.no_grad()
 def double_q_target(reward_ext: torch.Tensor, done: torch.Tensor,
                     next_context: torch.Tensor, online: ActionEmbeddingQ,
-                    target: ActionEmbeddingQ, gamma: float = 0.99):
+                    target: ActionEmbeddingQ, gamma: float = 0.99,
+                    discount_steps: int = 1):
     """Extrinsic-only Double-DQN target; no intrinsic input is accepted."""
+    if discount_steps <= 0:
+        raise ValueError("discount_steps must be positive")
     online_values = online.all_actions(next_context)
     next_action = online_values.argmax(-1)
     target_values = target.all_actions(next_context)
     bootstrap = target_values.gather(-1, next_action[:, None]).squeeze(-1)
-    return reward_ext + gamma * (~done.bool()).float() * bootstrap
+    return reward_ext + (gamma ** discount_steps) * (~done.bool()).float() * bootstrap
 
 
 def q_huber_loss(model: ActionEmbeddingQ, context: torch.Tensor,

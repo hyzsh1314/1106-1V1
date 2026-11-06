@@ -26,3 +26,30 @@ def test_drvoi_hard_gates_are_frozen_before_long_training():
     assert gates["G1_samples_min"] >= 1000
     assert gates["G4_false_positive_max"] == 0.05
     assert gates["G6_mc_spearman_min"] == 0.9
+
+
+def test_drvoi_v7_protocol_is_preregistered_and_long_training_locked():
+    protocol = json.loads(Path("configs/drvoi_rhppo_v7_wvr.json").read_text(
+        encoding="utf-8"))
+    assert protocol["response"]["primary_branch"] == "rel"
+    assert protocol["response"]["primary_delta"] == 3
+    assert protocol["response"]["delta_list"] == [1, 3, 5]
+    assert protocol["response"]["continuous_only"] is True
+    assert protocol["response"]["side_in_primary_candidates"] is False
+    assert protocol["authorization"]["v7_long_training_authorized"] is False
+    assert protocol["authorization"]["manual_override_allowed"] is False
+    assert "response.primary_delta" in protocol["locked_primary_fields"]
+
+
+def test_v7_machine_readable_schemas_match_environment_contract():
+    observation = json.loads(Path("schemas/obs_schema_v4.json").read_text(
+        encoding="utf-8"))
+    response = json.loads(Path("schemas/response_schema_v7.json").read_text(
+        encoding="utf-8"))
+    delta = json.loads(Path("schemas/delta_protocol_v7.json").read_text(
+        encoding="utf-8"))
+    assert observation["dimension"] == TorchWVRVecEnv.observation_size == 39
+    assert response["branches"]["rel"]["dimension"] == 12
+    assert response["branches"]["opp"]["dimension"] == 3
+    assert response["primary_delta"] == delta["primary_delta"] == 3
+    assert response["side"]["included_in_primary_candidate"] is False

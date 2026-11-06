@@ -3,6 +3,7 @@ import pytest
 import torch
 
 from benchmarks.drvoi import (
+    CrossDeltaQTransitionAssembler,
     CrossFittedQTransitionAssembler,
     HOTTab,
     action_ids_to_multi_one_hot,
@@ -96,3 +97,59 @@ def test_q_transition_assembler_preserves_episode_fold_and_alignment():
     terminal = assembler.observe_context(
         0, 7, torch.tensor([3.0]), torch.tensor(4), torch.tensor(1.0), True)
     assert terminal.done and terminal.next_context is None
+
+
+def _delta_record(step):
+    return {
+        "step": step,
+        "belief": torch.tensor([float(step)]),
+        "action": torch.tensor([float(10 + step)]),
+        "response": torch.tensor([float(20 + step)]),
+        "reward_ext": torch.tensor(float(step)),
+    }
+
+
+def test_cross_delta_q_assembler_matches_manual_delta_three_tuple():
+    assembler = CrossDeltaQTransitionAssembler(delta=3, gamma=0.5)
+    emitted = []
+    for step in range(7):
+        emitted.extend(assembler.observe_step(
+            env_id=0, episode_id=8, done=False, **_delta_record(step)))
+    assert len(emitted) == 1
+    transition = emitted[0]
+    assert transition.delta == 3 and transition.fold == 0
+    assert torch.equal(transition.context, torch.tensor([0.0, 10.0, 23.0]))
+    assert torch.equal(transition.evaluated_action, torch.tensor([13.0]))
+    assert torch.allclose(
+        transition.discounted_return_ext, torch.tensor(3.0 + 0.5 * 4.0 + 0.25 * 5.0))
+    assert torch.equal(transition.next_context, torch.tensor([3.0, 13.0, 26.0]))
+    assert not transition.done
+
+
+def test_cross_delta_q_assembler_keeps_only_complete_terminal_return():
+    assembler = CrossDeltaQTransitionAssembler(delta=3, gamma=1.0)
+    emitted = []
+    for step in range(6):
+        emitted.extend(assembler.observe_step(
+            env_id=0, episode_id=9, done=(step == 5), **_delta_record(step)))
+    assert len(emitted) == 1
+    transition = emitted[0]
+    assert transition.done and transition.next_context is None
+    assert transition.discounted_return_ext == 3.0 + 4.0 + 5.0
+    assert assembler.invalid_counts["response_incomplete"] > 0
+    assert assembler.invalid_counts["return_incomplete"] > 0
+
+
+def test_cross_delta_q_assembler_state_restores_pending_sequence():
+    first = CrossDeltaQTransitionAssembler(delta=1, gamma=0.9)
+    first.observe_step(env_id=2, episode_id=4, done=False, **_delta_record(0))
+    first.observe_step(env_id=2, episode_id=4, done=False, **_delta_record(1))
+    restored = CrossDeltaQTransitionAssembler(delta=1, gamma=0.9)
+    restored.load_state_dict(first.state_dict())
+    expected = first.observe_step(
+        env_id=2, episode_id=4, done=False, **_delta_record(2))
+    actual = restored.observe_step(
+        env_id=2, episode_id=4, done=False, **_delta_record(2))
+    assert len(expected) == len(actual) == 1
+    assert torch.equal(expected[0].context, actual[0].context)
+    assert torch.equal(expected[0].next_context, actual[0].next_context)

@@ -1,0 +1,13 @@
+{
+  "schema": "drvoi-cross-delta-q-v7",
+  "primary_delta": 3,
+  "delta_list": [1, 3, 5],
+  "context": "X_t=[stopgrad(b_t),a_t,z_(t+delta)]",
+  "evaluated_action": "g_t=a_(t+delta)",
+  "return": "R_t=sum_(j=0)^(delta-1) gamma^j r_ext_(t+delta+j)",
+  "next_context": "X_(t+delta)=[stopgrad(b_(t+delta)),a_(t+delta),z_(t+2delta)]",
+  "bootstrap_discount": "gamma^delta",
+  "terminal_rule": "never cross done/truncation/reset; incomplete return windows are invalid",
+  "fold_rule": "one episode belongs to exactly one Q fold",
+  "reward_rule": "extrinsic only"
+}

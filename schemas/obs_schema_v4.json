@@ -1,0 +1,29 @@
+{
+  "schema": "wvr-observation-v4",
+  "dimension": 39,
+  "source": "envs/torch6dof/wvr_env.py::observations",
+  "fields": [
+    {"index": 0, "name": "altitude", "encoding": "-ned_down/5000", "unit": "normalized"},
+    {"range": [1, 5], "name": "roll_pitch_trig", "encoding": "sin/cos", "unit": "unitless"},
+    {"range": [5, 8], "name": "own_body_velocity", "scale": 340.0, "unit": "m/s"},
+    {"index": 8, "name": "own_speed", "scale": 340.0, "unit": "m/s"},
+    {"index": 9, "name": "relative_forward_velocity", "scale": 340.0, "unit": "m/s"},
+    {"index": 10, "name": "altitude_difference", "scale": 1000.0, "unit": "m"},
+    {"index": 11, "name": "aspect_angle", "unit": "rad"},
+    {"index": 12, "name": "target_angle", "unit": "rad"},
+    {"index": 13, "name": "range", "scale": 10000.0, "unit": "m"},
+    {"index": 14, "name": "side", "unit": "sign"},
+    {"range": [15, 18], "name": "own_velocity_ned", "scale": 340.0, "unit": "m/s"},
+    {"range": [18, 21], "name": "opponent_velocity_ned", "scale": 340.0, "unit": "m/s"},
+    {"range": [21, 23], "name": "missile_inventory", "unit": "normalized"},
+    {"index": 23, "name": "legal_fire_mask", "unit": "boolean"},
+    {"range": [24, 26], "name": "los_angles", "unit": "normalized-angle"},
+    {"range": [26, 28], "name": "los_rates", "unit": "normalized-rate"},
+    {"index": 28, "name": "closure_rate", "scale": 340.0, "unit": "m/s"},
+    {"range": [29, 39], "name": "missile_threat", "unit": "mixed-normalized"}
+  ],
+  "legal_response_inputs": {
+    "rel": [9, 10, 11, 12, 13, 24, 25, 26, 27, 28],
+    "opp": [18, 19, 20]
+  }
+}

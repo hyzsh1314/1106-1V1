@@ -1,7 +1,9 @@
 import torch
 
 from benchmarks.drvoi.response import (
+    ContinuousResponseEnsemble,
     ResponseEnsemble,
+    continuous_mixture_nll,
     mixture_nll,
     prequential_learning_progress,
 )
@@ -86,3 +88,31 @@ def test_zero_action_initialization_makes_paired_models_identical():
     no_action_output = no_action(belief, torch.zeros_like(action))
     assert all(torch.equal(left, right) for left, right in zip(
         conditioned_output, no_action_output))
+
+
+def test_v7_continuous_response_has_bounded_variance_and_no_side_head():
+    model = ContinuousResponseEnsemble(
+        input_dim=39, response_dim=12, members=3, hidden_size=16,
+        sigma_min=1.0e-3, sigma_max=2.0)
+    inputs = torch.randn(7, 39)
+    action = torch.zeros(7, 13)
+    means, variances = model(inputs, action)
+    assert means.shape == variances.shape == (3, 7, 12)
+    assert torch.all(variances >= 1.0e-6)
+    assert torch.all(variances <= 4.0)
+    nll = continuous_mixture_nll(
+        model, inputs, action, torch.randn(7, 12))
+    assert nll.shape == (7,) and torch.isfinite(nll).all()
+
+
+def test_v7_candidate_sampling_is_continuous_only_and_calibrated():
+    model = ContinuousResponseEnsemble(
+        input_dim=8, response_dim=3, members=2, hidden_size=16)
+    result = model.sample_candidates(
+        torch.randn(4, 8), torch.zeros(4, 13), samples_per_member=4,
+        generator=torch.Generator().manual_seed(3),
+        variance_scale=torch.ones(3), target_mean=torch.zeros(3),
+        target_scale=torch.ones(3), current_response=torch.zeros(4, 3))
+    assert result["continuous"].shape == (4, 8, 3)
+    assert result["delta_standardized"].shape == (4, 8, 3)
+    assert "side" not in result

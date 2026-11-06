@@ -23,6 +23,21 @@ def test_double_q_target_masks_terminal_bootstrap():
     assert torch.isfinite(result[1])
 
 
+def test_double_q_target_uses_gamma_power_delta():
+    online = ActionEmbeddingQ(context_dim=8, hidden_size=16, action_embedding_size=8)
+    target = ActionEmbeddingQ(context_dim=8, hidden_size=16, action_embedding_size=8)
+    with torch.no_grad():
+        for parameter in online.parameters():
+            parameter.zero_()
+        for parameter in target.parameters():
+            parameter.zero_()
+        target.output[-1].bias.fill_(2.0)
+    result = double_q_target(
+        torch.tensor([1.0]), torch.tensor([False]), torch.zeros(1, 8),
+        online, target, gamma=0.5, discount_steps=3)
+    assert torch.allclose(result, torch.tensor([1.25]))
+
+
 def test_q_target_interface_cannot_receive_intrinsic_reward():
     parameters = inspect.signature(double_q_target).parameters
     assert "reward_int" not in parameters

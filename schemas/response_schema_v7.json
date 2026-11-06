@@ -1,0 +1,41 @@
+{
+  "schema": "drvoi-response-v7",
+  "primary_branch": "rel",
+  "continuous_only": true,
+  "primary_delta": 3,
+  "delta_list": [1, 3, 5],
+  "policy_decision_seconds": 0.2,
+  "branches": {
+    "rel": {
+      "dimension": 12,
+      "state": [
+        "obs[9]", "obs[10]", "sin(obs[11])", "cos(obs[11])",
+        "sin(obs[12])", "cos(obs[12])", "obs[13]", "obs[24]",
+        "obs[25]", "obs[26]", "obs[27]", "obs[28]"
+      ],
+      "target": "train_standardize(state[t+delta]-state[t])",
+      "claim": "action-conditioned relative-dynamics response"
+    },
+    "opp": {
+      "dimension": 3,
+      "state": ["obs[18]", "obs[19]", "obs[20]"],
+      "target": "train_standardize(state[t+delta]-state[t])",
+      "claim": "action-conditioned opponent-velocity response",
+      "requires_reactive_positive_control": true
+    }
+  },
+  "normalization": {
+    "fit_split": "train",
+    "epsilon": 1e-6,
+    "checkpoint_required": true
+  },
+  "validity": {
+    "reject_if_any_done_between_t_and_target": true,
+    "reject_cross_reset": true,
+    "reject_incomplete_delta": true
+  },
+  "side": {
+    "included_in_primary_candidate": false,
+    "reason": "V6 middle class had zero frequency and failed calibration"
+  }
+}

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 from dataclasses import dataclass
 
 import torch
@@ -167,3 +168,160 @@ class CrossFittedQTransitionAssembler:
 
     def reset_env(self, env_id: int) -> None:
         self._pending.pop(env_id, None)
+
+
+@dataclass(frozen=True)
+class CrossDeltaQTransition:
+    episode_id: int
+    fold: int
+    start_step: int
+    delta: int
+    context: torch.Tensor
+    evaluated_action: torch.Tensor
+    discounted_return_ext: torch.Tensor
+    next_context: torch.Tensor | None
+    done: bool
+
+
+@dataclass
+class _DeltaRecord:
+    step: int
+    belief: torch.Tensor
+    action: torch.Tensor
+    response: torch.Tensor
+    reward_ext: torch.Tensor
+    done: bool
+
+
+class CrossDeltaQTransitionAssembler:
+    """Assemble V7 Q tuples with response horizon and Q stride `delta`.
+
+    Each observed record is the pre-action state at decision step `t`, the
+    action at `t`, and the extrinsic reward/done returned by that action. A
+    non-terminal tuple starting at `t` becomes available when state `t+2Δ`
+    is observed. A terminal tuple is retained only when the full Δ-step return
+    window has completed exactly at the terminal transition.
+    """
+
+    def __init__(self, delta: int, gamma: float = 0.99) -> None:
+        if delta <= 0:
+            raise ValueError("delta must be positive")
+        self.delta = int(delta)
+        self.gamma = float(gamma)
+        self._records: dict[int, list[_DeltaRecord]] = {}
+        self._episodes: dict[int, int] = {}
+        self._next_base: dict[int, int] = {}
+        self.invalid_counts = {
+            "response_incomplete": 0,
+            "return_incomplete": 0,
+            "episode_changed": 0,
+        }
+
+    @staticmethod
+    def fold_for_episode(episode_id: int) -> int:
+        return int(episode_id) & 1
+
+    @staticmethod
+    def _context(record: _DeltaRecord,
+                 future_response: torch.Tensor) -> torch.Tensor:
+        return torch.cat((record.belief, record.action, future_response), -1)
+
+    def _make_transition(self, records: list[_DeltaRecord], base: int,
+                         episode_id: int, terminal: bool) -> CrossDeltaQTransition:
+        delta = self.delta
+        current = records[base]
+        decision = records[base + delta]
+        rewards = torch.stack([
+            records[base + delta + offset].reward_ext
+            * (self.gamma ** offset) for offset in range(delta)])
+        discounted_return = rewards.sum(0)
+        context = self._context(current, decision.response)
+        if terminal:
+            next_context = None
+        else:
+            next_record = records[base + delta]
+            next_context = self._context(
+                next_record, records[base + 2 * delta].response)
+        return CrossDeltaQTransition(
+            episode_id=episode_id,
+            fold=self.fold_for_episode(episode_id),
+            start_step=current.step,
+            delta=delta,
+            context=context,
+            evaluated_action=decision.action,
+            discounted_return_ext=discounted_return,
+            next_context=next_context,
+            done=terminal,
+        )
+
+    def observe_step(self, env_id: int, episode_id: int, step: int,
+                     belief: torch.Tensor, action: torch.Tensor,
+                     response: torch.Tensor, reward_ext: torch.Tensor,
+                     done: bool) -> list[CrossDeltaQTransition]:
+        """Observe one sequential decision record and emit completed tuples."""
+        if env_id in self._episodes and self._episodes[env_id] != episode_id:
+            self.invalid_counts["episode_changed"] += max(
+                len(self._records.get(env_id, []))
+                - self._next_base.get(env_id, 0), 0)
+            self.reset_env(env_id)
+        if env_id not in self._records:
+            self._records[env_id] = []
+            self._episodes[env_id] = int(episode_id)
+            self._next_base[env_id] = 0
+        records = self._records[env_id]
+        if records and step != records[-1].step + 1:
+            raise ValueError("cross-delta records must have consecutive step indices")
+        records.append(_DeltaRecord(
+            step=int(step), belief=belief.detach(), action=action.detach(),
+            response=response.detach(), reward_ext=reward_ext.detach(),
+            done=bool(done)))
+        emitted: list[CrossDeltaQTransition] = []
+        current_index = len(records) - 1
+        # Current pre-action state completes a non-terminal next context for
+        # base=current_index-2Δ. Its return ended on the preceding record.
+        nonterminal_base = current_index - 2 * self.delta
+        if nonterminal_base >= self._next_base[env_id]:
+            if nonterminal_base != self._next_base[env_id]:
+                raise RuntimeError("cross-delta base sequence became misaligned")
+            emitted.append(self._make_transition(
+                records, nonterminal_base, episode_id, terminal=False))
+            self._next_base[env_id] += 1
+        if done:
+            # A complete terminal return ends at base+2Δ-1.
+            terminal_base = current_index - (2 * self.delta - 1)
+            if terminal_base >= 0 and terminal_base == self._next_base[env_id]:
+                emitted.append(self._make_transition(
+                    records, terminal_base, episode_id, terminal=True))
+                self._next_base[env_id] += 1
+            for base in range(self._next_base[env_id], current_index + 1):
+                if base + self.delta > current_index:
+                    self.invalid_counts["response_incomplete"] += 1
+                else:
+                    self.invalid_counts["return_incomplete"] += 1
+            self.reset_env(env_id)
+        return emitted
+
+    def reset_env(self, env_id: int) -> None:
+        self._records.pop(env_id, None)
+        self._episodes.pop(env_id, None)
+        self._next_base.pop(env_id, None)
+
+    def state_dict(self) -> dict[str, object]:
+        return {
+            "delta": self.delta,
+            "gamma": self.gamma,
+            "records": copy.deepcopy(self._records),
+            "episodes": copy.deepcopy(self._episodes),
+            "next_base": copy.deepcopy(self._next_base),
+            "invalid_counts": dict(self.invalid_counts),
+        }
+
+    def load_state_dict(self, state: dict[str, object]) -> None:
+        if int(state["delta"]) != self.delta:
+            raise ValueError("cannot restore assembler with different delta")
+        if float(state["gamma"]) != self.gamma:
+            raise ValueError("cannot restore assembler with different gamma")
+        self._records = copy.deepcopy(state["records"])
+        self._episodes = copy.deepcopy(state["episodes"])
+        self._next_base = copy.deepcopy(state["next_base"])
+        self.invalid_counts = dict(state["invalid_counts"])
