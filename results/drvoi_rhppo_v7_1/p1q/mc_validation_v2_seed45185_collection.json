@@ -1,0 +1,21 @@
+{
+  "suite": "DRVOI-RHPPO-V7.1-P1Q-MC-calibration-collection",
+  "protocol_version": "DRVOI-RHPPO-V7.1-P1Q-1",
+  "scientific_result": false,
+  "split": "validation",
+  "collection_seed": 45185,
+  "contexts": 48,
+  "actions_per_context": 90,
+  "legal_action_values": 2205,
+  "warmup_decisions": [
+    3,
+    6,
+    12,
+    18
+  ],
+  "continuation_policy": "deterministic_b0_seed85",
+  "common_random_numbers": true,
+  "contains_formal_test": false,
+  "config_sha256": "0d9f23c581331fc2943a3bdac7e1512a0c2988d51b6a8b264005a3fd3de1aaf6",
+  "collector_sha256": "ac2488e81d059456738ae305c988a9151855e47e1ac982b83b54456737a14d09"
+}

@@ -30,5 +30,43 @@
     "test_access": "once_after_hot_and_wvr_mc_development_freeze"
   },
   "target_network_candidates": [1, 2, 4],
+  "q_development": {
+    "architecture": "joint_dueling_v1",
+    "max_train_tuples": 60000,
+    "max_validation_tuples": 20000,
+    "epochs": 12,
+    "patience": 4,
+    "batch_size": 512
+  },
+  "mc_probe": {
+    "contexts": 12,
+    "actions": 90,
+    "rollout_decisions": 997,
+    "require_all_terminal": true,
+    "pair_minimum_gap_fraction": 0.05,
+    "seed": 42185,
+    "learner_side": 0,
+    "common_random_numbers": true
+  },
+  "mc_calibration": {
+    "train_seeds": [43185, 44185],
+    "validation_seeds": [45185],
+    "formal_test_seeds": [46185],
+    "warmup_decisions": [3, 6, 12, 18],
+    "train_contexts_per_horizon": 96,
+    "validation_contexts_per_horizon": 12,
+    "formal_test_contexts_per_horizon": 12,
+    "actions": 90,
+    "continuation_policy": "deterministic_b0_seed85",
+    "common_random_numbers": true,
+    "epochs": 250,
+    "patience": 30,
+    "batch_contexts": 32,
+    "learning_rate": 0.0003,
+    "raw_value_loss_weight": 1.0,
+    "centered_advantage_loss_weight": 2.0,
+    "soft_argmax_loss_weight": 0.5,
+    "soft_argmax_temperature": 0.10
+  },
   "output_root": "runs/drvoi_rhppo_v7_1/p1q"
 }

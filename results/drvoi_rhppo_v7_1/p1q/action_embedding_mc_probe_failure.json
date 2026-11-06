@@ -1,0 +1,157 @@
+{
+  "suite": "DRVOI-RHPPO-V7.1-P1Q-same-state-MC-development",
+  "protocol_version": "DRVOI-RHPPO-V7.1-P1Q-1",
+  "scientific_result": false,
+  "wvr_q_test_accessed": false,
+  "selected_target_update_epochs": 1,
+  "contexts": 12,
+  "actions_per_context": 90,
+  "rollout_decisions": 120,
+  "common_random_numbers": true,
+  "metrics": {
+    "pairwise_accuracy": 0.5352194905281067,
+    "pairwise_accuracy_ci95": [
+      0.487732719630003,
+      0.5851429551839828
+    ],
+    "normalized_argmax_regret": 0.5101948684702317,
+    "random_normalized_argmax_regret": 0.6186604055886468,
+    "probes": [
+      {
+        "probe": 0,
+        "legal_actions": 45,
+        "valid_action_pairs": 818,
+        "pairwise_accuracy": 0.6295843720436096,
+        "normalized_argmax_regret": 0.7034054398536682,
+        "random_normalized_regret": 0.9861336350440979,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 28
+      },
+      {
+        "probe": 1,
+        "legal_actions": 45,
+        "valid_action_pairs": 866,
+        "pairwise_accuracy": 0.5993071794509888,
+        "normalized_argmax_regret": 0.11043072491884232,
+        "random_normalized_regret": 0.5826317071914673,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 88
+      },
+      {
+        "probe": 2,
+        "legal_actions": 45,
+        "valid_action_pairs": 86,
+        "pairwise_accuracy": 0.7093023061752319,
+        "normalized_argmax_regret": 0.999988317489624,
+        "random_normalized_regret": 0.999988317489624,
+        "predicted_action_id": 50,
+        "mc_optimal_action_id": 16
+      },
+      {
+        "probe": 3,
+        "legal_actions": 45,
+        "valid_action_pairs": 885,
+        "pairwise_accuracy": 0.5209039449691772,
+        "normalized_argmax_regret": 0.3721785247325897,
+        "random_normalized_regret": 0.24743308126926422,
+        "predicted_action_id": 46,
+        "mc_optimal_action_id": 74
+      },
+      {
+        "probe": 4,
+        "legal_actions": 45,
+        "valid_action_pairs": 86,
+        "pairwise_accuracy": 0.604651153087616,
+        "normalized_argmax_regret": 0.9834930300712585,
+        "random_normalized_regret": 0.9827936291694641,
+        "predicted_action_id": 46,
+        "mc_optimal_action_id": 74
+      },
+      {
+        "probe": 5,
+        "legal_actions": 45,
+        "valid_action_pairs": 888,
+        "pairwise_accuracy": 0.4189189374446869,
+        "normalized_argmax_regret": 0.2066708207130432,
+        "random_normalized_regret": 0.8690233826637268,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 76
+      },
+      {
+        "probe": 6,
+        "legal_actions": 45,
+        "valid_action_pairs": 691,
+        "pairwise_accuracy": 0.4920405149459839,
+        "normalized_argmax_regret": 0.1743304282426834,
+        "random_normalized_regret": 0.16174215078353882,
+        "predicted_action_id": 50,
+        "mc_optimal_action_id": 0
+      },
+      {
+        "probe": 7,
+        "legal_actions": 45,
+        "valid_action_pairs": 781,
+        "pairwise_accuracy": 0.4967989921569824,
+        "normalized_argmax_regret": 0.7388558387756348,
+        "random_normalized_regret": 0.03961442783474922,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 58
+      },
+      {
+        "probe": 8,
+        "legal_actions": 45,
+        "valid_action_pairs": 811,
+        "pairwise_accuracy": 0.52651047706604,
+        "normalized_argmax_regret": 0.1485162228345871,
+        "random_normalized_regret": 1.0,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 28
+      },
+      {
+        "probe": 9,
+        "legal_actions": 45,
+        "valid_action_pairs": 803,
+        "pairwise_accuracy": 0.4645080864429474,
+        "normalized_argmax_regret": 0.4000000059604645,
+        "random_normalized_regret": 0.0,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 48
+      },
+      {
+        "probe": 10,
+        "legal_actions": 45,
+        "valid_action_pairs": 857,
+        "pairwise_accuracy": 0.5682613849639893,
+        "normalized_argmax_regret": 0.47627556324005127,
+        "random_normalized_regret": 0.604781985282898,
+        "predicted_action_id": 52,
+        "mc_optimal_action_id": 26
+      },
+      {
+        "probe": 11,
+        "legal_actions": 45,
+        "valid_action_pairs": 883,
+        "pairwise_accuracy": 0.3918459713459015,
+        "normalized_argmax_regret": 0.8081935048103333,
+        "random_normalized_regret": 0.9497825503349304,
+        "predicted_action_id": 46,
+        "mc_optimal_action_id": 70
+      }
+    ]
+  },
+  "gates": {
+    "pairwise_action_ranking": {
+      "pass": false
+    },
+    "normalized_argmax_regret": {
+      "pass": false
+    },
+    "random_action_control": {
+      "pass": true
+    }
+  },
+  "all_mc_gates_pass": false,
+  "formal_q_test_authorized": false,
+  "o0_authorized": false,
+  "long_training_authorized": false
+}

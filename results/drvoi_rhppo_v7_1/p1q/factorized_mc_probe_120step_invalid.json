@@ -1,0 +1,158 @@
+{
+  "suite": "DRVOI-RHPPO-V7.1-P1Q-same-state-MC-development",
+  "protocol_version": "DRVOI-RHPPO-V7.1-P1Q-1",
+  "scientific_result": false,
+  "wvr_q_test_accessed": false,
+  "selected_target_update_epochs": 4,
+  "architecture": "factorized_dueling_pairwise_v1",
+  "contexts": 12,
+  "actions_per_context": 90,
+  "rollout_decisions": 120,
+  "common_random_numbers": true,
+  "metrics": {
+    "pairwise_accuracy": 0.532680332660675,
+    "pairwise_accuracy_ci95": [
+      0.4691731810569763,
+      0.6112478017807007
+    ],
+    "normalized_argmax_regret": 0.4520846325904131,
+    "random_normalized_argmax_regret": 0.6186604055886468,
+    "probes": [
+      {
+        "probe": 0,
+        "legal_actions": 45,
+        "valid_action_pairs": 818,
+        "pairwise_accuracy": 0.5061125159263611,
+        "normalized_argmax_regret": 0.685080885887146,
+        "random_normalized_regret": 0.9861336350440979,
+        "predicted_action_id": 36,
+        "mc_optimal_action_id": 28
+      },
+      {
+        "probe": 1,
+        "legal_actions": 45,
+        "valid_action_pairs": 866,
+        "pairwise_accuracy": 0.47921478748321533,
+        "normalized_argmax_regret": 0.7148137092590332,
+        "random_normalized_regret": 0.5826317071914673,
+        "predicted_action_id": 70,
+        "mc_optimal_action_id": 88
+      },
+      {
+        "probe": 2,
+        "legal_actions": 45,
+        "valid_action_pairs": 86,
+        "pairwise_accuracy": 0.39534884691238403,
+        "normalized_argmax_regret": 0.999988317489624,
+        "random_normalized_regret": 0.999988317489624,
+        "predicted_action_id": 36,
+        "mc_optimal_action_id": 16
+      },
+      {
+        "probe": 3,
+        "legal_actions": 45,
+        "valid_action_pairs": 885,
+        "pairwise_accuracy": 0.5209039449691772,
+        "normalized_argmax_regret": 0.10097227990627289,
+        "random_normalized_regret": 0.24743308126926422,
+        "predicted_action_id": 88,
+        "mc_optimal_action_id": 74
+      },
+      {
+        "probe": 4,
+        "legal_actions": 45,
+        "valid_action_pairs": 86,
+        "pairwise_accuracy": 0.8837209343910217,
+        "normalized_argmax_regret": 0.989926278591156,
+        "random_normalized_regret": 0.9827936291694641,
+        "predicted_action_id": 76,
+        "mc_optimal_action_id": 74
+      },
+      {
+        "probe": 5,
+        "legal_actions": 45,
+        "valid_action_pairs": 888,
+        "pairwise_accuracy": 0.4538288414478302,
+        "normalized_argmax_regret": 0.5266146659851074,
+        "random_normalized_regret": 0.8690233826637268,
+        "predicted_action_id": 70,
+        "mc_optimal_action_id": 76
+      },
+      {
+        "probe": 6,
+        "legal_actions": 45,
+        "valid_action_pairs": 691,
+        "pairwise_accuracy": 0.47322720289230347,
+        "normalized_argmax_regret": 0.13937513530254364,
+        "random_normalized_regret": 0.16174215078353882,
+        "predicted_action_id": 80,
+        "mc_optimal_action_id": 0
+      },
+      {
+        "probe": 7,
+        "legal_actions": 45,
+        "valid_action_pairs": 781,
+        "pairwise_accuracy": 0.5710627436637878,
+        "normalized_argmax_regret": 0.03327859193086624,
+        "random_normalized_regret": 0.03961442783474922,
+        "predicted_action_id": 54,
+        "mc_optimal_action_id": 58
+      },
+      {
+        "probe": 8,
+        "legal_actions": 45,
+        "valid_action_pairs": 811,
+        "pairwise_accuracy": 0.37237977981567383,
+        "normalized_argmax_regret": 1.0,
+        "random_normalized_regret": 1.0,
+        "predicted_action_id": 70,
+        "mc_optimal_action_id": 28
+      },
+      {
+        "probe": 9,
+        "legal_actions": 45,
+        "valid_action_pairs": 803,
+        "pairwise_accuracy": 0.6077210307121277,
+        "normalized_argmax_regret": 0.0,
+        "random_normalized_regret": 0.0,
+        "predicted_action_id": 82,
+        "mc_optimal_action_id": 48
+      },
+      {
+        "probe": 10,
+        "legal_actions": 45,
+        "valid_action_pairs": 857,
+        "pairwise_accuracy": 0.5612602233886719,
+        "normalized_argmax_regret": 0.2349657267332077,
+        "random_normalized_regret": 0.604781985282898,
+        "predicted_action_id": 48,
+        "mc_optimal_action_id": 26
+      },
+      {
+        "probe": 11,
+        "legal_actions": 45,
+        "valid_action_pairs": 883,
+        "pairwise_accuracy": 0.567383885383606,
+        "normalized_argmax_regret": 0.0,
+        "random_normalized_regret": 0.9497825503349304,
+        "predicted_action_id": 70,
+        "mc_optimal_action_id": 70
+      }
+    ]
+  },
+  "gates": {
+    "pairwise_action_ranking": {
+      "pass": false
+    },
+    "normalized_argmax_regret": {
+      "pass": false
+    },
+    "random_action_control": {
+      "pass": true
+    }
+  },
+  "all_mc_gates_pass": false,
+  "formal_q_test_authorized": false,
+  "o0_authorized": false,
+  "long_training_authorized": false
+}

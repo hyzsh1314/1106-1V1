@@ -1,0 +1,73 @@
+{
+  "suite": "DRVOI-RHPPO-V7.1-P1Q-development-no-go",
+  "protocol_version": "DRVOI-RHPPO-V7.1-P1Q-1",
+  "scientific_result": false,
+  "formal_q_test_accessed": false,
+  "formal_test_generated": false,
+  "hot_passed": true,
+  "td_development": {
+    "architecture": "joint_dueling_v1",
+    "selected_target_update_epochs": 4,
+    "development_semantics_pass": true,
+    "episode_spearman": 0.7116351127624512
+  },
+  "full_episode_probe": {
+    "pairwise_accuracy": 0.5011547207832336,
+    "pairwise_accuracy_ci95": [
+      0.4589046761393547,
+      0.5430734232068062
+    ],
+    "normalized_argmax_regret": 0.4641318346063296,
+    "random_normalized_argmax_regret": 0.5671226667861143,
+    "all_gates_pass": false
+  },
+  "repair_sequence": {
+    "factorized_dueling_192_contexts": {
+      "pairwise_accuracy": 0.5252102613449097,
+      "pairwise_accuracy_ci95": [
+        0.49988376572728155,
+        0.5538935109972953
+      ],
+      "normalized_argmax_regret": 0.4705856809266429,
+      "random_normalized_argmax_regret": 0.6050298378906689,
+      "all_gates_pass": false
+    },
+    "joint_dueling_192_contexts": {
+      "pairwise_accuracy": 0.5102053284645081,
+      "pairwise_accuracy_ci95": [
+        0.4909801296889782,
+        0.5314460635185242
+      ],
+      "normalized_argmax_regret": 0.42574096765170477,
+      "random_normalized_argmax_regret": 0.6050298378906689,
+      "all_gates_pass": false
+    },
+    "joint_dueling_768_contexts": {
+      "pairwise_accuracy": 0.5137330889701843,
+      "pairwise_accuracy_ci95": [
+        0.48438184782862664,
+        0.5414238765835762
+      ],
+      "normalized_argmax_regret": 0.4151908240845188,
+      "random_normalized_argmax_regret": 0.6050298378906689,
+      "all_gates_pass": false
+    }
+  },
+  "failure_diagnosis": "The registered belief/action/12-D response context does not generalize same-state counterfactual action value. Increasing MC training contexts fourfold did not improve held-out ranking.",
+  "decision": "P1Q_DEVELOPMENT_NO_GO",
+  "formal_test_generation_authorized": false,
+  "p1q_authorized": false,
+  "o0_authorized": false,
+  "short_training_authorized": false,
+  "long_training_authorized": false,
+  "required_next_revision": "A new pre-registered response/state-sufficiency revision is required before any new P1Q confirmation test.",
+  "artifact_sha256": {
+    "hot": "4b230dbba34fdbd14dec0c4d27dfbbc0309859b713f8bc8da3dba78161d63e00",
+    "w2_td": "4c705880fb220a9c8259a362eb7f61af14726f7b7c848c94a725092f1d0b1021",
+    "full_episode_probe": "def05274a0cc3dcbfa4d1a8e4647535129ed10a5d4b0e99e09b4c8f2a153d967",
+    "factorized_192": "d436bf08b2f4a1bef16ed586b862bc7efcd299aad78351c7d1f9ba88aeb18a32",
+    "joint_192": "c5e87a279c5ed3ec279f7889d99cc89f2bed206bf13dd3568a5bac7bb8fa4eb1",
+    "joint_768": "ccc722fcdcdc1f93412cfa089073156a2c49ee298178045199584477e7d6f468",
+    "config": "0d9f23c581331fc2943a3bdac7e1512a0c2988d51b6a8b264005a3fd3de1aaf6"
+  }
+}
