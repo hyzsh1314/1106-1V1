@@ -126,6 +126,15 @@ def test_cross_delta_q_assembler_matches_manual_delta_three_tuple():
     assert not transition.done
 
 
+def test_cross_delta_q_assembler_uses_delta_stride_not_sliding_windows():
+    assembler = CrossDeltaQTransitionAssembler(delta=3, gamma=1.0)
+    emitted = []
+    for step in range(10):
+        emitted.extend(assembler.observe_step(
+            env_id=0, episode_id=8, done=False, **_delta_record(step)))
+    assert [transition.start_step for transition in emitted] == [0, 3]
+
+
 def test_cross_delta_q_assembler_keeps_only_complete_terminal_return():
     assembler = CrossDeltaQTransitionAssembler(delta=3, gamma=1.0)
     emitted = []
@@ -137,7 +146,7 @@ def test_cross_delta_q_assembler_keeps_only_complete_terminal_return():
     assert transition.done and transition.next_context is None
     assert transition.discounted_return_ext == 3.0 + 4.0 + 5.0
     assert assembler.invalid_counts["response_incomplete"] > 0
-    assert assembler.invalid_counts["return_incomplete"] > 0
+    assert assembler.invalid_counts["return_incomplete"] == 0
 
 
 def test_cross_delta_q_assembler_state_restores_pending_sequence():

@@ -285,15 +285,16 @@ class CrossDeltaQTransitionAssembler:
                 raise RuntimeError("cross-delta base sequence became misaligned")
             emitted.append(self._make_transition(
                 records, nonterminal_base, episode_id, terminal=False))
-            self._next_base[env_id] += 1
+            self._next_base[env_id] += self.delta
         if done:
             # A complete terminal return ends at base+2Δ-1.
             terminal_base = current_index - (2 * self.delta - 1)
             if terminal_base >= 0 and terminal_base == self._next_base[env_id]:
                 emitted.append(self._make_transition(
                     records, terminal_base, episode_id, terminal=True))
-                self._next_base[env_id] += 1
-            for base in range(self._next_base[env_id], current_index + 1):
+                self._next_base[env_id] += self.delta
+            for base in range(
+                    self._next_base[env_id], current_index + 1, self.delta):
                 if base + self.delta > current_index:
                     self.invalid_counts["response_incomplete"] += 1
                 else:
