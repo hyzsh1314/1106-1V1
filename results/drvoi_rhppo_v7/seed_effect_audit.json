@@ -1,0 +1,31 @@
+{
+  "schema": "drvoi-rhppo-v7-seed-audit-1",
+  "historical_test_audit_only": true,
+  "not_for_v7_1_selection": true,
+  "rows": [
+    {
+      "collection_seed": 6185,
+      "b0_seed": 85,
+      "test_episodes": 90,
+      "test_samples": 57089,
+      "delta_nll_per_dim": 0.004726112820208073,
+      "permutation_gain_per_dim": 0.013046490028500557
+    },
+    {
+      "collection_seed": 7185,
+      "b0_seed": 185,
+      "test_episodes": 90,
+      "test_samples": 44251,
+      "delta_nll_per_dim": 0.005412522703409195,
+      "permutation_gain_per_dim": 0.01340996753424406
+    },
+    {
+      "collection_seed": 8185,
+      "b0_seed": 285,
+      "test_episodes": 90,
+      "test_samples": 66816,
+      "delta_nll_per_dim": 0.012832853011786938,
+      "permutation_gain_per_dim": 0.017882665619254112
+    }
+  ]
+}

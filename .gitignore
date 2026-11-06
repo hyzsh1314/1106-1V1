@@ -13,6 +13,10 @@ env/
 *.npy
 *.npz
 results/
+!results/
+results/*
+!results/drvoi_rhppo_v7/
+!results/drvoi_rhppo_v7/**
 runs/
 artifacts/
 checkpoints/

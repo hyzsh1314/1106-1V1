@@ -1,0 +1,218 @@
+{
+  "schema": "drvoi-rhppo-v7-audit-artifacts-1",
+  "fixed_commit": "73733ddcbfe48b04b9c267d4f86e8bda976d2896",
+  "scientific_result": false,
+  "gate_outcome": "P1R_failed_P1C_passed",
+  "artifacts": [
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/cover-seed6185.pt",
+      "bytes": 502018005,
+      "sha256": "7ba3fa3f65bca9111774c29025ed217dc0d7f84b6b7f20662988a43d88ed81f8",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/cover-seed7185.pt",
+      "bytes": 481649813,
+      "sha256": "e79e5cf58beeef837be634221d4a22c12cf6f1ce14ce2494b4a831511c8b474b",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/cover-seed8185.pt",
+      "bytes": 559845717,
+      "sha256": "15627fdf06070e7647ae5cbd5fb1cf230530d0a93a99bd494403cc9058f29106",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/onpolicy-seed6185.pt",
+      "bytes": 466124497,
+      "sha256": "cb7869313d01c3f87994179bab1b712e38d001601826a66f6813f2f88b8cdcb5",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/onpolicy-seed7185.pt",
+      "bytes": 411730961,
+      "sha256": "19e76b71197cf66817f124f4c0c8ef59731dc6788e7710fa3be05ade30e30ec3",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/onpolicy-seed8185.pt",
+      "bytes": 562845521,
+      "sha256": "7ebba267e672bff05b29af07ffe141667d475ad95ca081fb2fb2ee0d8f496da6",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/reactive-seed6185.pt",
+      "bytes": 565697233,
+      "sha256": "fc22c4682b7c42fc4911840c0c49b5b0fe4209ec0993b38e4f50643cc6e44b9e",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/reactive-seed7185.pt",
+      "bytes": 610982609,
+      "sha256": "854dbd33123abe5c71b492cf861ad384fb980e46b75ba93b04e75c952e046aa3",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/reactive-seed8185.pt",
+      "bytes": 654566417,
+      "sha256": "15de15eef5ceb92aca29c10044f8d47f656b09e6f972f5c2bbe41ea3a69f0d1b",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/cover-seed6185.json",
+      "bytes": 2494,
+      "sha256": "0fa64fc7eafc0baa118c326f10cc748d36a7051f5f86f8cddbdb628f41bd50b9",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/cover-seed7185.json",
+      "bytes": 2496,
+      "sha256": "a92bcd98f9cf012434ef10019d1dafc799bc594e4b9ded43359f302d26108284",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/cover-seed8185.json",
+      "bytes": 2496,
+      "sha256": "d35e982ad3f1a89fe59a68be413565e2582c5358da96e11add0b3217941b5f6c",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/onpolicy-seed6185.json",
+      "bytes": 1657,
+      "sha256": "803f55a9ed57dd62eb322a57ca8981938cbe74c03702d29dd427625e2e10b86b",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/onpolicy-seed7185.json",
+      "bytes": 1659,
+      "sha256": "c27d9f0e226bd0e5545fcb12a2368cd4ecea5d12123cea355bc8b097ca4cf95a",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/onpolicy-seed8185.json",
+      "bytes": 1659,
+      "sha256": "37561b5ebdd63d26a30698a04115a9736c63634bfb369a17e275e5c98d376749",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/reactive-seed6185.json",
+      "bytes": 1654,
+      "sha256": "7ca64b43868c6135c5ad26289aecf5b372f43f4476f990d27f9f273d1c2e0c26",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/reactive-seed7185.json",
+      "bytes": 1656,
+      "sha256": "43e7d28ee20f1ef7a7fbb9cad61886195c3ed65a93aa3dd1328e1de47a7803a2",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/data/reactive-seed8185.json",
+      "bytes": 1656,
+      "sha256": "ab78ec15d8e807877a412db5eefb0a0eba0ade66ca3a4b6ef09b55ba43eb269e",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/p1-response-formal/validation.pt",
+      "bytes": 5672757,
+      "sha256": "a954e150c3e40e0e2d4b8cbdbefbc441dd6bcf9ba5121cf845ce5249834d9bd8",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/b0-1m/seed185/latest.pt",
+      "bytes": 5961677,
+      "sha256": "a397cc9b323bf987cbc2903f8b77079460b8214d1532fe721bead97f41fe02ef",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/b0-1m/seed285/latest.pt",
+      "bytes": 5961741,
+      "sha256": "7eda63237c25137d19b12bc4ffc6c88ae192617e34d557839fa57eeb75f9a28c",
+      "tracked": false
+    },
+    {
+      "path": "runs/drvoi_rhppo_v7/b0-1m/seed85/latest.pt",
+      "bytes": 5961677,
+      "sha256": "acd7e2ff18b1b2ddc2d89f1cebdab2ff455811e94493b444b2abb9b8c50fda62",
+      "tracked": false
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/b0_summary.json",
+      "bytes": 115616,
+      "sha256": "047bbdac5911edc0ba4397d2eaef4d6234dd773798fb57745fbdaf5b2092f832",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/calibration_gate.json",
+      "bytes": 19,
+      "sha256": "cb05b2124e081cd950089d4ad8f394086d43cc064d36d78b8694c23ba8b703af",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/data_by_collection_seed.csv",
+      "bytes": 1697,
+      "sha256": "983403b641e18e5c58ff19e71e9e24f326f213ea59a7faae8b8038c3f976c1c4",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/main_calibration_by_dimension.csv",
+      "bytes": 1487,
+      "sha256": "c999aa6ea7cdb255c4fac9d25dc4b3862c563ef96413b74e2c9d186345a63f23",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/main_effect_by_collection_seed.csv",
+      "bytes": 279,
+      "sha256": "533fe063c7622cd9ea50865f4c9bb9b7716f17cfa5707872c5803f119518f011",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/main_effect_by_dimension_and_seed.csv",
+      "bytes": 2011,
+      "sha256": "fbb5331e8601982c0e694a95da0c4ba81311065a1ef3a6b4005d145a0bb8e88c",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/main_effect_by_opponent_and_seed.csv",
+      "bytes": 598,
+      "sha256": "fd675ff8c199933abd7f697f66217e29f67d826fd5cca840c58e101c6a40bd6a",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/opponent_summary.csv",
+      "bytes": 2839,
+      "sha256": "2f83801e3e95b62d9aa33dd28811f2ae88c0e6bfb8b0cd71a32ee7120b1a5328",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/response_gate.json",
+      "bytes": 20,
+      "sha256": "6e83115f016afa2d8c05b555eb6ee7d65ba2c5b103e671a133738aa9adab2605",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/run_manifest.json",
+      "bytes": 2099,
+      "sha256": "e5f95c251a9425ba9675edd91c5f05f1e0057cde4d7d5f6d3cdfc616634ea48f",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/seed_effect_audit.json",
+      "bytes": 810,
+      "sha256": "f675a56409c929c3987cce66e1291ff406e76e5047bb40f49f29b21ec3c63678",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/sensitivity_summary.csv",
+      "bytes": 2976,
+      "sha256": "0706053b22a43535fd745799c87ddb3339ffa20be2f16dc80ec9d6ef1c214f58",
+      "tracked": true
+    },
+    {
+      "path": "results/drvoi_rhppo_v7/validation.json",
+      "bytes": 164190,
+      "sha256": "62c98509371157c1a558d4695ac5db6e4ee82e98663a9b1205a26c81902e6a8d",
+      "tracked": true
+    }
+  ]
+}

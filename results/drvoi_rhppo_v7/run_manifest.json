@@ -1,0 +1,43 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V7-WVR-1",
+  "scientific_result": false,
+  "created_before_v7_execution": true,
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "torch": "2.14.1+cu130",
+  "cuda_available": true,
+  "cuda_device": "NVIDIA GeForce RTX 4090",
+  "environment_contract": {
+    "observation_version": "v4",
+    "observation_dim": 39,
+    "sim_freq_hz": 60,
+    "physics_substeps_per_decision": 12,
+    "reward_mode": "competitive",
+    "action_dims": [
+      3,
+      5,
+      3,
+      2
+    ],
+    "joint_actions": 90
+  },
+  "hashes": {
+    "protocol_config": "7bafeba9c74736cc58979c764cde4a2bb53f24454466e72117f056da386fec54",
+    "execution_protocol": "20f00af45e3c4c45fb91f115a6bc849322588184b39951e3897cca9d1927b995",
+    "environment": "0d7182e020db7cc8c1f9ea3c3adcd9320bcbff84d4ada35e09c934578236d93d",
+    "dynamics": "0d6d62ee52a79fbba09454a973c384cb4561e65a289ceedcb79d4f7b93b2e5a5",
+    "missile": "85d119cb6149e82b51414a6eb97dc1cfad39938ed3db8b0cf8e4e1b78b9e9455",
+    "b0_trainer": "c79d36970ff515c087b9f60362ee61267dc96303f2e98a313ecb198b1baa84bc",
+    "response_collector": "05a0b5eb6ba4d98033ad6b1da3fc8e2e52233e6e9bdaca791a148a52ae505c28",
+    "response_validator": "3068827103ba4f66d005af54c16668de6f0cb909fde1ac0a527839e4eb1ed3c1",
+    "q_validator": "f9582a949ea9cdd1a20f7edc63b7d726d988d6c13c8ccbdf32e21354f4f4ca52",
+    "o0_validator": "77e0b9803d1b62cdf7d24d7bc6881d550aea7399a6274514516ef33f06358a1f",
+    "gate_summary": "e9d29f3aabbb62c7647c32decf75e5bc67f86a69c159194d7e394c1b9e66b844",
+    "response_targets": "9f8652be4e230f37087d4fbc87ea0bc54f3c60f19f9e08e8aba6fcd16903ae10",
+    "response_model": "0eff911123a4bc929048a224d2623013030dd79d95800ef0d47555641834ce41",
+    "calibration": "5b97cdf71432aa9e947a4c109308472bda1c9ebeaf25e7ffb3d0831764d8e76e",
+    "q_assembler": "98cb1bfc0f9d51d1ed8d435648b3a943568912fa492c59cb59514590baaf7b24",
+    "lowlevel_controller": "54e9c996d981aa1fa82c51664a1758afd04fee0b5539dd6ccb128795149dcf69"
+  },
+  "git_commit": "240c1238043a6fa385ba2798e9fe280c2eab2f75"
+}
