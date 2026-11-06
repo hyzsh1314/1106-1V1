@@ -13,8 +13,8 @@ PYTHONPATH=. "$python_bin" -m benchmarks.build_drvoi_v7_manifest \
 for dataset in cover onpolicy reactive; do
     PYTHONPATH=. "$python_bin" benchmarks/collect_drvoi_v7_response_data.py \
         --b0-checkpoint "$b0" --dataset "$dataset" --seed 6185 \
-        --num-envs 96 --train-episodes 6 --validation-episodes 3 \
-        --calibration-episodes 3 --test-episodes 3 \
+        --num-envs 96 --train-episodes 6 --validation-episodes 4 \
+        --calibration-episodes 4 --test-episodes 4 \
         --output "$out/data/$dataset-seed6185.pt" \
         > "$out/data/$dataset-seed6185.log" 2>&1
 done

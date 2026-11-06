@@ -66,25 +66,32 @@ def reactive_opponent_action(observation: torch.Tensor,
 
 def build_schedule(dataset: str, seed: int,
                    split_counts: dict[str, int] | None = None
-                   ) -> dict[int, list[dict[str, object]]]:
+                   ) -> dict[tuple[int, int], list[dict[str, object]]]:
     """Pre-assign every complete episode to exactly one frozen split."""
     generator = torch.Generator().manual_seed(seed)
     counts = SPLIT_COUNTS if split_counts is None else split_counts
-    if any(value < 2 for value in counts.values()):
-        raise ValueError("every split needs at least two episodes per opponent")
-    schedules: dict[int, list[dict[str, object]]] = {}
+    if any(value < 2 or value % 2 for value in counts.values()):
+        raise ValueError(
+            "every split needs a positive even episode count for colour balance")
+    schedules: dict[tuple[int, int], list[dict[str, object]]] = {}
     for opponent in range(3):
-        entries: list[dict[str, object]] = []
-        for split, count in counts.items():
-            if dataset == "cover":
-                modes = ["uniform"] * (count // 2) + ["b0"] * (count - count // 2)
-            else:
-                modes = ["b0"] * count
-            order = torch.randperm(count, generator=generator).tolist()
-            shuffled = [modes[index] for index in order]
-            entries.extend({"split": split, "mode": mode} for mode in shuffled)
-        order = torch.randperm(len(entries), generator=generator).tolist()
-        schedules[opponent] = [entries[index] for index in order]
+        for side in range(2):
+            entries: list[dict[str, object]] = []
+            for split, total_count in counts.items():
+                count = total_count // 2
+                if dataset == "cover":
+                    # Complement odd per-colour counts so the two colours
+                    # jointly retain exact 50/50 uniform/B0 coverage.
+                    uniform_count = count // 2 + (side if count % 2 else 0)
+                    modes = (["uniform"] * uniform_count
+                             + ["b0"] * (count - uniform_count))
+                else:
+                    modes = ["b0"] * count
+                order = torch.randperm(count, generator=generator).tolist()
+                entries.extend({"split": split, "mode": modes[index]}
+                               for index in order)
+            order = torch.randperm(len(entries), generator=generator).tolist()
+            schedules[(opponent, side)] = [entries[index] for index in order]
     return schedules
 
 
@@ -139,21 +146,25 @@ def main() -> None:
         "test": args.test_episodes,
     }
     schedules = build_schedule(args.dataset, args.seed, requested_counts)
-    next_slot = [0, 0, 0]
+    next_slot = {(opponent, side): 0 for opponent in range(3) for side in range(2)}
     assignment: list[dict[str, object] | None] = [None] * args.num_envs
 
     def assign_lane(lane: int) -> None:
         kind = int(opponent_kind[lane].item())
-        slot = next_slot[kind]
-        if slot >= len(schedules[kind]):
+        side = int(learner_side[lane].item())
+        key = (kind, side)
+        slot = next_slot[key]
+        if slot >= len(schedules[key]):
             assignment[lane] = None
             return
-        value = dict(schedules[kind][slot])
+        value = dict(schedules[key][slot])
         value["opponent"] = kind
+        value["learner_side"] = side
         value["slot"] = slot
-        value["episode_id"] = args.seed * 10_000 + kind * 1_000 + slot
+        value["episode_id"] = (
+            args.seed * 10_000 + kind * 1_000 + side * 500 + slot)
         assignment[lane] = value
-        next_slot[kind] += 1
+        next_slot[key] += 1
 
     for lane in range(args.num_envs):
         assign_lane(lane)
@@ -172,8 +183,10 @@ def main() -> None:
     step = 0
 
     with torch.inference_mode():
-        while any(count < len(schedules[index])
-                  for index, count in enumerate(completed_by_opponent)):
+        while any(
+                completed_by_opponent[kind]
+                < len(schedules[(kind, 0)]) + len(schedules[(kind, 1)])
+                for kind in range(3)):
             learner_obs = obs[env_index, learner_side]
             result = policy.act(
                 learner_obs, previous_action, hidden, reset=reset)
@@ -240,7 +253,8 @@ def main() -> None:
             step += 1
 
     counts = Counter(
-        (str(episode["split"]), str(episode["opponent_name"]), str(episode["mode"]))
+        (str(episode["split"]), str(episode["opponent_name"]),
+         str(episode["learner_side"]), str(episode["mode"]))
         for episode in episodes)
     report = {
         "suite": "DRVOI-RHPPO-V7-response-collection",
@@ -254,7 +268,7 @@ def main() -> None:
         "episodes": len(episodes),
         "transitions": sum(int(episode["done"].numel()) for episode in episodes),
         "completed_by_opponent": dict(zip(OPPONENT_NAMES, completed_by_opponent)),
-        "split_opponent_mode_counts": {
+        "split_opponent_side_mode_counts": {
             "|".join(key): value for key, value in sorted(counts.items())},
         "complete_episode_invariants": {
             "all_end_done": all(bool(episode["done"][-1]) for episode in episodes),

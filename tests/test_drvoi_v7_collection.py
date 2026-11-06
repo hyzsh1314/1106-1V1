@@ -11,9 +11,12 @@ from benchmarks.collect_drvoi_v7_response_data import (
 def test_cover_schedule_is_exactly_balanced_with_isolated_splits():
     schedules = build_schedule("cover", 6185)
     for entries in schedules.values():
-        assert len(entries) == sum(SPLIT_COUNTS.values())
+        assert len(entries) == sum(SPLIT_COUNTS.values()) // 2
+    for opponent in range(3):
         for split, count in SPLIT_COUNTS.items():
-            selected = [value for value in entries if value["split"] == split]
+            selected = [value for side in range(2)
+                        for value in schedules[(opponent, side)]
+                        if value["split"] == split]
             assert len(selected) == count
             assert sum(value["mode"] == "uniform" for value in selected) == count // 2
 
