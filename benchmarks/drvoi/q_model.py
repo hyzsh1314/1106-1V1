@@ -5,7 +5,7 @@ from __future__ import annotations
 import torch
 from torch import nn
 
-from .core import JOINT_ACTIONS, action_ids_to_multi_one_hot
+from .core import ACTION_DIMS, JOINT_ACTIONS, action_ids_to_multi_one_hot
 
 
 class ActionEmbeddingQ(nn.Module):
@@ -40,6 +40,118 @@ class ActionEmbeddingQ(nn.Module):
             expanded_context.reshape(batch * JOINT_ACTIONS, -1),
             actions.reshape(batch * JOINT_ACTIONS, -1)).reshape(
                 batch, JOINT_ACTIONS)
+
+
+class FactorizedDuelingQ(nn.Module):
+    """Context-conditioned value plus identifiable action advantages.
+
+    The earlier action-embedding critic could explain nearly all return
+    variation with its state trunk and consequently learned an almost
+    context-independent preferred action.  This critic explicitly separates
+    the state value from zero-mean per-head and pairwise action advantages.
+    It therefore uses the factorization of the four WVR action heads while
+    retaining interactions such as altitude-command x throttle.
+    """
+
+    def __init__(self, context_dim: int, hidden_size: int = 256) -> None:
+        super().__init__()
+        self.context_encoder = nn.Sequential(
+            nn.Linear(context_dim, hidden_size), nn.SiLU(),
+            nn.Linear(hidden_size, hidden_size), nn.SiLU())
+        self.value = nn.Linear(hidden_size, 1)
+        self.advantage_heads = nn.ModuleList(
+            nn.Linear(hidden_size, size) for size in ACTION_DIMS)
+        self.pairs = tuple(
+            (left, right) for left in range(len(ACTION_DIMS))
+            for right in range(left + 1, len(ACTION_DIMS)))
+        self.pair_heads = nn.ModuleList(
+            nn.Linear(hidden_size, ACTION_DIMS[left] * ACTION_DIMS[right])
+            for left, right in self.pairs)
+        self.register_buffer(
+            "all_action_encodings",
+            action_ids_to_multi_one_hot(torch.arange(JOINT_ACTIONS)))
+
+    @staticmethod
+    def _segments(action_one_hot: torch.Tensor) -> list[torch.Tensor]:
+        return list(torch.split(action_one_hot, ACTION_DIMS, dim=-1))
+
+    def forward(self, context: torch.Tensor,
+                action_one_hot: torch.Tensor) -> torch.Tensor:
+        features = self.context_encoder(context)
+        segments = self._segments(action_one_hot)
+        result = self.value(features).squeeze(-1)
+        for segment, head in zip(segments, self.advantage_heads):
+            advantage = head(features)
+            advantage = advantage - advantage.mean(-1, keepdim=True)
+            result = result + (advantage * segment).sum(-1)
+        for (left, right), head in zip(self.pairs, self.pair_heads):
+            left_size, right_size = ACTION_DIMS[left], ACTION_DIMS[right]
+            interaction = head(features).reshape(
+                *features.shape[:-1], left_size, right_size)
+            # Double centering makes the interaction orthogonal to the
+            # value and first-order action terms.
+            interaction = (
+                interaction - interaction.mean(-1, keepdim=True)
+                - interaction.mean(-2, keepdim=True)
+                + interaction.mean((-2, -1), keepdim=True))
+            selected = segments[left].unsqueeze(-1) * segments[right].unsqueeze(-2)
+            result = result + (interaction * selected).sum((-2, -1))
+        return result
+
+    def all_actions(self, context: torch.Tensor) -> torch.Tensor:
+        features = self.context_encoder(context)
+        action_segments = self._segments(self.all_action_encodings)
+        result = self.value(features)
+        for action_segment, head in zip(
+                action_segments, self.advantage_heads):
+            advantage = head(features)
+            advantage = advantage - advantage.mean(-1, keepdim=True)
+            result = result + advantage @ action_segment.transpose(0, 1)
+        for (left, right), head in zip(self.pairs, self.pair_heads):
+            left_size, right_size = ACTION_DIMS[left], ACTION_DIMS[right]
+            interaction = head(features).reshape(
+                *features.shape[:-1], left_size, right_size)
+            interaction = (
+                interaction - interaction.mean(-1, keepdim=True)
+                - interaction.mean(-2, keepdim=True)
+                + interaction.mean((-2, -1), keepdim=True))
+            action_pairs = (
+                action_segments[left].unsqueeze(-1)
+                * action_segments[right].unsqueeze(-2))
+            result = result + torch.einsum(
+                "bij,aij->ba", interaction, action_pairs)
+        return result
+
+
+class JointDuelingQ(nn.Module):
+    """Dueling critic with an explicit context-conditioned 90-action head."""
+
+    def __init__(self, context_dim: int, hidden_size: int = 256) -> None:
+        super().__init__()
+        self.context_encoder = nn.Sequential(
+            nn.Linear(context_dim, hidden_size), nn.SiLU(),
+            nn.Linear(hidden_size, hidden_size), nn.SiLU())
+        self.value = nn.Linear(hidden_size, 1)
+        self.joint_advantage = nn.Linear(hidden_size, JOINT_ACTIONS)
+        self.register_buffer(
+            "action_strides", torch.tensor((30, 6, 2, 1), dtype=torch.long))
+
+    def all_actions(self, context: torch.Tensor) -> torch.Tensor:
+        features = self.context_encoder(context)
+        advantage = self.joint_advantage(features)
+        advantage = advantage - advantage.mean(-1, keepdim=True)
+        return self.value(features) + advantage
+
+    def forward(self, context: torch.Tensor,
+                action_one_hot: torch.Tensor) -> torch.Tensor:
+        components = [
+            segment.argmax(-1) for segment in torch.split(
+                action_one_hot, ACTION_DIMS, dim=-1)]
+        action_id = sum(
+            component * self.action_strides[index]
+            for index, component in enumerate(components))
+        return self.all_actions(context).gather(
+            -1, action_id[:, None]).squeeze(-1)
 
 
 @torch.no_grad()

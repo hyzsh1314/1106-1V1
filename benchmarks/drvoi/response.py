@@ -133,15 +133,18 @@ class ContinuousResponseEnsemble(nn.Module):
     """V7 continuous response ensemble for Rel or Opp targets."""
 
     def __init__(self, input_dim: int, response_dim: int,
-                 members: int = 5, hidden_size: int = 256,
+                 action_dim: int = 13, members: int = 5,
+                 hidden_size: int = 256,
                  sigma_min: float = 1.0e-3,
                  sigma_max: float = 10.0) -> None:
         super().__init__()
         self.input_dim = int(input_dim)
         self.response_dim = int(response_dim)
+        self.action_dim = int(action_dim)
         self.members = nn.ModuleList([
             ContinuousResponseMember(
-                input_dim, response_dim, hidden_size=hidden_size,
+                input_dim, response_dim, action_dim=action_dim,
+                hidden_size=hidden_size,
                 sigma_min=sigma_min, sigma_max=sigma_max)
             for _ in range(members)])
 

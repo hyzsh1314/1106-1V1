@@ -1,0 +1,78 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V7.2-state-sufficiency-1",
+  "parent_freeze": {
+    "source": "results/drvoi_rhppo_v7_1/p1q/development_freeze.json",
+    "required_decision": "P1Q_DEVELOPMENT_NO_GO"
+  },
+  "authorization": {
+    "development_collection": true,
+    "state_sufficiency_screen": true,
+    "response_training": false,
+    "formal_test_generation": false,
+    "p1q": false,
+    "o0": false,
+    "long_training": false
+  },
+  "frozen_b0": {
+    "seed": 85,
+    "checkpoint": "runs/drvoi_rhppo_v7/b0-1m/seed85/latest.pt"
+  },
+  "data": {
+    "train_seeds": [53185, 54185],
+    "validation_seeds": [55185],
+    "formal_test_seeds": [56185],
+    "warmup_decisions": [3, 6, 12, 18],
+    "train_contexts_per_horizon": 96,
+    "validation_contexts_per_horizon": 24,
+    "formal_test_contexts_per_horizon": 24,
+    "actions": 90,
+    "gamma": 0.99,
+    "continuation_policy": "deterministic_b0_seed85",
+    "common_random_numbers": true,
+    "full_episode_return_required": true
+  },
+  "representations": {
+    "registered_v7_1": {
+      "dimension": 281,
+      "fields": ["base_belief_256", "base_action_13", "future_relative_response_12"],
+      "deployable": true
+    },
+    "full_observation": {
+      "dimension": 308,
+      "fields": ["base_belief_256", "base_action_13", "future_observation_39"],
+      "deployable": true
+    },
+    "future_belief": {
+      "dimension": 295,
+      "fields": ["future_belief_256", "future_observation_39"],
+      "deployable": false,
+      "requires_new_predictor": true
+    },
+    "mechanistic_oracle": {
+      "dimension": 423,
+      "fields": ["future_belief_256", "future_observation_39", "future_lowlevel_hidden_128"],
+      "deployable": false,
+      "diagnostic_only": true
+    }
+  },
+  "critic": {
+    "architecture": "joint_dueling_v1",
+    "epochs": 250,
+    "patience": 30,
+    "batch_contexts": 64,
+    "learning_rate": 0.0003,
+    "raw_value_loss_weight": 1.0,
+    "centered_advantage_loss_weight": 2.0,
+    "soft_argmax_loss_weight": 0.5,
+    "soft_argmax_temperature": 0.10
+  },
+  "gates": {
+    "pairwise_accuracy_min": 0.60,
+    "pairwise_accuracy_ci_lower_min": 0.50,
+    "normalized_argmax_regret_max": 0.10,
+    "must_outperform_random_regret": true,
+    "mechanistic_oracle_must_pass": true,
+    "at_least_one_deployable_representation_must_pass": true
+  },
+  "output_root": "runs/drvoi_rhppo_v7_2/state-sufficiency"
+}

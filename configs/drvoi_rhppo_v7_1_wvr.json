@@ -1,0 +1,108 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V7.1-history-response-1",
+  "base_commit": "73733ddcbfe48b04b9c267d4f86e8bda976d2896",
+  "branch": "v7.1-history-response",
+  "result_status": "preregistered-history-rebuild",
+  "environment": {
+    "backend": "torch6dof",
+    "observation_version": "v4",
+    "observation_dim": 39,
+    "action_dims": [3, 5, 3, 2],
+    "action_one_hot_dim": 13,
+    "physics_hz": 60,
+    "physics_substeps_per_decision": 12,
+    "policy_decision_seconds": 0.2,
+    "reward_mode": "competitive",
+    "frozen": true
+  },
+  "history": {
+    "length": 3,
+    "observation_history_dim": 117,
+    "action_history_dim": 39,
+    "valid_mask_dim": 3,
+    "context_dim": 120,
+    "conditioned_total_dim": 159,
+    "observation_padding": "zeros",
+    "action_padding": "neutral_multi_one_hot",
+    "neutral_action": [1, 2, 1, 0],
+    "reset_clears_all_history": true,
+    "valid_mask_required": true
+  },
+  "response": {
+    "primary_branch": "rel",
+    "continuous_only": true,
+    "primary_delta": 3,
+    "response_dim": 12,
+    "members": 5,
+    "hidden_sizes": [256, 256],
+    "sigma_min": 0.001,
+    "sigma_max": 10.0,
+    "gradient_clip_norm": 5.0,
+    "gradient_fault_threshold": 1000.0,
+    "main_models": ["H0", "H1"],
+    "reference_models": ["R0", "R1", "B0-Ref"],
+    "negative_controls": ["H1-wrong-delay", "H1-shuffled"],
+    "side_in_primary_candidates": false
+  },
+  "data": {
+    "fixed_generation_b0_seed": 85,
+    "collection_seeds": [10185, 11185, 12185, 13185, 14185],
+    "robustness_b0_seeds": [185, 285],
+    "train_episodes_per_opponent_per_seed": 120,
+    "validation_episodes_per_opponent_per_seed": 30,
+    "calibration_episodes_per_opponent_per_seed": 30,
+    "test_episodes_per_opponent_per_seed": 30,
+    "splits": ["train", "validation", "calibration", "test"],
+    "episode_isolation": true,
+    "colour_balance": true,
+    "old_v7_test_reuse_forbidden": true,
+    "confirmation_test_access": "once_after_development_freeze"
+  },
+  "statistics": {
+    "outer_protocol": "leave-one-collection-seed-out",
+    "outer_units": 5,
+    "primary_effect": "H0_NLL_minus_H1_NLL_per_dimension",
+    "primary_interval": "two-sided-small-sample-t-95pct-over-outer-seeds",
+    "minimum_positive_outer_seeds": 4,
+    "main_min_delta_nll_per_dimension": 0.05,
+    "main_ci_lower_must_be_positive": true,
+    "permutation_gain_ci_lower_must_be_positive": true,
+    "secondary_multiple_comparison": "Holm"
+  },
+  "reactive": {
+    "known_delay_decisions": 2,
+    "diagnostic_actuation": "bounded_direct_control_v1",
+    "diagnostic_only": true,
+    "learner_action_source": "uniform_legal_randomized_intervention",
+    "correct_history": ["a_t-2", "a_t-1", "a_t"],
+    "wrong_delay_history": ["a_t-5", "a_t-4", "a_t-3"],
+    "wrong_delay_excludes_known_causal_action": true,
+    "wrong_delay_evaluation": "same_fitted_H1_input_intervention",
+    "wrong_delay_control": true,
+    "single_head_diagnostics": ["alt", "heading", "speed", "fire"],
+    "hard_gate": true
+  },
+  "calibration": {
+    "selection_split": "calibration",
+    "overall_90_interval": [0.85, 0.95],
+    "per_dimension_90_interval": [0.75, 0.98],
+    "opponent_phase_coverage_min": 0.75,
+    "test_used_for_selection": false
+  },
+  "development": {
+    "stage": "P1D-causal-alignment",
+    "allowed_splits": ["train", "validation"],
+    "test_forbidden": true,
+    "requires_stable_validation_gain": true,
+    "requires_reactive_alignment": true,
+    "requires_numerical_health": true
+  },
+  "authorization": {
+    "p1q_authorized": false,
+    "o0_authorized": false,
+    "short_screen_authorized": false,
+    "long_training_authorized": false,
+    "manual_override_allowed": false
+  },
+  "output_root": "runs/drvoi_rhppo_v7_1"
+}

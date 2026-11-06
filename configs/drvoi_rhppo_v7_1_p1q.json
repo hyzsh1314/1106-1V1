@@ -1,0 +1,72 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V7.1-P1Q-1",
+  "authorization": {
+    "source": "results/drvoi_rhppo_v7_1/w4/b0_robustness_audit.json",
+    "p1q_authorized": true,
+    "o0_authorized": false,
+    "long_training_authorized": false
+  },
+  "hot_development": {
+    "train_contexts": 6000,
+    "validation_contexts": 1500,
+    "test_contexts": 1500,
+    "structured_flip_all_cases_required": true,
+    "irrelevant_perturbation_all_cases_required": true
+  },
+  "wvr_value_gate": {
+    "extrinsic_only": true,
+    "delta": 3,
+    "gamma": 0.99,
+    "pairwise_accuracy_min": 0.60,
+    "pairwise_accuracy_ci_lower_min": 0.50,
+    "normalized_argmax_regret_max": 0.10,
+    "random_action_regret_must_be_worse": true,
+    "episode_spearman_min_auxiliary": 0.20
+  },
+  "data_isolation": {
+    "episode_level": true,
+    "collection_seed_level": true,
+    "validation_for_early_stopping_only": true,
+    "test_access": "once_after_hot_and_wvr_mc_development_freeze"
+  },
+  "target_network_candidates": [1, 2, 4],
+  "q_development": {
+    "architecture": "joint_dueling_v1",
+    "max_train_tuples": 60000,
+    "max_validation_tuples": 20000,
+    "epochs": 12,
+    "patience": 4,
+    "batch_size": 512
+  },
+  "mc_probe": {
+    "contexts": 12,
+    "actions": 90,
+    "rollout_decisions": 997,
+    "require_all_terminal": true,
+    "pair_minimum_gap_fraction": 0.05,
+    "seed": 42185,
+    "learner_side": 0,
+    "common_random_numbers": true
+  },
+  "mc_calibration": {
+    "train_seeds": [43185, 44185],
+    "validation_seeds": [45185],
+    "formal_test_seeds": [46185],
+    "warmup_decisions": [3, 6, 12, 18],
+    "train_contexts_per_horizon": 96,
+    "validation_contexts_per_horizon": 12,
+    "formal_test_contexts_per_horizon": 12,
+    "actions": 90,
+    "continuation_policy": "deterministic_b0_seed85",
+    "common_random_numbers": true,
+    "epochs": 250,
+    "patience": 30,
+    "batch_contexts": 32,
+    "learning_rate": 0.0003,
+    "raw_value_loss_weight": 1.0,
+    "centered_advantage_loss_weight": 2.0,
+    "soft_argmax_loss_weight": 0.5,
+    "soft_argmax_temperature": 0.10
+  },
+  "output_root": "runs/drvoi_rhppo_v7_1/p1q"
+}
