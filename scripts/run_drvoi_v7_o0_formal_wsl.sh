@@ -16,4 +16,9 @@ PYTHONPATH=. "$python_bin" benchmarks/validate_drvoi_wvr_o0_v7.py \
     --batch-size 64 --stability-contexts 2000 --seed 11185 \
     --output "$root/o0-validation.json" > "$root/o0-validation.log" 2>&1
 
+PYTHONPATH=. "$python_bin" benchmarks/summarize_drvoi_v7_gates.py \
+    --response "$root/validation.json" \
+    --q-gate "$root/q_ready_gate.json" --o0-gate "$root/o0_gate.json" \
+    --output "$root/authorization.json" > "$root/authorization.log" 2>&1
+
 touch "$root/O0_COMPLETED"

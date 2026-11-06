@@ -45,6 +45,7 @@ def main() -> None:
         "response_validator": root / "benchmarks" / "validate_drvoi_wvr_response_v7.py",
         "q_validator": root / "benchmarks" / "validate_drvoi_wvr_q_v7.py",
         "o0_validator": root / "benchmarks" / "validate_drvoi_wvr_o0_v7.py",
+        "gate_summary": root / "benchmarks" / "summarize_drvoi_v7_gates.py",
         "response_targets": root / "benchmarks" / "drvoi" / "targets.py",
         "response_model": root / "benchmarks" / "drvoi" / "response.py",
         "calibration": root / "benchmarks" / "drvoi" / "calibration.py",
