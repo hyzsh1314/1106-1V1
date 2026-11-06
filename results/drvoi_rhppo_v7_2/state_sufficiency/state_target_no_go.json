@@ -1,0 +1,82 @@
+{
+  "suite": "DRVOI-RHPPO-V7.2-state-target-no-go",
+  "protocol_version": "DRVOI-RHPPO-V7.2-state-sufficiency-1",
+  "scientific_result": false,
+  "formal_test_accessed": false,
+  "formal_test_generated": false,
+  "train_contexts": 768,
+  "validation_contexts": 96,
+  "representations": {
+    "registered_v7_1": {
+      "dimension": 281,
+      "best_epoch": 10,
+      "pairwise_accuracy": 0.49732494354248047,
+      "pairwise_accuracy_ci95": [
+        0.48105483725667,
+        0.5135722517967224
+      ],
+      "normalized_argmax_regret": 0.45099138145836076,
+      "random_normalized_argmax_regret": 0.5189053415836327,
+      "all_gates_pass": false,
+      "final_train_pairwise_accuracy": 0.5883144736289978,
+      "final_train_normalized_argmax_regret": 0.3666979410039292
+    },
+    "full_observation": {
+      "dimension": 308,
+      "best_epoch": 7,
+      "pairwise_accuracy": 0.4967080354690552,
+      "pairwise_accuracy_ci95": [
+        0.48258828446269036,
+        0.5103496462106705
+      ],
+      "normalized_argmax_regret": 0.4549644844047113,
+      "random_normalized_argmax_regret": 0.5238729341237871,
+      "all_gates_pass": false,
+      "final_train_pairwise_accuracy": 0.591099202632904,
+      "final_train_normalized_argmax_regret": 0.3529022727982219
+    },
+    "future_belief": {
+      "dimension": 295,
+      "best_epoch": 5,
+      "pairwise_accuracy": 0.5051972270011902,
+      "pairwise_accuracy_ci95": [
+        0.4912838377058506,
+        0.5195158049464226
+      ],
+      "normalized_argmax_regret": 0.45087932221385857,
+      "random_normalized_argmax_regret": 0.502437949458313,
+      "all_gates_pass": false,
+      "final_train_pairwise_accuracy": 0.5846089720726013,
+      "final_train_normalized_argmax_regret": 0.36140028843972355
+    },
+    "mechanistic_oracle": {
+      "dimension": 423,
+      "best_epoch": 4,
+      "pairwise_accuracy": 0.5062161087989807,
+      "pairwise_accuracy_ci95": [
+        0.48805699571967126,
+        0.5252705171704293
+      ],
+      "normalized_argmax_regret": 0.4351458731895941,
+      "random_normalized_argmax_regret": 0.5142460752815315,
+      "all_gates_pass": false,
+      "final_train_pairwise_accuracy": 0.6062899827957153,
+      "final_train_normalized_argmax_regret": 0.3494483323720415
+    }
+  },
+  "decision": "STATE_TARGET_NO_GO",
+  "diagnosis": "Even the future-belief/full-observation/low-level-hidden oracle cannot generalize a one-action deviation to full-episode return. The next revision must decompose the value horizon before any new response model or P1Q confirmation test.",
+  "return_horizon_decomposition_required": true,
+  "response_development_authorized": false,
+  "formal_test_generation_authorized": false,
+  "p1q_authorized": false,
+  "o0_authorized": false,
+  "long_training_authorized": false,
+  "artifact_sha256": {
+    "development_validation": "0a5365ed542be245b02114e76d5be5d76087d01c0a739fa85696e983f324572e",
+    "config": "25667131c23e6f297538aa36b9a5f5a92a170d5bda57d6468b93f08e3b70769b",
+    "train_seed53185": "883d118bc71cc4d23bce14d783bde38ab69882bc63d8f1ac6e127d3fd8972c92",
+    "train_seed54185": "333bacdcbe55ce0c81bae9d15d59c9b6362dc7e72b142398f9cb02769e70e8d4",
+    "validation_seed55185": "40c736a0ee8f8beaec9ea2768a04b4efa1932d049b0720964bb448133cbf5522"
+  }
+}

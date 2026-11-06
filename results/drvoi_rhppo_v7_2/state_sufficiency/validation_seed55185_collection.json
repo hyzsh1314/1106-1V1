@@ -1,0 +1,21 @@
+{
+  "suite": "DRVOI-RHPPO-V7.2-state-sufficiency-collection",
+  "protocol_version": "DRVOI-RHPPO-V7.2-state-sufficiency-1",
+  "scientific_result": false,
+  "split": "validation",
+  "collection_seed": 55185,
+  "contexts": 96,
+  "actions_per_context": 90,
+  "legal_action_values": 4320,
+  "representation_dimensions": {
+    "registered_v7_1": 281,
+    "full_observation": 308,
+    "future_belief": 295,
+    "mechanistic_oracle": 423
+  },
+  "contains_formal_test": false,
+  "full_episode_return": true,
+  "common_random_numbers": true,
+  "config_sha256": "25667131c23e6f297538aa36b9a5f5a92a170d5bda57d6468b93f08e3b70769b",
+  "collector_sha256": "d32db070cbd55f3413a735d69fd3dce2f5c87f915869025da1e06b47336342ba"
+}

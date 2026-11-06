@@ -1,0 +1,12 @@
+{
+  "suite": "DRVOI-RHPPO-V7.2-development-freeze",
+  "decision": "STATE_TARGET_NO_GO",
+  "formal_test_accessed": false,
+  "formal_test_generation_authorized": false,
+  "response_development_authorized": false,
+  "p1q_authorized": false,
+  "o0_authorized": false,
+  "long_training_authorized": false,
+  "source": "results/drvoi_rhppo_v7_2/state_sufficiency/state_target_no_go.json",
+  "source_sha256": "c1f1c2a71a6e7d606d10d42fc87a0c24ad1ca5b8421095c03154abf820d57543"
+}
