@@ -71,7 +71,13 @@
   },
   "reactive": {
     "known_delay_decisions": 2,
+    "diagnostic_actuation": "bounded_direct_control_v1",
+    "diagnostic_only": true,
+    "learner_action_source": "uniform_legal_randomized_intervention",
     "correct_history": ["a_t-2", "a_t-1", "a_t"],
+    "wrong_delay_history": ["a_t-5", "a_t-4", "a_t-3"],
+    "wrong_delay_excludes_known_causal_action": true,
+    "wrong_delay_evaluation": "same_fitted_H1_input_intervention",
     "wrong_delay_control": true,
     "single_head_diagnostics": ["alt", "heading", "speed", "fire"],
     "hard_gate": true
