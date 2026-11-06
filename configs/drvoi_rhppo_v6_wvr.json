@@ -1,0 +1,83 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V6-WVR-1",
+  "result_status": "engineering-screening",
+  "environment": {
+    "backend": "torch6dof",
+    "observation_version": "v4",
+    "observation_dim": 39,
+    "action_dims": [3, 5, 3, 2],
+    "joint_actions": 90,
+    "physics_hz": 60,
+    "physics_substeps_per_decision": 12,
+    "reward_mode": "competitive",
+    "frozen": true
+  },
+  "rhppo": {
+    "gru_hidden_size": 256,
+    "action_embedding_size": 64,
+    "rollout_steps": 256,
+    "sequence_burn_in": 20,
+    "epochs": 4,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_ratio": 0.2
+  },
+  "response": {
+    "continuous_dim": 12,
+    "side_classes": 3,
+    "members": 5,
+    "samples_per_member": 4,
+    "candidate_count": 20,
+    "minimum_variance": 0.0001,
+    "bootstrap_episode_fraction": 0.8,
+    "snapshot_sync_updates": 5,
+    "warmup_rollouts": 5
+  },
+  "q_model": {
+    "folds": 2,
+    "hidden_sizes": [256, 256],
+    "action_embedding_size": 32,
+    "learning_rate": 0.0003,
+    "epochs_per_rollout": 1,
+    "target_sync_rollouts": 10,
+    "extrinsic_only": true
+  },
+  "intrinsic": {
+    "primary_method": "voi-only",
+    "clip_rms_multiple": 5.0,
+    "beta_warmup_fraction": 0.05,
+    "beta_applied_once": true
+  },
+  "p1_gates": {
+    "G1_delta_nll_min": 0.05,
+    "G1_samples_min": 1000,
+    "G2_continuous_90_coverage_min": 0.85,
+    "G2_continuous_90_coverage_max": 0.95,
+    "G2_side_ece_max": 0.05,
+    "G3_oracle_spearman_min": 0.7,
+    "G3_oracle_nrmse_max": 0.3,
+    "G4_false_positive_max": 0.05,
+    "G5_noise_spearman_min": 0.8,
+    "G6_mc_spearman_min": 0.9,
+    "G6_sign_agreement_min": 0.95
+  },
+  "screening_run": {
+    "seed": 85,
+    "environment_decisions": 10000000,
+    "num_envs": 96,
+    "checkpoint_interval": 500000,
+    "evaluation_seed": 10085,
+    "fixed_opponent_episodes": 192,
+    "innovation_first": true
+  },
+  "method_order": [
+    "O0-VOI-only",
+    "B0-RHPPO",
+    "B1-RHPPO-OM-Aux",
+    "B2-VariBAD-style-RHPPO",
+    "B5-ENS-MI-only-RHPPO",
+    "O2-LP-times-VOI",
+    "O3-ENS-MI-times-VOI",
+    "O4-Additive-VOI"
+  ]
+}

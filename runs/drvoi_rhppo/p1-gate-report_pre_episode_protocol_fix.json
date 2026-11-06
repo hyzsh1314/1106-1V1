@@ -1,0 +1,92 @@
+{
+  "protocol": "DRVOI-RHPPO-V6-WVR-1",
+  "scientific_result": false,
+  "gate_sources": {
+    "hot_tab": "runs\\drvoi_rhppo\\p1-hot-tab\\validation.json",
+    "wvr_response": "runs\\drvoi_rhppo\\p1-wvr-response\\validation.json"
+  },
+  "gates": {
+    "G1_action_conditioning": {
+      "test_samples": 5530,
+      "mean_delta_nll": 0.3945170044898987,
+      "bootstrap_ci95": [
+        0.27875628918409345,
+        0.5500758528709411
+      ],
+      "pass": true
+    },
+    "G2_probability_calibration": {
+      "continuous_90_coverage": 0.9108951091766357,
+      "continuous_rmse": 0.17403778433799744,
+      "side_ece": 0.02237044647336006,
+      "side_brier": 0.21605652570724487,
+      "side_accuracy": 0.8513562083244324,
+      "side_mean_confidence": 0.8349183201789856,
+      "side_class_frequency": [
+        0.525497317314148,
+        0.0005424954579211771,
+        0.4739602208137512
+      ],
+      "side_f1_by_class": [
+        0.8752655386924744,
+        0.0,
+        0.8166554570198059
+      ],
+      "side_macro_f1": 0.5639736652374268,
+      "variance_scale_by_dimension": [
+        0.07391519844532013,
+        0.09246496111154556,
+        0.09878870844841003,
+        0.08627480268478394,
+        0.38526347279548645,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.8569664359092712,
+        0.24567313492298126,
+        0.9857555031776428,
+        0.07126922905445099
+      ],
+      "side_temperature": 0.07183468341827393,
+      "calibration_side_ece": 0.03144102543592453,
+      "calibration_side_nll": 0.37159183621406555,
+      "pass": true
+    },
+    "G3_oracle_voi": {
+      "spearman": 1.0,
+      "nrmse": 7.81776190174131e-17,
+      "pass": true
+    },
+    "G4_zero_information": {
+      "raw_calibration_split_signed_bias": -0.0001107377609607245,
+      "signed_mean": -7.73451353854888e-06,
+      "signed_mean_ci95": [
+        -1.900449201129464e-05,
+        3.5354649341968813e-06
+      ],
+      "context_ci_contains_zero_rate": 0.982,
+      "false_positive_rate": 0.013,
+      "pass": true
+    },
+    "G5_noise_stability": {
+      "spearman": 0.9936007572585711,
+      "noise_sd_fraction": 0.1,
+      "pass": true
+    },
+    "G6_mc_convergence": {
+      "s20_vs_s100_spearman": 0.9992580380480469,
+      "nonzero_sign_agreement": 1.0,
+      "pass": true
+    },
+    "G7_q_alignment": {
+      "episode_fold_isolation": true,
+      "temporal_alignment": true,
+      "terminal_bootstrap_mask": true,
+      "extrinsic_only_q_interface": true,
+      "no_hindsight_voi_interface": true,
+      "pass": true
+    }
+  },
+  "all_gates_pass": true,
+  "authorization": "O0 short online smoke may start"
+}

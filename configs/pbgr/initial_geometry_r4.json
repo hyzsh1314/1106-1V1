@@ -1,0 +1,18 @@
+{
+  "altitude_ft": [16000.0, 24000.0],
+  "bearing_deg": [0.0, 360.0],
+  "center_latitude_deg": 60.0,
+  "center_longitude_deg": 120.0,
+  "center_offset_east_m": [-1000.0, 1000.0],
+  "center_offset_north_m": [-1000.0, 1000.0],
+  "engagement_range_m": [8000.0, 16000.0],
+  "formation_spacing_m": [800.0, 2000.0],
+  "heading_jitter_deg": [-20.0, 20.0],
+  "individual_altitude_jitter_ft": [-500.0, 500.0],
+  "minimum_aircraft_separation_m": 500.0,
+  "paired_side_swap": true,
+  "protocol_id": "PBGR-R4-NOWEAPON-RANDOM-GEOMETRY-20261013-V1",
+  "schema_version": "PBGRFrozenInitialGeometryV1",
+  "speed_fps": [650.0, 900.0],
+  "team_altitude_delta_ft": [-3000.0, 3000.0]
+}

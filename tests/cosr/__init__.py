@@ -1,0 +1,2 @@
+"""COSR environment regression tests."""
+

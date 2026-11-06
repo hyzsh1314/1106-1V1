@@ -1,0 +1,104 @@
+# task config
+task: hierarchical_singlecombat_shoot
+HierarchicalControl_version: LAG-fixed-recurrent-lowlevel-v1
+LowLevelPolicy_frozen: true
+
+# simulation config
+sim_freq: 60
+agent_interaction_steps: 12 # step 0.2s
+
+# termination config
+max_steps: 1000             # episode length: 200s
+altitude_limit: 2500
+acceleration_limit_x: 10.0
+acceleration_limit_y: 10.0
+acceleration_limit_z: 10.0
+
+# aircraft config
+aircraft_configs: {
+  A0100: {
+    color: Red,
+    model: f16,
+    init_state: {
+      ic_long_gc_deg: 120.0,
+      ic_lat_geod_deg: 60.0,
+      ic_h_sl_ft: 20000,
+      ic_psi_true_deg: 0,
+      ic_u_fps: 800.0,
+    },
+    missile: 2
+  },
+  B0100: {
+    color: Blue,
+    model: f16,
+    init_state: {
+      ic_h_sl_ft: 20000,
+      ic_lat_geod_deg: 60.2,
+      ic_long_gc_deg: 120.0,
+      ic_psi_true_deg: 180.0,
+      ic_u_fps: 800.0,
+    },
+    missile: 2,
+  }
+}
+max_attack_angle: 45        # unit: degree
+max_attack_distance: 14000  # unit: m
+min_attack_interval: 25     # unit: step
+# (lontitude, latitude, altitude)
+battle_field_center: [120.0, 60.0, 0.0]
+
+# Symmetric relative-geometry sampling.  The three aspect probabilities are
+# head-on / crossing / pursuit.  This keeps starts diverse while avoiding the
+# unreachable 20-35 km, mutually-diverging cases produced by independent
+# latitude/longitude and heading randomisation.
+InitialEngagement_enabled: true
+InitialEngagement_min_range_m: 8000
+InitialEngagement_max_range_m: 16000
+InitialEngagement_midpoint_jitter_m: 2000
+InitialEngagement_min_altitude_m: 5000
+InitialEngagement_max_altitude_m: 7500
+InitialEngagement_max_altitude_delta_m: 600
+InitialEngagement_min_speed_fps: 650
+InitialEngagement_max_speed_fps: 900
+# Reduce symmetric head-on exchanges; attacker/defender pursuit roles are
+# randomly swapped, preserving colour fairness while producing learnable
+# offensive and defensive episodes.
+InitialEngagement_aspect_probabilities: [0.15, 0.35, 0.50]
+
+# reward config
+# Formal default selected by the multi-seed reward ablation.  Benchmark
+# scripts may still override this explicitly for isolated ablations, but a
+# direct environment construction must never silently fall back to the legacy
+# 200/15/0.05 reward contract.
+RewardVariant: R1_attack_pbrs
+PostureReward_scale: 0.1
+PostureReward_potential: true
+PostureReward_orientation_version: v2
+PostureReward_range_version: v3
+
+AltitudeReward_safe_altitude: 4.0
+AltitudeReward_danger_altitude: 3.5
+AltitudeReward_Kv: 0.2
+
+FormalRewardContract_enabled: true
+FormalRewardContract_version: WVR-1V1-V5-R1-attack-PBRS-timeout-zero
+TeamOutcomeReward_scale: 1.0
+# Tactical timeout adjudication is diagnostic only; no-kill episodes receive
+# zero terminal learning utility.
+TimeoutOutcomeReward_scale: 0.0
+TimeoutAdjudication_enabled: true
+TimeoutAdjudication_distance_scale_m: 20000.0
+TimeoutAdjudication_margin: 0.05
+# The benchmark uses a first-kill contract.  Posthumous missiles remain
+# simulated in scenarios that opt into them, but do not turn an earlier kill
+# into a delayed mutual-kill draw in this training scenario.
+ResolvePendingMissilesAfterElimination_enabled: false
+PPO_gamma: 0.99
+PotentialReward_gamma: 0.99
+PostureReward_enemy_aggregation: mean_alive
+AltitudeReward_penalty_version: continuous_v1
+AltitudeReward_time_scaled: true
+# Weapon legality is enforced by the action mask and weapon contract.  A
+# launch cost biased the policy toward withholding otherwise legal shots.
+AltitudeReward_scale: 0.0
+ShootPenaltyReward_scale: 0.0

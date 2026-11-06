@@ -1,0 +1,56 @@
+# V20 BRIC opt-in platform contract. Historical weapon tasks remain unchanged.
+task: pbgr_bric_hierarchical_multiplecombat_shoot
+
+# 10 Hz low-level decision clock; one high-level commitment is ten decisions.
+sim_freq: 60
+agent_interaction_steps: 6
+bric_high_level_commitment_steps: 10
+max_steps: 2000
+altitude_limit: 2500
+acceleration_limit_x: 10.0
+acceleration_limit_y: 10.0
+acceleration_limit_z: 10.0
+
+aircraft_configs: {
+  A0100: {color: Red, model: f16, init_state: {ic_long_gc_deg: 120.0, ic_lat_geod_deg: 60.0, ic_h_sl_ft: 20000, ic_psi_true_deg: 0.0, ic_u_fps: 800.0}, missile: 2},
+  A0200: {color: Red, model: f16, init_state: {ic_long_gc_deg: 120.01, ic_lat_geod_deg: 60.0, ic_h_sl_ft: 20000, ic_psi_true_deg: 0.0, ic_u_fps: 800.0}, missile: 2},
+  B0100: {color: Blue, model: f16, init_state: {ic_long_gc_deg: 120.0, ic_lat_geod_deg: 60.1, ic_h_sl_ft: 20000, ic_psi_true_deg: 180.0, ic_u_fps: 800.0}, missile: 2},
+  B0200: {color: Blue, model: f16, init_state: {ic_long_gc_deg: 120.01, ic_lat_geod_deg: 60.1, ic_h_sl_ft: 20000, ic_psi_true_deg: 180.0, ic_u_fps: 800.0}, missile: 2}
+}
+
+max_attack_angle: 45
+max_attack_distance: 14000
+# Decisions at 10 Hz: 250 decisions = 25 seconds.
+min_attack_interval: 250
+missile_model: simple_kinematic_PN_R1
+
+pbgr_max_teammates: 1
+pbgr_max_enemies: 2
+pbgr_max_incoming_missiles: 4
+sensor_range_m: 30000
+missile_age_scale_s: 60.0
+battle_field_center: [120.0, 60.0, 0.0]
+
+InitialGeometryRandomization_enabled: true
+InitialGeometryRandomization_protocol_file: configs/pbgr/initial_geometry_r4.json
+InitialGeometryRandomization_protocol_sha256: 21d7228ba444ccbfda949c2e4bc5ae31c99e61869024f332604f3ecc14a13855
+InitialGeometryRandomization_training_side_policy: uniform_native_swapped
+
+# Unified team-zero-sum W/D/L plus discounted PBRS contract. BRIC branch
+# labels remain evaluation utilities rather than dense shaping labels.
+FormalRewardContract_enabled: true
+UnifiedWeaponReward_enabled: true
+FormalRewardContract_version: PBGR-V20-BRIC-WEAPON-ZS-WDL-v1
+TeamOutcomeReward_scale: 200.0
+PPO_gamma: 0.99
+PotentialReward_gamma: 0.99
+PostureReward_scale: 15.0
+PostureReward_potential: true
+PostureReward_orientation_version: v2
+PostureReward_range_version: v3
+PostureReward_enemy_aggregation: mean_alive
+AltitudeReward_safe_altitude: 4.0
+AltitudeReward_danger_altitude: 3.5
+AltitudeReward_Kv: 0.2
+AltitudeReward_penalty_version: continuous_v1
+AltitudeReward_time_scaled: true

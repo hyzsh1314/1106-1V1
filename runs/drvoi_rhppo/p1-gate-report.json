@@ -1,0 +1,117 @@
+{
+  "protocol": "DRVOI-RHPPO-V6-WVR-1",
+  "scientific_result": false,
+  "gate_sources": {
+    "hot_tab": "runs\\drvoi_rhppo\\p1-hot-tab\\validation.json",
+    "wvr_response": "runs\\drvoi_rhppo\\p1-wvr-response\\validation.json"
+  },
+  "gates": {
+    "G1_action_conditioning": {
+      "test_samples": 6177,
+      "test_episodes": 26,
+      "mean_delta_nll": -1.7259093523025513,
+      "bootstrap_ci95": [
+        -1.9278833031654359,
+        -1.5139720529317857
+      ],
+      "bootstrap_unit": "episode",
+      "stratified_delta_nll": {
+        "hold": {
+          "early": -1.6925039291381836,
+          "middle": -2.1345877647399902,
+          "late": -2.2690186500549316
+        },
+        "pursuit": {
+          "early": -1.7134524583816528,
+          "middle": -1.5201045274734497,
+          "late": -1.337256669998169
+        },
+        "evasive": {
+          "early": -1.0850831270217896,
+          "middle": -1.9313699007034302,
+          "late": -2.278877019882202
+        }
+      },
+      "action_permutation_gain": 0.001335378736257553,
+      "action_permutation_ci95": [
+        -0.00014388303388841449,
+        0.002822470664978024
+      ],
+      "action_permutation_negative_control_pass": false,
+      "pass": false
+    },
+    "G2_probability_calibration": {
+      "continuous_90_coverage": 0.9081268906593323,
+      "continuous_rmse": 0.16695892810821533,
+      "side_ece": 0.08997727185487747,
+      "side_brier": 0.08643253892660141,
+      "side_accuracy": 0.9677836894989014,
+      "side_mean_confidence": 0.8779734969139099,
+      "side_class_frequency": [
+        0.48680588603019714,
+        0.0,
+        0.5131940841674805
+      ],
+      "side_f1_by_class": [
+        0.9661737084388733,
+        0.0,
+        0.9692474007606506
+      ],
+      "side_macro_f1": 0.6451403697331747,
+      "variance_scale_by_dimension": [
+        0.09212333709001541,
+        0.05000000074505806,
+        0.16804058849811554,
+        0.10908622294664383,
+        0.31527799367904663,
+        0.05000000074505806,
+        0.24536707997322083,
+        0.05000000074505806,
+        0.9022356867790222,
+        0.3073901832103729,
+        0.9515371918678284,
+        0.07070831954479218
+      ],
+      "side_temperature": 0.009999999776482582,
+      "calibration_side_ece": 0.08019354939460754,
+      "calibration_side_nll": 0.21308840811252594,
+      "pass": false
+    },
+    "G3_oracle_voi": {
+      "spearman": 1.0,
+      "nrmse": 7.81776190174131e-17,
+      "pass": true
+    },
+    "G4_zero_information": {
+      "raw_calibration_split_signed_bias": -0.0001107377609607245,
+      "signed_mean": -7.73451353854888e-06,
+      "signed_mean_ci95": [
+        -1.900449201129464e-05,
+        3.5354649341968813e-06
+      ],
+      "context_ci_contains_zero_rate": 0.982,
+      "false_positive_rate": 0.013,
+      "pass": true
+    },
+    "G5_noise_stability": {
+      "spearman": 0.9936007572585711,
+      "noise_sd_fraction": 0.1,
+      "pass": true
+    },
+    "G6_mc_convergence": {
+      "s20_vs_s100_spearman": 0.9992580380480469,
+      "nonzero_sign_agreement": 1.0,
+      "pass": true
+    },
+    "G7_q_alignment": {
+      "episode_fold_isolation": true,
+      "temporal_alignment": true,
+      "terminal_bootstrap_mask": true,
+      "extrinsic_only_q_interface": true,
+      "no_hindsight_voi_interface": true,
+      "pass": true
+    }
+  },
+  "all_gates_pass": false,
+  "authorization": "online DRVOI training remains blocked"
+}

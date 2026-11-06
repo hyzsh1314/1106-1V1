@@ -1,0 +1,43 @@
+# R4 PBGR/B00 no-weapon gate: entity observations plus randomized geometry.
+task: pbgr_multiplecombat
+
+pbgr_max_teammates: 1
+pbgr_max_enemies: 2
+pbgr_max_incoming_missiles: 0
+sensor_range_m: 120000.0
+missile_age_scale_s: 60.0
+
+sim_freq: 60
+agent_interaction_steps: 6
+max_steps: 1500
+altitude_limit: 2500
+acceleration_limit_x: 10.0
+acceleration_limit_y: 10.0
+acceleration_limit_z: 10.0
+
+aircraft_configs: {
+  A0100: {color: Red, model: f16, init_state: {ic_long_gc_deg: 120.0, ic_lat_geod_deg: 60.0, ic_h_sl_ft: 20000, ic_psi_true_deg: 0.0, ic_u_fps: 800.0}},
+  A0200: {color: Red, model: f16, init_state: {ic_long_gc_deg: 120.01, ic_lat_geod_deg: 60.0, ic_h_sl_ft: 20000, ic_psi_true_deg: 0.0, ic_u_fps: 800.0}},
+  B0100: {color: Blue, model: f16, init_state: {ic_long_gc_deg: 120.0, ic_lat_geod_deg: 60.1, ic_h_sl_ft: 20000, ic_psi_true_deg: 180.0, ic_u_fps: 800.0}},
+  B0200: {color: Blue, model: f16, init_state: {ic_long_gc_deg: 120.01, ic_lat_geod_deg: 60.1, ic_h_sl_ft: 20000, ic_psi_true_deg: 180.0, ic_u_fps: 800.0}},
+}
+battle_field_center: [120.0, 60.0, 0.0]
+
+InitialGeometryRandomization_enabled: true
+InitialGeometryRandomization_protocol_file: configs/pbgr/initial_geometry_r4.json
+InitialGeometryRandomization_protocol_sha256: 21d7228ba444ccbfda949c2e4bc5ae31c99e61869024f332604f3ecc14a13855
+InitialGeometryRandomization_training_side_policy: uniform_native_swapped
+
+FormalRewardContract_enabled: true
+FormalRewardContract_version: R3-ZS-WDL-v1
+TeamOutcomeReward_scale: 200.0
+PostureReward_scale: 15.0
+PostureReward_potential: true
+PostureReward_orientation_version: v2
+PostureReward_range_version: v3
+PostureReward_enemy_aggregation: mean_alive
+AltitudeReward_safe_altitude: 4.0
+AltitudeReward_danger_altitude: 3.5
+AltitudeReward_Kv: 0.2
+AltitudeReward_penalty_version: continuous_v1
+RelativeAltitudeReward_KH: 1.0

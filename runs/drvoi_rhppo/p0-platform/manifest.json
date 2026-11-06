@@ -1,0 +1,32 @@
+{
+  "protocol": "DRVOI-RHPPO-V6-WVR-1",
+  "scientific_result": false,
+  "platform": "Windows-11-10.0.26300-SP0",
+  "python": "3.13.11",
+  "torch": "2.12.0+cpu",
+  "cuda_available": false,
+  "cuda_device": null,
+  "environment_contract": {
+    "observation_dim": 39,
+    "observation_version": "v4",
+    "sim_freq_hz": 60,
+    "physics_substeps_per_decision": 12,
+    "reward_mode": "competitive",
+    "action_dims": [
+      3,
+      5,
+      3,
+      2
+    ],
+    "joint_actions": 90
+  },
+  "hashes": {
+    "protocol_config": "4dbc9c8798378c65bfecb9d347b1639ecec28484be96ce9bdd40d9c0eae62575",
+    "environment": "0d7182e020db7cc8c1f9ea3c3adcd9320bcbff84d4ada35e09c934578236d93d",
+    "dynamics": "0d6d62ee52a79fbba09454a973c384cb4561e65a289ceedcb79d4f7b93b2e5a5",
+    "missile": "85d119cb6149e82b51414a6eb97dc1cfad39938ed3db8b0cf8e4e1b78b9e9455",
+    "lowlevel_controller": "54e9c996d981aa1fa82c51664a1758afd04fee0b5539dd6ccb128795149dcf69"
+  },
+  "git_commit": null,
+  "note": "Workspace is not a Git checkout; SHA-256 source hashes are authoritative."
+}

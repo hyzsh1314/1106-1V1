@@ -1,0 +1,73 @@
+{
+  "suite": "DRVOI-RHPPO-V6-WVR-response-P1",
+  "scientific_result": false,
+  "context": "frozen RHPPO belief state",
+  "checkpoint": "runs/drvoi_rhppo/p0-rhppo-smoke-batched/latest.pt",
+  "seed": 6185,
+  "samples": 36799,
+  "split_sizes": {
+    "train": 25759,
+    "calibration": 5520,
+    "test": 5520
+  },
+  "training": {
+    "epochs": 20,
+    "conditioned_loss_initial_final": [
+      9.241973746906627,
+      -18.51582180369984
+    ],
+    "no_action_loss_initial_final": [
+      9.257187236439098,
+      -20.680858438665215
+    ]
+  },
+  "gates": {
+    "G1_action_conditioning": {
+      "test_samples": 5520,
+      "mean_delta_nll": -0.9624300599098206,
+      "bootstrap_ci95": [
+        -0.9811717763543129,
+        -0.9436126619577407
+      ],
+      "pass": false
+    },
+    "G2_probability_calibration": {
+      "continuous_90_coverage": 0.9063254594802856,
+      "continuous_rmse": 0.1691306084394455,
+      "side_ece": 0.026020072400569916,
+      "side_brier": 0.22926324605941772,
+      "side_accuracy": 0.8382246494293213,
+      "side_mean_confidence": 0.8362005949020386,
+      "side_class_frequency": [
+        0.5130434632301331,
+        0.0,
+        0.48695650696754456
+      ],
+      "side_f1_by_class": [
+        0.8630577921867371,
+        0.0,
+        0.802389919757843
+      ],
+      "side_macro_f1": 0.55514923731486,
+      "variance_scale_by_dimension": [
+        0.05000000074505806,
+        0.06950326263904572,
+        0.11801230907440186,
+        0.07484827190637589,
+        0.2885735034942627,
+        0.09438946098089218,
+        0.10468943417072296,
+        0.05000000074505806,
+        0.9988815188407898,
+        0.24979691207408905,
+        0.9465595483779907,
+        0.09800103306770325
+      ],
+      "side_temperature": 0.05935579538345337,
+      "calibration_side_ece": 0.026752017438411713,
+      "calibration_side_nll": 0.35231518745422363,
+      "pass": true
+    }
+  },
+  "all_gates_pass": false
+}

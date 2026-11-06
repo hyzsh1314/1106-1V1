@@ -1,0 +1,13 @@
+numpy>=1.21,<3
+scipy>=1.8,<2
+PyYAML>=6.0,<7
+gymnasium>=0.28,<2
+torch>=1.13
+jsbsim>=1.1
+pymap3d>=3,<4
+cloudpickle>=2
+
+# Optional: environment regression tests and the legacy baseline demo scripts.
+pytest>=7
+matplotlib>=3.5
+

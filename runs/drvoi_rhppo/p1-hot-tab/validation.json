@@ -1,0 +1,40 @@
+{
+  "suite": "DRVOI-RHPPO-V6-HOT-Tab-P1",
+  "seed": 6085,
+  "contexts": 1000,
+  "noise_repeats": 100,
+  "gates": {
+    "G3_oracle_voi": {
+      "spearman": 1.0,
+      "nrmse": 7.81776190174131e-17,
+      "pass": true
+    },
+    "G4_zero_information": {
+      "raw_calibration_split_signed_bias": -0.0001107377609607245,
+      "signed_mean": -7.73451353854888e-06,
+      "signed_mean_ci95": [
+        -1.900449201129464e-05,
+        3.5354649341968813e-06
+      ],
+      "context_ci_contains_zero_rate": 0.982,
+      "false_positive_rate": 0.013,
+      "pass": true
+    },
+    "G5_noise_stability": {
+      "spearman": 0.9936007572585711,
+      "noise_sd_fraction": 0.1,
+      "pass": true
+    },
+    "G6_mc_convergence": {
+      "s20_vs_s100_spearman": 0.9992580380480469,
+      "nonzero_sign_agreement": 1.0,
+      "pass": true
+    }
+  },
+  "all_implemented_gates_pass": true,
+  "not_yet_covered": [
+    "G1 action-conditioned prequential Delta-NLL on WVR data",
+    "G2 continuous/side probability calibration on WVR data",
+    "G7 end-to-end recurrent Q alignment and terminal masks"
+  ]
+}

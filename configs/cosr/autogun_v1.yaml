@@ -1,0 +1,113 @@
+schema_version: 1
+scenario_id: COSR-AutoGun-v1
+protocol_id: COSR-AutoGun-v1
+protocol_version: "1.0.0"
+protocol_status: FROZEN
+protocol_sha256: dc1027b1e0b530687c8de935b6d0e011ec7be819842fc23c8162f5dd18c7d474
+scientific_protocol: true
+status: FROZEN_SCIENTIFIC_PROTOCOL
+legacy_task_config_path: envs/JSBSim/configs/1v1/NoWeapon/Selfplay.yaml
+physics:
+  aircraft: F-16
+  agents: 2
+  dynamics: JSBSim_6DOF
+  sim_freq_hz: 60
+  control_interval_s: 0.2
+  max_decision_steps: 1000
+  battle_field_center: {longitude_deg: 120.0, latitude_deg: 60.0, altitude_m: 0.0}
+  reload_tolerance: {position_m: 25.0, altitude_m: 3.0, heading_rad: 0.03, speed_mps: 3.0, roll_rad: 0.03, pitch_rad: 0.03, p_rad_sec: 0.03, q_rad_sec: 0.03, r_rad_sec: 0.03}
+action_interface: physical_continuous_v1
+action_low: [-1.0, -1.0, -1.0, 0.4]
+action_high: [1.0, 1.0, 1.0, 0.9]
+utility: {win: 1, draw: 0, loss: -1}
+autogun:
+  enabled: true
+  damage_mode: dwell_to_kill
+  angle_envelope_deg: 30.0
+  min_range_m: 300.0
+  max_range_m: 3000.0
+  dwell_s: 2.0
+  min_target_aspect_deg: 120.0
+  max_target_aspect_deg: 180.0
+  damage_per_s: null
+  damage_to_kill: null
+safety:
+  min_altitude_m: 2500.0
+  max_overload_g: 10.0
+  arena_half_extent_m: 50000.0
+  collision_distance_m: 75.0
+  numerical: finite_required
+timeout: {result: draw}
+training_reward:
+  legacy_dense_enabled: true
+  terminal_scale: 200.0
+legacy_reward_components: [AltitudeReward, PostureReward, EventDrivenReward]
+training:
+  gamma: 0.99
+  gae_lambda: 0.95
+  ppo_rollout_steps: 2048
+  ppo_epochs: 10
+  ppo_minibatch_size: 256
+  ppo_clip_ratio: 0.20
+  ppo_value_coefficient: 0.50
+  ppo_entropy_coefficient: 0.01
+  ppo_max_grad_norm: 0.50
+  batch_size: 256
+  replay_capacity: 1000000
+  warmup_steps: 10000
+  update_after: 10000
+  updates_per_step: 1
+  sac_tau: 0.005
+  sac_target_entropy: -4.0
+  td3_tau: 0.005
+  td3_policy_delay: 2
+  td3_target_noise: 0.20
+  td3_noise_clip: 0.50
+  td3_exploration_noise: 0.10
+formal_run_defaults:
+  learning_rate: 0.0003
+  hidden_size: 256
+  n_envs: 1
+  total_env_steps_per_policy: 10000000
+  checkpoint_interval: 250000
+  eval_interval: 0
+  best_checkpoint_selection: false
+  primary_candidates:
+    - {algorithm: ppo, seed: 1101}
+    - {algorithm: ppo, seed: 1102}
+    - {algorithm: sac, seed: 1201}
+    - {algorithm: sac, seed: 1202}
+    - {algorithm: td3, seed: 1301}
+    - {algorithm: td3, seed: 1302}
+  stability_replicates:
+    ppo: [1103, 1104, 1105]
+    sac: [1203, 1204, 1205]
+    td3: [1303, 1304, 1305]
+method:
+  h_id_decision_steps: 25
+  h_id_seconds: 5.0
+  h_id_sensitivity: [0, 10, 25, 50, 100]
+  conformal: {mode: mondrian_class_conditional, alpha: 0.10, secondary_alpha: 0.05}
+  safety_selector: {delta_safe: 0.05, deadline_s: 0.2, one_shot_selection: true, reselection_inside_episode: false, online_gradient_adaptation: false}
+  ood: {score: one_minus_max_predicted_class_probability, threshold_selection: id_validation_ood_score_95th_percentile}
+final_test: {enabled: false, sealed: true}
+scenario:
+  scenario_id: COSR-AutoGun-v1
+  retry_limit: 100
+  stratum_probabilities:
+    balanced_head_on: 0.16666666666666666
+    ego_advantage: 0.16666666666666666
+    ego_disadvantage: 0.16666666666666666
+    high_energy: 0.16666666666666666
+    low_energy_low_altitude: 0.16666666666666666
+    crossing_lateral: 0.16666666666666666
+  geometry:
+    limits: {min_separation_m: 3500.0, max_separation_m: 8000.0, min_altitude_m: 2800.0, max_altitude_m: 12000.0, min_speed_mps: 150.0, max_speed_mps: 350.0, arena_half_extent_m: 50000.0}
+    neutral_state: {roll_rad: 0.0, pitch_rad: 0.0, p_rad_sec: 0.0, q_rad_sec: 0.0, r_rad_sec: 0.0}
+  strata:
+    balanced_head_on: {separation_m: [6000.0, 8000.0], altitude_m: [5500.0, 7000.0], ego_speed_mps: [220.0, 260.0], opponent_speed_mps: [220.0, 260.0], heading_tolerance_deg: 5.0}
+    ego_advantage: {separation_m: [4000.0, 6000.0], altitude_m: [5000.0, 6500.0], ego_speed_mps: [250.0, 280.0], opponent_speed_mps: [200.0, 230.0], heading_tolerance_deg: 5.0, altitude_advantage_m: 500.0}
+    ego_disadvantage: {separation_m: [4000.0, 6000.0], altitude_m: [5000.0, 6500.0], ego_speed_mps: [200.0, 230.0], opponent_speed_mps: [250.0, 280.0], heading_tolerance_deg: 5.0, altitude_advantage_m: 500.0}
+    high_energy: {separation_m: [6000.0, 8000.0], altitude_m: [9000.0, 10500.0], ego_speed_mps: [300.0, 340.0], opponent_speed_mps: [300.0, 340.0], heading_tolerance_deg: 5.0}
+    low_energy_low_altitude: {separation_m: [4000.0, 6000.0], altitude_m: [3000.0, 3800.0], ego_speed_mps: [160.0, 200.0], opponent_speed_mps: [160.0, 200.0], heading_tolerance_deg: 5.0}
+    crossing_lateral: {separation_m: [5000.0, 7000.0], altitude_m: [6000.0, 7500.0], ego_speed_mps: [220.0, 260.0], opponent_speed_mps: [220.0, 260.0], heading_tolerance_deg: 5.0, crossing_heading_offset_deg: 90.0}

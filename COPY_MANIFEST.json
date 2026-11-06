@@ -1,0 +1,1395 @@
+{
+  "schema": "WVR_ENV_COPY_MANIFEST_V1",
+  "generated_at": "2026-11-02T00:00:00+08:00",
+  "source_root": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master",
+  "destination_root": "D:\\Ph.D\\毕业\\WVR-1102\\WVR-Env",
+  "scope": "Environment-only extraction; no training dataset, rollout, replay buffer, formal experiment output, opponent library, or training checkpoint.",
+  "runtime_assets": [
+    "envs/JSBSim/model/baseline_model.pt",
+    "envs/JSBSim/model/dodge_missile_model.pt"
+  ],
+  "runtime_asset_note": "These two files are fixed low-level controllers directly loaded by legacy environment tasks; they are not training datasets or experiment checkpoints.",
+  "excluded_top_level": [
+    "artifacts",
+    "assets",
+    "renders",
+    "runner",
+    "scripts",
+    ".git",
+    ".idea",
+    ".cursor"
+  ],
+  "excluded_data_patterns": [
+    "*.parquet",
+    "*.acmi",
+    "*.jsonl",
+    "*.npy",
+    "*.npz",
+    "replay buffers",
+    "training logs",
+    "trajectory datasets",
+    "opponent libraries",
+    "formal checkpoints"
+  ],
+  "verification": {
+    "smoke_test": "PASS: single-control, 1v1 no-weapon, 2v2 entity no-weapon, 2v2 V23 weapon; no training",
+    "core_regression": "6 passed",
+    "weapon_and_symmetry_regression": "30 passed",
+    "formal_reward_contract": "5 passed",
+    "total_pytest_passed": 41
+  },
+  "file_count": 150,
+  "total_bytes": 2015773,
+  "files": [
+    {
+      "path": ".gitignore",
+      "size_bytes": 172,
+      "sha256": "18b700e10d92862c715645d92aa97319dd4e1512e5b4687332eb437499d154e7",
+      "category": "license_or_packaging",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\.gitignore",
+      "source_sha256": "d4c760e30b0075d59fe38e1b8456021fc6dd23a7278fb84d8ea1af81d443214b",
+      "copied_byte_identical": false
+    },
+    {
+      "path": "建模环境详细说明.md",
+      "size_bytes": 12330,
+      "sha256": "3b8d79f870b82638b179539f772c33275ca016e5021316bf136de13506aff35a",
+      "category": "generated_documentation",
+      "source_path": null,
+      "source_sha256": null,
+      "copied_byte_identical": null
+    },
+    {
+      "path": "ac_cosr_wvr/__init__.py",
+      "size_bytes": 377,
+      "sha256": "c79e0159909d2f1f68afe39361e398225bbc21df7dd2820f9c952b4210b013fc",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\__init__.py",
+      "source_sha256": "c79e0159909d2f1f68afe39361e398225bbc21df7dd2820f9c952b4210b013fc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/__init__.py",
+      "size_bytes": 647,
+      "sha256": "9a122f4c6ba90dca1bd5ae1ea47e3364686cda978398deb334bef166540981bc",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\__init__.py",
+      "source_sha256": "9a122f4c6ba90dca1bd5ae1ea47e3364686cda978398deb334bef166540981bc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/autogun.py",
+      "size_bytes": 6948,
+      "sha256": "1c5f3775c03836ea48b95ef38cc0e5352fe62750887b425e0bccf4fcedb1a450",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\autogun.py",
+      "source_sha256": "1c5f3775c03836ea48b95ef38cc0e5352fe62750887b425e0bccf4fcedb1a450",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/cosr_singlecombat_env.py",
+      "size_bytes": 9626,
+      "sha256": "cfc6a2a585c77de38750664a42027f03799c901e64241b5c6c48d3c5f2377f05",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\cosr_singlecombat_env.py",
+      "source_sha256": "cfc6a2a585c77de38750664a42027f03799c901e64241b5c6c48d3c5f2377f05",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/lag_adapter.py",
+      "size_bytes": 2304,
+      "sha256": "9aadc5fce71c02ad8968d9949a35971d6529a81d3a1c082b2821fe140cec2c4d",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\lag_adapter.py",
+      "source_sha256": "9aadc5fce71c02ad8968d9949a35971d6529a81d3a1c082b2821fe140cec2c4d",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/lag_state_mapper.py",
+      "size_bytes": 7712,
+      "sha256": "2dade3d5453d91139e5cdde31f8ba8ae6e23a921fd556309edb1e85708b0176e",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\lag_state_mapper.py",
+      "source_sha256": "2dade3d5453d91139e5cdde31f8ba8ae6e23a921fd556309edb1e85708b0176e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/outcome.py",
+      "size_bytes": 5596,
+      "sha256": "931cb0d97ea739e4fee4ad4a5bcae9ac9ff3ffa6022437293a6ebde9c0912087",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\outcome.py",
+      "source_sha256": "931cb0d97ea739e4fee4ad4a5bcae9ac9ff3ffa6022437293a6ebde9c0912087",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/safety.py",
+      "size_bytes": 5666,
+      "sha256": "a4add50b476315f0ef814623c8abedcacb57ec711a134016ed56d61292b7c9bc",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\safety.py",
+      "source_sha256": "a4add50b476315f0ef814623c8abedcacb57ec711a134016ed56d61292b7c9bc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/scenario_sampler.py",
+      "size_bytes": 17234,
+      "sha256": "3a90df98cb6c3f96932f9cd699dc188ba5862eb0658514b6d4844d22e455cba3",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\scenario_sampler.py",
+      "source_sha256": "3a90df98cb6c3f96932f9cd699dc188ba5862eb0658514b6d4844d22e455cba3",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/env/training_reward.py",
+      "size_bytes": 1696,
+      "sha256": "7335f99f55492d78626d0af13f82f14a41c4d9eaaecb7da21be84fe750b61c2e",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\env\\training_reward.py",
+      "source_sha256": "7335f99f55492d78626d0af13f82f14a41c4d9eaaecb7da21be84fe750b61c2e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/policies/__init__.py",
+      "size_bytes": 285,
+      "sha256": "cc20f285ebaa9365e781faaff460d831182527503681f0a84a8b2ded621a63e3",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\policies\\__init__.py",
+      "source_sha256": "cc20f285ebaa9365e781faaff460d831182527503681f0a84a8b2ded621a63e3",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/policies/action_mapping.py",
+      "size_bytes": 1917,
+      "sha256": "2b3cce7d9aa6e1a03f37a83ccc8889480cef97e4a90c3bcabb3c58416977fb85",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\policies\\action_mapping.py",
+      "source_sha256": "2b3cce7d9aa6e1a03f37a83ccc8889480cef97e4a90c3bcabb3c58416977fb85",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/policies/adapters.py",
+      "size_bytes": 4597,
+      "sha256": "7e85f80d7601601eac993edd5708693a04b6e6d8051624861b9dbdd3511ccff7",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\policies\\adapters.py",
+      "source_sha256": "7e85f80d7601601eac993edd5708693a04b6e6d8051624861b9dbdd3511ccff7",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/policies/checkpoint_loader.py",
+      "size_bytes": 836,
+      "sha256": "9329436e53633212fd2f60688aae68a1cc7ea14c040465746bd2aabc7ee65b5b",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\policies\\checkpoint_loader.py",
+      "source_sha256": "9329436e53633212fd2f60688aae68a1cc7ea14c040465746bd2aabc7ee65b5b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/policies/protocol.py",
+      "size_bytes": 636,
+      "sha256": "46448e00395523567c35838ef125433d60cb636cf3508b31a0dd822a6b52730b",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\policies\\protocol.py",
+      "source_sha256": "46448e00395523567c35838ef125433d60cb636cf3508b31a0dd822a6b52730b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/policies/registry.py",
+      "size_bytes": 1063,
+      "sha256": "b0dee4cf5b5cb0f014d3fb727f40b30221d7b5c3950dec24e943ee7e1597c0a9",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\policies\\registry.py",
+      "source_sha256": "b0dee4cf5b5cb0f014d3fb727f40b30221d7b5c3950dec24e943ee7e1597c0a9",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/protocol.py",
+      "size_bytes": 11513,
+      "sha256": "3e4610da7d2c87779bff8ac4060eff5a48ed98979dbd5999053ee42c492df41f",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\protocol.py",
+      "source_sha256": "3e4610da7d2c87779bff8ac4060eff5a48ed98979dbd5999053ee42c492df41f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "ac_cosr_wvr/schemas.py",
+      "size_bytes": 8134,
+      "sha256": "013dbe175784548197a61e45b6d4e3b9d6f870452f6a030eb6d1f859d8d6fe8b",
+      "category": "cosr_environment_adapter",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\ac_cosr_wvr\\schemas.py",
+      "source_sha256": "013dbe175784548197a61e45b6d4e3b9d6f870452f6a030eb6d1f859d8d6fe8b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/apgr/__init__.py",
+      "size_bytes": 54,
+      "sha256": "e803cc11ae2c46a37e6b7cd35926ed0743e4e6f263a9a2c454f85769cda8ec22",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\apgr\\__init__.py",
+      "source_sha256": "e803cc11ae2c46a37e6b7cd35926ed0743e4e6f263a9a2c454f85769cda8ec22",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/apgr/v19_pc_nsp_happo.py",
+      "size_bytes": 12969,
+      "sha256": "b36ad6023064ecaecef552876c3c0e3b3d5d8cd28c99a52cf4c2d2709cae170e",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\apgr\\v19_pc_nsp_happo.py",
+      "source_sha256": "b36ad6023064ecaecef552876c3c0e3b3d5d8cd28c99a52cf4c2d2709cae170e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/apgr/v23_cmfc_mappo.py",
+      "size_bytes": 14182,
+      "sha256": "f893f9e982a0acf65586af8c2a8aad5b384b31eb25509a4c092d750f2adf90ee",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\apgr\\v23_cmfc_mappo.py",
+      "source_sha256": "f893f9e982a0acf65586af8c2a8aad5b384b31eb25509a4c092d750f2adf90ee",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/pbgr/__init__.py",
+      "size_bytes": 275,
+      "sha256": "0adf7743dde6e73e6398d3ce0d92b568b31815b508b9e578f32d8a76d453ea59",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\pbgr\\__init__.py",
+      "source_sha256": "0adf7743dde6e73e6398d3ce0d92b568b31815b508b9e578f32d8a76d453ea59",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/pbgr/entities.py",
+      "size_bytes": 23594,
+      "sha256": "c297d85caecdfade942b20e88624439bf445f0fd1fca3c8ced7cb1ad8273a95c",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\pbgr\\entities.py",
+      "source_sha256": "c297d85caecdfade942b20e88624439bf445f0fd1fca3c8ced7cb1ad8273a95c",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/pbgr/provenance.py",
+      "size_bytes": 2045,
+      "sha256": "300b35847b0877b21529f454a01db611f4f0b102559203902a698d40b27f64fa",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\pbgr\\provenance.py",
+      "source_sha256": "300b35847b0877b21529f454a01db611f4f0b102559203902a698d40b27f64fa",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/pbgr/step_contract.py",
+      "size_bytes": 5241,
+      "sha256": "d8c1a87acbb65cd81ac3b52941e2d28a4eb5a800d8751c45f5d33813d18054d8",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\pbgr\\step_contract.py",
+      "source_sha256": "d8c1a87acbb65cd81ac3b52941e2d28a4eb5a800d8751c45f5d33813d18054d8",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/utils/distributions.py",
+      "size_bytes": 4113,
+      "sha256": "d68b8baf7ade502dd01b0be53b83d668fbc0fa2775ef510280aa1d1ded6b08c0",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\utils\\distributions.py",
+      "source_sha256": "d68b8baf7ade502dd01b0be53b83d668fbc0fa2775ef510280aa1d1ded6b08c0",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "algorithms/utils/utils.py",
+      "size_bytes": 1251,
+      "sha256": "eeefa60b981107a79991c6f32a9ce8e7f57e8967e495d7ea37246295d8a73a07",
+      "category": "minimal_environment_code_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\algorithms\\utils\\utils.py",
+      "source_sha256": "eeefa60b981107a79991c6f32a9ce8e7f57e8967e495d7ea37246295d8a73a07",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "configs/cosr/autogun_v1.yaml",
+      "size_bytes": 4786,
+      "sha256": "1e32800cfc772f53674bbd1c0b752dabed80341713496094985a830bfdcee28c",
+      "category": "environment_protocol_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\configs\\cosr\\autogun_v1.yaml",
+      "source_sha256": "1e32800cfc772f53674bbd1c0b752dabed80341713496094985a830bfdcee28c",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "configs/cosr/smoke_autogun.yaml",
+      "size_bytes": 4113,
+      "sha256": "8e1d366ef9a1567af61a39196fa540a78631fc95f482c573a05f3a6b8c1a6b8f",
+      "category": "environment_protocol_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\configs\\cosr\\smoke_autogun.yaml",
+      "source_sha256": "8e1d366ef9a1567af61a39196fa540a78631fc95f482c573a05f3a6b8c1a6b8f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "configs/pbgr/initial_geometry_r4.json",
+      "size_bytes": 666,
+      "sha256": "21d7228ba444ccbfda949c2e4bc5ae31c99e61869024f332604f3ecc14a13855",
+      "category": "environment_protocol_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\configs\\pbgr\\initial_geometry_r4.json",
+      "source_sha256": "21d7228ba444ccbfda949c2e4bc5ae31c99e61869024f332604f3ecc14a13855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "environment_smoke_test.py",
+      "size_bytes": 2775,
+      "sha256": "d340c038c46fd4876cb171399bc656fde37be51946b0244ec29994cf7ae63ec5",
+      "category": "generated_smoke_test",
+      "source_path": null,
+      "source_sha256": null,
+      "copied_byte_identical": null
+    },
+    {
+      "path": "envs/env_wrappers.py",
+      "size_bytes": 24424,
+      "sha256": "73eaf0945e66d0c39933f9669af04ebe72317ffad85acb77f9392d6320a7b724",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\env_wrappers.py",
+      "source_sha256": "73eaf0945e66d0c39933f9669af04ebe72317ffad85acb77f9392d6320a7b724",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1/heading.yaml",
+      "size_bytes": 892,
+      "sha256": "9c84515e5adbde2a42ee127c69d47f2148ae0f1d3e0aaffe3f1ad28fd198f688",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1\\heading.yaml",
+      "source_sha256": "9c84515e5adbde2a42ee127c69d47f2148ae0f1d3e0aaffe3f1ad28fd198f688",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1/HumanFreeFly.yaml",
+      "size_bytes": 897,
+      "sha256": "1dcbec978df5c48dce2a8361af74a4e8c4bb7098487beadefe30113d7976b673",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1\\HumanFreeFly.yaml",
+      "source_sha256": "1dcbec978df5c48dce2a8361af74a4e8c4bb7098487beadefe30113d7976b673",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/DodgeMissile/HierarchySelfplay.yaml",
+      "size_bytes": 1295,
+      "sha256": "ceb9789e81531b1cd4909324f71d4319381bba879b40df7c285c8fd338390d55",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\DodgeMissile\\HierarchySelfplay.yaml",
+      "source_sha256": "ceb9789e81531b1cd4909324f71d4319381bba879b40df7c285c8fd338390d55",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/DodgeMissile/HierarchyVsBaseline.yaml",
+      "size_bytes": 1365,
+      "sha256": "815d0a50061aab27f29839bf022169653fcd1ba2c8ced33103e15b3ff96ffb0a",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\DodgeMissile\\HierarchyVsBaseline.yaml",
+      "source_sha256": "815d0a50061aab27f29839bf022169653fcd1ba2c8ced33103e15b3ff96ffb0a",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/DodgeMissile/Selfplay.yaml",
+      "size_bytes": 1239,
+      "sha256": "ce78e3b967ed826448a292736be864c066c00fabb210c83ffb89e00a67a888f6",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\DodgeMissile\\Selfplay.yaml",
+      "source_sha256": "ce78e3b967ed826448a292736be864c066c00fabb210c83ffb89e00a67a888f6",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/DodgeMissile/test/opposite.yaml",
+      "size_bytes": 1223,
+      "sha256": "e1fa836bced8cf0dff97488ee5db025144ad41f87f7312f4cd0a29d1a65ed44e",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\DodgeMissile\\test\\opposite.yaml",
+      "source_sha256": "e1fa836bced8cf0dff97488ee5db025144ad41f87f7312f4cd0a29d1a65ed44e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/DodgeMissile/test/pursue.yaml",
+      "size_bytes": 1183,
+      "sha256": "d149c00b8c880f201614e6351524a7d4c681f5ef6818b3399d8edb0acc1bc827",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\DodgeMissile\\test\\pursue.yaml",
+      "source_sha256": "d149c00b8c880f201614e6351524a7d4c681f5ef6818b3399d8edb0acc1bc827",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/DodgeMissile/vsBaseline.yaml",
+      "size_bytes": 1322,
+      "sha256": "7537cfc3970cb4a8743fa939e8fff245a40f841d13990474980e8e184a960b94",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\DodgeMissile\\vsBaseline.yaml",
+      "source_sha256": "7537cfc3970cb4a8743fa939e8fff245a40f841d13990474980e8e184a960b94",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/NoWeapon/HierarchySelfplay.yaml",
+      "size_bytes": 1157,
+      "sha256": "5302b653f24d2a25c954a8fa34b5fc54a68f321e598aaf8ccc94a9a5d872649e",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\NoWeapon\\HierarchySelfplay.yaml",
+      "source_sha256": "5302b653f24d2a25c954a8fa34b5fc54a68f321e598aaf8ccc94a9a5d872649e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/NoWeapon/HumanSingleCombat.yaml",
+      "size_bytes": 1149,
+      "sha256": "a31a3a0dc9c2c613843439f95610cae211b722c8c8a62f1ef76c9b3d2b8e034a",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\NoWeapon\\HumanSingleCombat.yaml",
+      "source_sha256": "a31a3a0dc9c2c613843439f95610cae211b722c8c8a62f1ef76c9b3d2b8e034a",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/NoWeapon/Selfplay.yaml",
+      "size_bytes": 1144,
+      "sha256": "1251f5303b092d3f9e578cb98fb079be0e7fbcee7998aec5dc3354c634ef1376",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\NoWeapon\\Selfplay.yaml",
+      "source_sha256": "1251f5303b092d3f9e578cb98fb079be0e7fbcee7998aec5dc3354c634ef1376",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/NoWeapon/test/opposite.yaml",
+      "size_bytes": 1156,
+      "sha256": "b5047be758e4d90ae849c1e2153c1db433cc4e00949d9629a7a1a6ff3ed46a14",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\NoWeapon\\test\\opposite.yaml",
+      "source_sha256": "b5047be758e4d90ae849c1e2153c1db433cc4e00949d9629a7a1a6ff3ed46a14",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/NoWeapon/vsBaseline.yaml",
+      "size_bytes": 1185,
+      "sha256": "0e45f3ff425867dc319a79c6e1bf79e8d463f20ddda644728e121d0536797405",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\NoWeapon\\vsBaseline.yaml",
+      "source_sha256": "0e45f3ff425867dc319a79c6e1bf79e8d463f20ddda644728e121d0536797405",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/ShootMissile/HierarchySelfplay_nolimit.yaml",
+      "size_bytes": 1191,
+      "sha256": "10ba1e0dc693b90b99e8a6e8ba724eef7d660a7c17f6252c6f17317911a424b3",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\ShootMissile\\HierarchySelfplay_nolimit.yaml",
+      "source_sha256": "10ba1e0dc693b90b99e8a6e8ba724eef7d660a7c17f6252c6f17317911a424b3",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/ShootMissile/HierarchySelfplay.yaml",
+      "size_bytes": 1313,
+      "sha256": "1e3a9b5e42904dbcd81c4f2ee2a15619debe4686850a09314e83a38ccac60c15",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\ShootMissile\\HierarchySelfplay.yaml",
+      "source_sha256": "1e3a9b5e42904dbcd81c4f2ee2a15619debe4686850a09314e83a38ccac60c15",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/ShootMissile/HierarchyVsBaseline_nolimit.yaml",
+      "size_bytes": 1235,
+      "sha256": "d0287c9e2f96b49d2cabca8dd3dc6f0ccc6d9db667576001f8c4f1e26017d8b0",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\ShootMissile\\HierarchyVsBaseline_nolimit.yaml",
+      "source_sha256": "d0287c9e2f96b49d2cabca8dd3dc6f0ccc6d9db667576001f8c4f1e26017d8b0",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/ShootMissile/HierarchyVsBaseline.yaml",
+      "size_bytes": 1359,
+      "sha256": "9d9a7a807ebe58a8465e558d3d330bf97646fdcb97c95a17eeb04d70b3a1bb2b",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\ShootMissile\\HierarchyVsBaseline.yaml",
+      "source_sha256": "9d9a7a807ebe58a8465e558d3d330bf97646fdcb97c95a17eeb04d70b3a1bb2b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/1v1/ShootMissile/Selfplay.yaml",
+      "size_bytes": 1178,
+      "sha256": "9d0a1132f7b1e9e33a9872ae6e1385cf28323227688e35d85b25104f791ce745",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\1v1\\ShootMissile\\Selfplay.yaml",
+      "source_sha256": "9d0a1132f7b1e9e33a9872ae6e1385cf28323227688e35d85b25104f791ce745",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/HierarchySelfplay.yaml",
+      "size_bytes": 1484,
+      "sha256": "d7f86382af347e25c1d1d4e521632940028466799ad899aa093679217652d730",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\HierarchySelfplay.yaml",
+      "source_sha256": "d7f86382af347e25c1d1d4e521632940028466799ad899aa093679217652d730",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R3_Entity_NoWeapon.yaml",
+      "size_bytes": 1638,
+      "sha256": "5578db2a79417f742f048b322e75c73c6b517a901fda64dfdcfcabc952d7a4c6",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R3_Entity_NoWeapon.yaml",
+      "source_sha256": "5578db2a79417f742f048b322e75c73c6b517a901fda64dfdcfcabc952d7a4c6",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R3_NoWeapon.yaml",
+      "size_bytes": 2128,
+      "sha256": "047cb37e8f9f8042e55734ec2398d9d9be940896747e2d80928dfbffe5a4c06e",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R3_NoWeapon.yaml",
+      "source_sha256": "047cb37e8f9f8042e55734ec2398d9d9be940896747e2d80928dfbffe5a4c06e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R4_Entity_NoWeapon.yaml",
+      "size_bytes": 1829,
+      "sha256": "bb687a9ff285877729a67eb50a8ecc6fef560a3bc4d252923957d1b464cd1624",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R4_Entity_NoWeapon.yaml",
+      "source_sha256": "bb687a9ff285877729a67eb50a8ecc6fef560a3bc4d252923957d1b464cd1624",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R4_NoWeapon.yaml",
+      "size_bytes": 1707,
+      "sha256": "1b3c94fa5491ac106108dad8546991ae6f6e54ecda9d806503099d31f46508c6",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R4_NoWeapon.yaml",
+      "source_sha256": "1b3c94fa5491ac106108dad8546991ae6f6e54ecda9d806503099d31f46508c6",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R5_Entity_NoWeapon.yaml",
+      "size_bytes": 1835,
+      "sha256": "6b685b5b055a9cc63aae2df9ef4353f0967be83feaab2537ac617e068fe5a223",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R5_Entity_NoWeapon.yaml",
+      "source_sha256": "6b685b5b055a9cc63aae2df9ef4353f0967be83feaab2537ac617e068fe5a223",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R6_Entity_NoWeapon.yaml",
+      "size_bytes": 1905,
+      "sha256": "0942af2595f38b01d0cfedcda9925307289a5c3595e0747570aab22e6dc26f97",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R6_Entity_NoWeapon.yaml",
+      "source_sha256": "0942af2595f38b01d0cfedcda9925307289a5c3595e0747570aab22e6dc26f97",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/PBGR_R6_WEZ_Envelope_v1.yaml",
+      "size_bytes": 2181,
+      "sha256": "028d84ca72ae8fbcca8e9223c32f2a21070f11546629a7db5f59c9390998b49e",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\PBGR_R6_WEZ_Envelope_v1.yaml",
+      "source_sha256": "028d84ca72ae8fbcca8e9223c32f2a21070f11546629a7db5f59c9390998b49e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/NoWeapon/Selfplay.yaml",
+      "size_bytes": 1503,
+      "sha256": "fa1090fe3a03b810ceff3c150559806df756b82fc266956f1d8c3e77d6246c6b",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\NoWeapon\\Selfplay.yaml",
+      "source_sha256": "fa1090fe3a03b810ceff3c150559806df756b82fc266956f1d8c3e77d6246c6b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/ShootMissile/HierarchySelfplay.yaml",
+      "size_bytes": 1674,
+      "sha256": "e69368746c4e3b9da906192812eeed41b11dbd8df48a3a000819c8dc9029f36a",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\ShootMissile\\HierarchySelfplay.yaml",
+      "source_sha256": "e69368746c4e3b9da906192812eeed41b11dbd8df48a3a000819c8dc9029f36a",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/ShootMissile/PBGR_BRIC_V20.yaml",
+      "size_bytes": 2378,
+      "sha256": "7c93680f471bc5e4d526af83c418864751e48417959f678c4c28d6b758dc0b01",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\ShootMissile\\PBGR_BRIC_V20.yaml",
+      "source_sha256": "7c93680f471bc5e4d526af83c418864751e48417959f678c4c28d6b758dc0b01",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/ShootMissile/PBGR_P5_R1.yaml",
+      "size_bytes": 2255,
+      "sha256": "a72914b1e16616f477265744f9fd60062ccd6b7d943fae7ed2dbdfcb4db70594",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\ShootMissile\\PBGR_P5_R1.yaml",
+      "source_sha256": "a72914b1e16616f477265744f9fd60062ccd6b7d943fae7ed2dbdfcb4db70594",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/ShootMissile/PBGR_R1.yaml",
+      "size_bytes": 2176,
+      "sha256": "d759ced04197d9bdcc3ae9d1896fa9d26f51e291fb178cc0392d48a3d57dfd68",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\ShootMissile\\PBGR_R1.yaml",
+      "source_sha256": "d759ced04197d9bdcc3ae9d1896fa9d26f51e291fb178cc0392d48a3d57dfd68",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/ShootMissile/PBGR_V22_PLATFORM_CORRECT.yaml",
+      "size_bytes": 2019,
+      "sha256": "adfc1619424d834a4883eff99f87dd28093637bfa0e3fb9d7a98e6d60b6e0875",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\ShootMissile\\PBGR_V22_PLATFORM_CORRECT.yaml",
+      "source_sha256": "adfc1619424d834a4883eff99f87dd28093637bfa0e3fb9d7a98e6d60b6e0875",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/configs/2v2/ShootMissile/PBGR_V23_R1_CMFC.yaml",
+      "size_bytes": 2435,
+      "sha256": "0b3a6bd3c02cf43909de06629490d223a42eb4c73725bce19caf93edf4d0b1fc",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\configs\\2v2\\ShootMissile\\PBGR_V23_R1_CMFC.yaml",
+      "source_sha256": "0b3a6bd3c02cf43909de06629490d223a42eb4c73725bce19caf93edf4d0b1fc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/core/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\core\\__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/core/catalog.py",
+      "size_bytes": 27529,
+      "sha256": "b54fa98e6f7e17c3812e805dda1c4ca21c83cdd907a3350b58782a9c51fee607",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\core\\catalog.py",
+      "source_sha256": "b54fa98e6f7e17c3812e805dda1c4ca21c83cdd907a3350b58782a9c51fee607",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/core/pbgr_missile_simulator.py",
+      "size_bytes": 13533,
+      "sha256": "3e59a5a5be0129781d5f2e71bf947418c61b73a14d9a7dcf0cc9a2d9eec1c240",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\core\\pbgr_missile_simulator.py",
+      "source_sha256": "3e59a5a5be0129781d5f2e71bf947418c61b73a14d9a7dcf0cc9a2d9eec1c240",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/core/render_tacview.py",
+      "size_bytes": 6035,
+      "sha256": "4134bf92ccdc05b6cd215c13f0ab375a3f7b9453e2e43ed72b33cbc70f18d088",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\core\\render_tacview.py",
+      "source_sha256": "4134bf92ccdc05b6cd215c13f0ab375a3f7b9453e2e43ed72b33cbc70f18d088",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/core/simulatior.py",
+      "size_bytes": 19929,
+      "sha256": "8633b3b07828342495c41ae70e6db2d425a979dfd4de8c7bc55186e3aeceb3f8",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\core\\simulatior.py",
+      "source_sha256": "8633b3b07828342495c41ae70e6db2d425a979dfd4de8c7bc55186e3aeceb3f8",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/aircraft/f16/f16.xml",
+      "size_bytes": 61027,
+      "sha256": "78edd90534338204913c35ed50d7c222eecac1b83c454c73ad70bf6d4907ea2f",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\aircraft\\f16\\f16.xml",
+      "source_sha256": "78edd90534338204913c35ed50d7c222eecac1b83c454c73ad70bf6d4907ea2f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/aircraft/f16/INSTALL",
+      "size_bytes": 387,
+      "sha256": "88b83aa99bff3c2bac235bea0d04272ea9a6dd10424a700b4df6db45a8f53c49",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\aircraft\\f16\\INSTALL",
+      "source_sha256": "88b83aa99bff3c2bac235bea0d04272ea9a6dd10424a700b4df6db45a8f53c49",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/aircraft/f16/README",
+      "size_bytes": 3452,
+      "sha256": "be2da94456eff5af260cd9a17a534c24e9deb6ae8ccf456313aff42ebe433b35",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\aircraft\\f16\\README",
+      "source_sha256": "be2da94456eff5af260cd9a17a534c24e9deb6ae8ccf456313aff42ebe433b35",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/aircraft/f16/reset00.xml",
+      "size_bytes": 548,
+      "sha256": "738c7d0f3495b072bcdb570c203c92cbd7ae5af3c4213f01183a46dd861a0c85",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\aircraft\\f16\\reset00.xml",
+      "source_sha256": "738c7d0f3495b072bcdb570c203c92cbd7ae5af3c4213f01183a46dd861a0c85",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/aircraft/f16/Systems/hook.xml",
+      "size_bytes": 2311,
+      "sha256": "9067ea104820d9d2d2f438b0361cbfdc9cea28a7969bd46eaa540fd7d9dfdd62",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\aircraft\\f16\\Systems\\hook.xml",
+      "source_sha256": "9067ea104820d9d2d2f438b0361cbfdc9cea28a7969bd46eaa540fd7d9dfdd62",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/aircraft/f16/Systems/pushback.xml",
+      "size_bytes": 1192,
+      "sha256": "a3c0e2fc8a494b18b7158718cfc96d51fb34aac440965c0c73a1b7f33bb1a64b",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\aircraft\\f16\\Systems\\pushback.xml",
+      "source_sha256": "a3c0e2fc8a494b18b7158718cfc96d51fb34aac440965c0c73a1b7f33bb1a64b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/AUTHORS",
+      "size_bytes": 1690,
+      "sha256": "ca8556894da80f81f773893a9c1009021aac2972d7bb6a39c2f981b4fd00aa9a",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\AUTHORS",
+      "source_sha256": "ca8556894da80f81f773893a9c1009021aac2972d7bb6a39c2f981b4fd00aa9a",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/COPYING",
+      "size_bytes": 27032,
+      "sha256": "1e7e6bae5a5bde32f1ae5a7c37a082d1ab03cf89354f7f936ac40be9e39a6531",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\COPYING",
+      "source_sha256": "1e7e6bae5a5bde32f1ae5a7c37a082d1ab03cf89354f7f936ac40be9e39a6531",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/engine/direct.xml",
+      "size_bytes": 108,
+      "sha256": "f116b6f6d25d4b2b46c2f0faa713e85d0064db7a634105bc96e391fb52e4dde5",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\engine\\direct.xml",
+      "source_sha256": "f116b6f6d25d4b2b46c2f0faa713e85d0064db7a634105bc96e391fb52e4dde5",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/engine/F100-PW-229.xml",
+      "size_bytes": 3661,
+      "sha256": "92fd101fdcc60dc8f41f449a297e134419ff062f5293c2e58678fd07d8127e69",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\engine\\F100-PW-229.xml",
+      "source_sha256": "92fd101fdcc60dc8f41f449a297e134419ff062f5293c2e58678fd07d8127e69",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/data/README.md",
+      "size_bytes": 18049,
+      "sha256": "8097949929d0bfc6051a50dce1a86602be711500ed07de97941e2313b591ccb0",
+      "category": "physical_model_resource",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\data\\README.md",
+      "source_sha256": "8097949929d0bfc6051a50dce1a86602be711500ed07de97941e2313b591ccb0",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/envs/__init__.py",
+      "size_bytes": 143,
+      "sha256": "d28045284d71507fcb44116b8fcc61bfd3fb9d631596102e9e454dea8ecc0a57",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\envs\\__init__.py",
+      "source_sha256": "d28045284d71507fcb44116b8fcc61bfd3fb9d631596102e9e454dea8ecc0a57",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/envs/env_base.py",
+      "size_bytes": 11435,
+      "sha256": "62c8f61fc716e2c59984c7f240742ef5ff1be37b6b40cfd6b9a8f162b40f961f",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\envs\\env_base.py",
+      "source_sha256": "62c8f61fc716e2c59984c7f240742ef5ff1be37b6b40cfd6b9a8f162b40f961f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/envs/multiplecombat_env.py",
+      "size_bytes": 30951,
+      "sha256": "8035186100402642c9cc1dda04b69c1328bf90b54577029d34673a4636941d66",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\envs\\multiplecombat_env.py",
+      "source_sha256": "8035186100402642c9cc1dda04b69c1328bf90b54577029d34673a4636941d66",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/envs/singlecombat_env.py",
+      "size_bytes": 3978,
+      "sha256": "c7303cbebee7bcda3ee8af2e8c869dbead73733bbca21468ba8dad8483f65c2e",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\envs\\singlecombat_env.py",
+      "source_sha256": "c7303cbebee7bcda3ee8af2e8c869dbead73733bbca21468ba8dad8483f65c2e",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/envs/singlecontrol_env.py",
+      "size_bytes": 1971,
+      "sha256": "11781e6b4f79063e8feef54b07804ebdbf6a12e71841a1f5a2fa08533e2c54dc",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\envs\\singlecontrol_env.py",
+      "source_sha256": "11781e6b4f79063e8feef54b07804ebdbf6a12e71841a1f5a2fa08533e2c54dc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/human_agent/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\human_agent\\__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/human_agent/agent_base.py",
+      "size_bytes": 1995,
+      "sha256": "08ecfbfa66e5115f22191e3e912ef1a2ea1e23db808c384f40c8c844dc95a800",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\human_agent\\agent_base.py",
+      "source_sha256": "08ecfbfa66e5115f22191e3e912ef1a2ea1e23db808c384f40c8c844dc95a800",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/human_agent/HumanAgent.py",
+      "size_bytes": 6374,
+      "sha256": "fc2bcd3695bd9dbbd03d3526e08a229ebc092ada5be0155f3d52fad58ceb444a",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\human_agent\\HumanAgent.py",
+      "source_sha256": "fc2bcd3695bd9dbbd03d3526e08a229ebc092ada5be0155f3d52fad58ceb444a",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/human_task/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\human_task\\__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/human_task/HumanFreeFlyTask.py",
+      "size_bytes": 4773,
+      "sha256": "14aa45e87e93366ceb194024397efd10162fbdb6079a41266e78580bbcb35670",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\human_task\\HumanFreeFlyTask.py",
+      "source_sha256": "14aa45e87e93366ceb194024397efd10162fbdb6079a41266e78580bbcb35670",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/human_task/HumanSingleCombatTask.py",
+      "size_bytes": 4838,
+      "sha256": "b86ac65c48a8e5ab8bed6a4364d4b24302da5867b58feaac088d27c4b411fd6c",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\human_task\\HumanSingleCombatTask.py",
+      "source_sha256": "b86ac65c48a8e5ab8bed6a4364d4b24302da5867b58feaac088d27c4b411fd6c",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/model/baseline_actor.py",
+      "size_bytes": 3651,
+      "sha256": "0b937f5c52cf3a3847c9e6b3e076d7c908da372afb4430fb01f73d286732ba45",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\model\\baseline_actor.py",
+      "source_sha256": "0b937f5c52cf3a3847c9e6b3e076d7c908da372afb4430fb01f73d286732ba45",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/model/baseline_model.pt",
+      "size_bytes": 558234,
+      "sha256": "54e9c996d981aa1fa82c51664a1758afd04fee0b5539dd6ccb128795149dcf69",
+      "category": "fixed_runtime_controller",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\model\\baseline_model.pt",
+      "source_sha256": "54e9c996d981aa1fa82c51664a1758afd04fee0b5539dd6ccb128795149dcf69",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/model/baseline.py",
+      "size_bytes": 4168,
+      "sha256": "0ecf50373807e55c67484055605bdfa5c4bad29a3d43f50fc4d768d5d2bf4ac9",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\model\\baseline.py",
+      "source_sha256": "0ecf50373807e55c67484055605bdfa5c4bad29a3d43f50fc4d768d5d2bf4ac9",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/model/dodge_missile_model.pt",
+      "size_bytes": 700002,
+      "sha256": "b43200c82b083d63f9cec4c8d911130425c7d0b21bdd3ebf7d864741546c83e1",
+      "category": "fixed_runtime_controller",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\model\\dodge_missile_model.pt",
+      "source_sha256": "b43200c82b083d63f9cec4c8d911130425c7d0b21bdd3ebf7d864741546c83e1",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/__init__.py",
+      "size_bytes": 350,
+      "sha256": "a068e671cc94ab8e5913073a5b0561242244aef00ce84a8eb6b8e2d11ac15b4f",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\__init__.py",
+      "source_sha256": "a068e671cc94ab8e5913073a5b0561242244aef00ce84a8eb6b8e2d11ac15b4f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/altitude_reward.py",
+      "size_bytes": 2232,
+      "sha256": "4f8765b24db771fcec15d377ea7431ece2778ab1f972f88790ee573ff21f2aa2",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\altitude_reward.py",
+      "source_sha256": "4f8765b24db771fcec15d377ea7431ece2778ab1f972f88790ee573ff21f2aa2",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/event_driven_reward.py",
+      "size_bytes": 939,
+      "sha256": "09551b7784720db7aa2d7841648bf1f34f01fb421c6dcf69bae1c2a27843f32d",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\event_driven_reward.py",
+      "source_sha256": "09551b7784720db7aa2d7841648bf1f34f01fb421c6dcf69bae1c2a27843f32d",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/heading_reward.py",
+      "size_bytes": 1538,
+      "sha256": "a2566b64743b740f140aedc40af0817cdd109dff0b613a076f0d848855c0cd51",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\heading_reward.py",
+      "source_sha256": "a2566b64743b740f140aedc40af0817cdd109dff0b613a076f0d848855c0cd51",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/missile_posture_reward.py",
+      "size_bytes": 1547,
+      "sha256": "6081f9956be02fca40d5e30adff6e6e3e2048ece4ea9b1c7798cc2a71e217369",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\missile_posture_reward.py",
+      "source_sha256": "6081f9956be02fca40d5e30adff6e6e3e2048ece4ea9b1c7798cc2a71e217369",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/pbgr_reward_functions.py",
+      "size_bytes": 8316,
+      "sha256": "b796999b8e471c62c2b45ea50f1327866dc91cdb3b179a00fababc5b47805fe9",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\pbgr_reward_functions.py",
+      "source_sha256": "b796999b8e471c62c2b45ea50f1327866dc91cdb3b179a00fababc5b47805fe9",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/posture_reward.py",
+      "size_bytes": 5150,
+      "sha256": "36e9a79eb47d22156813ac298b8f673879bf512b06d1898d8e6f5dc6e6d396be",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\posture_reward.py",
+      "source_sha256": "36e9a79eb47d22156813ac298b8f673879bf512b06d1898d8e6f5dc6e6d396be",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/relative_altitude_reward.py",
+      "size_bytes": 1065,
+      "sha256": "9e24c8c2af05e036884b7d329e670d20cea5bbe8abd005dbd5301164847205da",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\relative_altitude_reward.py",
+      "source_sha256": "9e24c8c2af05e036884b7d329e670d20cea5bbe8abd005dbd5301164847205da",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/reward_function_base.py",
+      "size_bytes": 2407,
+      "sha256": "cbdedbbc431cdb2fcfe220a0c24a601f0c5ef60563bb71be000ab687e171bdaf",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\reward_function_base.py",
+      "source_sha256": "cbdedbbc431cdb2fcfe220a0c24a601f0c5ef60563bb71be000ab687e171bdaf",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/reward_functions/shoot_penalty_reward.py",
+      "size_bytes": 1006,
+      "sha256": "8e214baa70edf34ffacc37976b39c22eb50fd7f309b096e98532ff873af799bd",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\reward_functions\\shoot_penalty_reward.py",
+      "source_sha256": "8e214baa70edf34ffacc37976b39c22eb50fd7f309b096e98532ff873af799bd",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/__init__.py",
+      "size_bytes": 294,
+      "sha256": "4c9fd4610e43d3c7abbb8ee957b3530f12f4fd4c72bc4cdcd43914c4b57ed7c6",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\__init__.py",
+      "source_sha256": "4c9fd4610e43d3c7abbb8ee957b3530f12f4fd4c72bc4cdcd43914c4b57ed7c6",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/heading_task.py",
+      "size_bytes": 4754,
+      "sha256": "3421eb79c00a2825679bf9d184bf4b2c1eea5551d12671d326fff29b23d8587c",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\heading_task.py",
+      "source_sha256": "3421eb79c00a2825679bf9d184bf4b2c1eea5551d12671d326fff29b23d8587c",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/multiplecombat_task.py",
+      "size_bytes": 13868,
+      "sha256": "66e0308d52b26728fd4d553e16e033d3a19ee54edaa1a4d78149fa610d2ca3ee",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\multiplecombat_task.py",
+      "source_sha256": "66e0308d52b26728fd4d553e16e033d3a19ee54edaa1a4d78149fa610d2ca3ee",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/pbgr_multiplecombat_task.py",
+      "size_bytes": 40791,
+      "sha256": "4265ca204f1f6ba2e8f48f359eee23a7b77f87c77f5568497bb4ef9dc50239ff",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\pbgr_multiplecombat_task.py",
+      "source_sha256": "4265ca204f1f6ba2e8f48f359eee23a7b77f87c77f5568497bb4ef9dc50239ff",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/singlecombat_task.py",
+      "size_bytes": 22604,
+      "sha256": "89254d1eb0f145a73dfdff71e1fecf3e13597baa82651107510fed0de6d09df8",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\singlecombat_task.py",
+      "source_sha256": "89254d1eb0f145a73dfdff71e1fecf3e13597baa82651107510fed0de6d09df8",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/singlecombat_with_missle_task.py",
+      "size_bytes": 10553,
+      "sha256": "b1fa3c5e383b7ed2fd735fbe066e323d64b273785f0fdbe7df2630cec7d06845",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\singlecombat_with_missle_task.py",
+      "source_sha256": "b1fa3c5e383b7ed2fd735fbe066e323d64b273785f0fdbe7df2630cec7d06845",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/task_base.py",
+      "size_bytes": 3881,
+      "sha256": "f95685bef88a7ffe678c078e45adfdb1b7982c2c8a2fa4d5d31614699a832747",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\task_base.py",
+      "source_sha256": "f95685bef88a7ffe678c078e45adfdb1b7982c2c8a2fa4d5d31614699a832747",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/tasks/weapon_contract.py",
+      "size_bytes": 14153,
+      "sha256": "38f4121591707558220a89fe64374e42f870fc9fff3fe9f9b0e209f0efb5aad4",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\tasks\\weapon_contract.py",
+      "source_sha256": "38f4121591707558220a89fe64374e42f870fc9fff3fe9f9b0e209f0efb5aad4",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/__init__.py",
+      "size_bytes": 217,
+      "sha256": "85ecacf8bdd56afac71b42a4ff1818815895f41649141366ea3255b1e98be885",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\__init__.py",
+      "source_sha256": "85ecacf8bdd56afac71b42a4ff1818815895f41649141366ea3255b1e98be885",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/extreme_state.py",
+      "size_bytes": 968,
+      "sha256": "4e4f69700fd3827c4ef8c0944340097ba8c16b01359828f163a67341beed35dc",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\extreme_state.py",
+      "source_sha256": "4e4f69700fd3827c4ef8c0944340097ba8c16b01359828f163a67341beed35dc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/low_altitude.py",
+      "size_bytes": 1026,
+      "sha256": "bc7dea50625a8c0913680d4b1199a3cf9ddca81c28a9feeec03b33aa7686a462",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\low_altitude.py",
+      "source_sha256": "bc7dea50625a8c0913680d4b1199a3cf9ddca81c28a9feeec03b33aa7686a462",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/overload.py",
+      "size_bytes": 1758,
+      "sha256": "1a041aa8b2a18bef4280876b8eb8a46df9c3c3fc64731e9b4ef9101237281980",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\overload.py",
+      "source_sha256": "1a041aa8b2a18bef4280876b8eb8a46df9c3c3fc64731e9b4ef9101237281980",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/safe_return.py",
+      "size_bytes": 1694,
+      "sha256": "eda44c3ff99eb4543c80ba61bb1756f4b3f832bef80a60ceff9e9072e532909d",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\safe_return.py",
+      "source_sha256": "eda44c3ff99eb4543c80ba61bb1756f4b3f832bef80a60ceff9e9072e532909d",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/termination_condition_base.py",
+      "size_bytes": 707,
+      "sha256": "62aadf8d3862f183327a29f16aa2a7c18e98736aa6660084e93902425747e140",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\termination_condition_base.py",
+      "source_sha256": "62aadf8d3862f183327a29f16aa2a7c18e98736aa6660084e93902425747e140",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/timeout.py",
+      "size_bytes": 861,
+      "sha256": "3823a8b7569c16b98967b4bda3230c3aaa4c3ebcf1b0127215ad47c86585a343",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\timeout.py",
+      "source_sha256": "3823a8b7569c16b98967b4bda3230c3aaa4c3ebcf1b0127215ad47c86585a343",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/termination_conditions/unreach_heading.py",
+      "size_bytes": 3620,
+      "sha256": "400578d4691adb046ef3d813487a9236c9bedf9216477984ddb4d8859d9f6e94",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\termination_conditions\\unreach_heading.py",
+      "source_sha256": "400578d4691adb046ef3d813487a9236c9bedf9216477984ddb4d8859d9f6e94",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/test/test_baseline_use_env.py",
+      "size_bytes": 7581,
+      "sha256": "35152461854ac316e8fa5c30d0e12c406bc43d8e915e648fb55062400168009f",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\test\\test_baseline_use_env.py",
+      "source_sha256": "35152461854ac316e8fa5c30d0e12c406bc43d8e915e648fb55062400168009f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/test/test_baseline_use_obs.py",
+      "size_bytes": 5567,
+      "sha256": "109c61e7ce0a94ebd3663b7f62026516735db187d6efebd15f745df2b6cb3381",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\test\\test_baseline_use_obs.py",
+      "source_sha256": "109c61e7ce0a94ebd3663b7f62026516735db187d6efebd15f745df2b6cb3381",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/utils/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\utils\\__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "envs/JSBSim/utils/utils.py",
+      "size_bytes": 4264,
+      "sha256": "4757bd03b8c43b129f56ffe5021d563a8383d8ba38ce4518fa59cc738bedd325",
+      "category": "environment_source_or_config",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\envs\\JSBSim\\utils\\utils.py",
+      "source_sha256": "4757bd03b8c43b129f56ffe5021d563a8383d8ba38ce4518fa59cc738bedd325",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "evaluation/__init__.py",
+      "size_bytes": 172,
+      "sha256": "3ecc61e0f521e7d788415affb50d3250544e6c689b9779d7ff9d737f04e207b6",
+      "category": "deterministic_geometry_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\evaluation\\__init__.py",
+      "source_sha256": "b28edb74dd25d947808b27e38e302b0c6bb8a469e78aa8e0c4393fb1c6b55277",
+      "copied_byte_identical": false
+    },
+    {
+      "path": "evaluation/frozen_geometry.py",
+      "size_bytes": 13194,
+      "sha256": "778d159f74666901e64c1ab893a8fb3fddcc968558b23328d7a01a5db3c0cff9",
+      "category": "deterministic_geometry_dependency",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\evaluation\\frozen_geometry.py",
+      "source_sha256": "778d159f74666901e64c1ab893a8fb3fddcc968558b23328d7a01a5db3c0cff9",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "LICENSE",
+      "size_bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "category": "license_or_packaging",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\LICENSE",
+      "source_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "requirements-environment.txt",
+      "size_bytes": 223,
+      "sha256": "03f304fa673ed1d40b329e0fb8723639b599aa695174533e719c8fa2a0922501",
+      "category": "license_or_packaging",
+      "source_path": null,
+      "source_sha256": null,
+      "copied_byte_identical": null
+    },
+    {
+      "path": "tests/__init__.py",
+      "size_bytes": 42,
+      "sha256": "54f1338c1f574e3e032b158f7f6a4f57dff57b50a101de05db85f0ecd3481517",
+      "category": "environment_regression_test",
+      "source_path": null,
+      "source_sha256": null,
+      "copied_byte_identical": null
+    },
+    {
+      "path": "tests/cosr/__init__.py",
+      "size_bytes": 42,
+      "sha256": "923de88616aa3317b9c2e04bc2ff1a4b8a413389634c78e83662fb30dddaec3f",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\__init__.py",
+      "source_sha256": "854a2ce56bbebb3a19a8b1ac674c12978f6cadd18e11fc5a52351e62939a21a7",
+      "copied_byte_identical": false
+    },
+    {
+      "path": "tests/cosr/conftest.py",
+      "size_bytes": 507,
+      "sha256": "bcc3f9064dc8d7af472b5db2fe87795fa56575895b9247fe6bc4005bc36ccce6",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\conftest.py",
+      "source_sha256": "d240ce603ee517a283b69a485eb80940f33d215ace00bfa85fd2ffefcadfa653",
+      "copied_byte_identical": false
+    },
+    {
+      "path": "tests/cosr/physical_helpers.py",
+      "size_bytes": 1092,
+      "sha256": "6fac3cf3fe9bb39f0aee783d0116359a0bd741ef0dcc57255e765f7772c1fc23",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\physical_helpers.py",
+      "source_sha256": "6fac3cf3fe9bb39f0aee783d0116359a0bd741ef0dcc57255e765f7772c1fc23",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_cosr_env_episode_terminal.py",
+      "size_bytes": 853,
+      "sha256": "b3e30aac083b966b18af455bdeecea2e4b792750270af21dc9f4816e1c201462",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_cosr_env_episode_terminal.py",
+      "source_sha256": "b3e30aac083b966b18af455bdeecea2e4b792750270af21dc9f4816e1c201462",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_cosr_env_physical_step.py",
+      "size_bytes": 764,
+      "sha256": "931f87ce12fc96490d785c62922841d9b0d5a2f7ec38c4fe1574e5e73b8c404f",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_cosr_env_physical_step.py",
+      "source_sha256": "931f87ce12fc96490d785c62922841d9b0d5a2f7ec38c4fe1574e5e73b8c404f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_cosr_env_reset.py",
+      "size_bytes": 572,
+      "sha256": "ac1a96cf0e4d014038cf534f98a9e775350352cacb49cfe874629e4aa9c57b8f",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_cosr_env_reset.py",
+      "source_sha256": "ac1a96cf0e4d014038cf534f98a9e775350352cacb49cfe874629e4aa9c57b8f",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_lag_state_mapper.py",
+      "size_bytes": 1213,
+      "sha256": "c9b964862d676518acc23c68f75c8db66ef5194e116fc60c97bee13ae7f4283d",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_lag_state_mapper.py",
+      "source_sha256": "c9b964862d676518acc23c68f75c8db66ef5194e116fc60c97bee13ae7f4283d",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_pbgr_missile_simulator.py",
+      "size_bytes": 4429,
+      "sha256": "539e32656262e4647b05b9494ae2ed651afa2cfbf5218bda5aff7c51111e62cd",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_pbgr_missile_simulator.py",
+      "source_sha256": "539e32656262e4647b05b9494ae2ed651afa2cfbf5218bda5aff7c51111e62cd",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_pbgr_weapon_observation.py",
+      "size_bytes": 15089,
+      "sha256": "af7707c1ef0ae533a1a267173ef77caf21ffdbf2e9824583a0de9ff2c29857ba",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_pbgr_weapon_observation.py",
+      "source_sha256": "af7707c1ef0ae533a1a267173ef77caf21ffdbf2e9824583a0de9ff2c29857ba",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_positive_autogun_jsbsim_smoke.py",
+      "size_bytes": 1315,
+      "sha256": "037967125590dc62ef4bc031a6ffe59385c20dbabd0298b8d6899cbecb849e6b",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_positive_autogun_jsbsim_smoke.py",
+      "source_sha256": "037967125590dc62ef4bc031a6ffe59385c20dbabd0298b8d6899cbecb849e6b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_side_symmetry.py",
+      "size_bytes": 669,
+      "sha256": "1ef7c1e27d854942a2d4600af4eb860e141f08d2a131f3f0dee690c6c4881699",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_side_symmetry.py",
+      "source_sha256": "1ef7c1e27d854942a2d4600af4eb860e141f08d2a131f3f0dee690c6c4881699",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/cosr/test_unilateral_autogun_jsbsim_smoke.py",
+      "size_bytes": 877,
+      "sha256": "da22643718221c2edc954ac681ec47416db78748832cef38804011cb6eb32f2a",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\cosr\\test_unilateral_autogun_jsbsim_smoke.py",
+      "source_sha256": "da22643718221c2edc954ac681ec47416db78748832cef38804011cb6eb32f2a",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/test_formal_reward_contract.py",
+      "size_bytes": 3718,
+      "sha256": "37f52e4e906f857fac1b350e71871562a3f15075f3d3ad3d220f3fe23c70851b",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\test_formal_reward_contract.py",
+      "source_sha256": "37f52e4e906f857fac1b350e71871562a3f15075f3d3ad3d220f3fe23c70851b",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "tests/test_pbgr_no_weapon_entity_env.py",
+      "size_bytes": 1666,
+      "sha256": "008d4a727959adcaa01e747b4f3480a9d7b4957c95a8f26744d93781192a7fdc",
+      "category": "environment_regression_test",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\tests\\test_pbgr_no_weapon_entity_env.py",
+      "source_sha256": "008d4a727959adcaa01e747b4f3480a9d7b4957c95a8f26744d93781192a7fdc",
+      "copied_byte_identical": true
+    },
+    {
+      "path": "UPSTREAM.md",
+      "size_bytes": 1073,
+      "sha256": "312d16b3d91e7e1166c867b04c60d73f80484d3d23c18ca6389665f402941673",
+      "category": "license_or_packaging",
+      "source_path": "D:\\Ph.D\\毕业\\AC-WVR-1012\\LAG-master\\UPSTREAM.md",
+      "source_sha256": "312d16b3d91e7e1166c867b04c60d73f80484d3d23c18ca6389665f402941673",
+      "copied_byte_identical": true
+    }
+  ]
+}

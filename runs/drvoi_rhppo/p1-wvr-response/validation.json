@@ -1,0 +1,105 @@
+{
+  "suite": "DRVOI-RHPPO-V6-WVR-response-P1",
+  "scientific_result": false,
+  "context": "frozen RHPPO belief state",
+  "checkpoint": "runs/drvoi_rhppo/p0-rhppo-smoke-batched/latest.pt",
+  "seed": 6185,
+  "samples": 36799,
+  "split_sizes": {
+    "train": 25306,
+    "calibration": 5316,
+    "test": 6177
+  },
+  "split_episode_counts": {
+    "train": 111,
+    "calibration": 23,
+    "test": 26
+  },
+  "training": {
+    "epochs": 20,
+    "bootstrap_unit": "episode",
+    "initial_function_max_difference": 0.0,
+    "conditioned_loss_initial_final": [
+      9.465376680547541,
+      -18.245966477827594
+    ],
+    "no_action_loss_initial_final": [
+      9.475289431485264,
+      -18.416859193281695
+    ]
+  },
+  "gates": {
+    "G1_action_conditioning": {
+      "test_samples": 6177,
+      "test_episodes": 26,
+      "mean_delta_nll": -1.7259093523025513,
+      "bootstrap_ci95": [
+        -1.9278833031654359,
+        -1.5139720529317857
+      ],
+      "bootstrap_unit": "episode",
+      "stratified_delta_nll": {
+        "hold": {
+          "early": -1.6925039291381836,
+          "middle": -2.1345877647399902,
+          "late": -2.2690186500549316
+        },
+        "pursuit": {
+          "early": -1.7134524583816528,
+          "middle": -1.5201045274734497,
+          "late": -1.337256669998169
+        },
+        "evasive": {
+          "early": -1.0850831270217896,
+          "middle": -1.9313699007034302,
+          "late": -2.278877019882202
+        }
+      },
+      "action_permutation_gain": 0.001335378736257553,
+      "action_permutation_ci95": [
+        -0.00014388303388841449,
+        0.002822470664978024
+      ],
+      "action_permutation_negative_control_pass": false,
+      "pass": false
+    },
+    "G2_probability_calibration": {
+      "continuous_90_coverage": 0.9081268906593323,
+      "continuous_rmse": 0.16695892810821533,
+      "side_ece": 0.08997727185487747,
+      "side_brier": 0.08643253892660141,
+      "side_accuracy": 0.9677836894989014,
+      "side_mean_confidence": 0.8779734969139099,
+      "side_class_frequency": [
+        0.48680588603019714,
+        0.0,
+        0.5131940841674805
+      ],
+      "side_f1_by_class": [
+        0.9661737084388733,
+        0.0,
+        0.9692474007606506
+      ],
+      "side_macro_f1": 0.6451403697331747,
+      "variance_scale_by_dimension": [
+        0.09212333709001541,
+        0.05000000074505806,
+        0.16804058849811554,
+        0.10908622294664383,
+        0.31527799367904663,
+        0.05000000074505806,
+        0.24536707997322083,
+        0.05000000074505806,
+        0.9022356867790222,
+        0.3073901832103729,
+        0.9515371918678284,
+        0.07070831954479218
+      ],
+      "side_temperature": 0.009999999776482582,
+      "calibration_side_ece": 0.08019354939460754,
+      "calibration_side_nll": 0.21308840811252594,
+      "pass": false
+    }
+  },
+  "all_gates_pass": false
+}
