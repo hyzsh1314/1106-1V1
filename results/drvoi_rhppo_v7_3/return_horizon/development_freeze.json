@@ -1,0 +1,13 @@
+{
+  "suite": "DRVOI-RHPPO-V7.3-development-freeze",
+  "decision": "RETURN_TARGET_NO_GO",
+  "selected_horizon": null,
+  "formal_test_accessed": false,
+  "formal_test_generation_authorized": false,
+  "response_target_development_authorized": false,
+  "p1q_authorized": false,
+  "o0_authorized": false,
+  "long_training_authorized": false,
+  "source": "results/drvoi_rhppo_v7_3/return_horizon/return_target_no_go.json",
+  "source_sha256": "c3f93048f5a34efe1068dd1406b14b5f4bdefc52edac0868b9b755728f1ac78a"
+}

@@ -1,0 +1,72 @@
+{
+  "protocol_version": "DRVOI-RHPPO-V7.3-return-horizon-1",
+  "parent_freeze": {
+    "source": "results/drvoi_rhppo_v7_2/state_sufficiency/development_freeze.json",
+    "required_decision": "STATE_TARGET_NO_GO"
+  },
+  "authorization": {
+    "development_collection": true,
+    "return_horizon_screen": true,
+    "response_training": false,
+    "formal_test_generation": false,
+    "p1q": false,
+    "o0": false,
+    "long_training": false
+  },
+  "frozen_b0": {
+    "seed": 85,
+    "checkpoint": "runs/drvoi_rhppo_v7/b0-1m/seed85/latest.pt"
+  },
+  "data": {
+    "train_seeds": [63185, 64185],
+    "validation_seeds": [65185],
+    "formal_test_seeds": [66185],
+    "warmup_decisions": [3, 6, 12, 18],
+    "train_contexts_per_horizon": 96,
+    "validation_contexts_per_horizon": 24,
+    "formal_test_contexts_per_horizon": 24,
+    "actions": 90,
+    "gamma": 0.99,
+    "return_horizons": [3, 12, 30, 120],
+    "include_full_episode_return": true,
+    "continuation_policy": "deterministic_b0_seed85",
+    "common_random_numbers": true
+  },
+  "representations": {
+    "registered_v7_1": {
+      "dimension": 281,
+      "role": "failure_baseline"
+    },
+    "full_observation": {
+      "dimension": 308,
+      "role": "response_predictable_candidate"
+    },
+    "mechanistic_oracle": {
+      "dimension": 423,
+      "role": "target_learnability_upper_bound",
+      "diagnostic_only": true
+    }
+  },
+  "critic": {
+    "architecture": "joint_dueling_v1",
+    "epochs": 250,
+    "patience": 30,
+    "batch_contexts": 64,
+    "learning_rate": 0.0003,
+    "raw_value_loss_weight": 1.0,
+    "centered_advantage_loss_weight": 2.0,
+    "soft_argmax_loss_weight": 0.5,
+    "soft_argmax_temperature": 0.10
+  },
+  "gates": {
+    "pairwise_accuracy_min": 0.60,
+    "pairwise_accuracy_ci_lower_min": 0.50,
+    "normalized_argmax_regret_max": 0.10,
+    "must_outperform_random_regret": true,
+    "minimum_research_horizon": 30,
+    "selection": "largest_passing_horizon",
+    "oracle_must_pass_selected_horizon": true,
+    "full_observation_must_pass_selected_horizon": true
+  },
+  "output_root": "runs/drvoi_rhppo_v7_3/return-horizon"
+}

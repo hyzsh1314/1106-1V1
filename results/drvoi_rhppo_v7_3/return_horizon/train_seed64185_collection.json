@@ -1,0 +1,26 @@
+{
+  "suite": "DRVOI-RHPPO-V7.3-return-horizon-collection",
+  "protocol_version": "DRVOI-RHPPO-V7.3-return-horizon-1",
+  "scientific_result": false,
+  "split": "train",
+  "collection_seed": 64185,
+  "contexts": 384,
+  "actions_per_context": 90,
+  "legal_action_values": 17280,
+  "return_horizons": [
+    3,
+    12,
+    30,
+    120
+  ],
+  "includes_full_episode": true,
+  "representations": [
+    "registered_v7_1",
+    "full_observation",
+    "mechanistic_oracle"
+  ],
+  "contains_formal_test": false,
+  "common_random_numbers": true,
+  "config_sha256": "2dd3e6191878f941368d5df83fa060818cd43fcfa5ace14a0aa53044e9145b40",
+  "collector_sha256": "6ee5985afedfafc9ca88f3b9b27804677a2526f6165340c787e4cb749c20153b"
+}

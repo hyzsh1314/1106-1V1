@@ -1,0 +1,186 @@
+{
+  "suite": "DRVOI-RHPPO-V7.3-return-target-no-go",
+  "protocol_version": "DRVOI-RHPPO-V7.3-return-horizon-1",
+  "scientific_result": false,
+  "formal_test_accessed": false,
+  "formal_test_generated": false,
+  "train_contexts": 768,
+  "validation_contexts": 96,
+  "matrix": {
+    "3": {
+      "registered_v7_1": {
+        "pairwise_accuracy": 0.5743924379348755,
+        "pairwise_accuracy_ci95": [
+          0.5551506534218789,
+          0.5930600732564926
+        ],
+        "normalized_argmax_regret": 0.3555837614212578,
+        "random_normalized_argmax_regret": 0.5926630165874182,
+        "all_gates_pass": false
+      },
+      "full_observation": {
+        "pairwise_accuracy": 0.5768319964408875,
+        "pairwise_accuracy_ci95": [
+          0.5547601416707039,
+          0.5989998027682304
+        ],
+        "normalized_argmax_regret": 0.35276768533519015,
+        "random_normalized_argmax_regret": 0.47581079094379675,
+        "all_gates_pass": false
+      },
+      "mechanistic_oracle": {
+        "pairwise_accuracy": 0.5792307257652283,
+        "pairwise_accuracy_ci95": [
+          0.5591356858611107,
+          0.5992890939116478
+        ],
+        "normalized_argmax_regret": 0.37950311959260336,
+        "random_normalized_argmax_regret": 0.43810814426160505,
+        "all_gates_pass": false
+      }
+    },
+    "12": {
+      "registered_v7_1": {
+        "pairwise_accuracy": 0.6544239521026611,
+        "pairwise_accuracy_ci95": [
+          0.6246496096253396,
+          0.6832676991820336
+        ],
+        "normalized_argmax_regret": 0.27125493322849553,
+        "random_normalized_argmax_regret": 0.5341168716210328,
+        "all_gates_pass": false
+      },
+      "full_observation": {
+        "pairwise_accuracy": 0.6390395760536194,
+        "pairwise_accuracy_ci95": [
+          0.6112855970859528,
+          0.6661298528313637
+        ],
+        "normalized_argmax_regret": 0.2711211308273202,
+        "random_normalized_argmax_regret": 0.4922282559188413,
+        "all_gates_pass": false
+      },
+      "mechanistic_oracle": {
+        "pairwise_accuracy": 0.62153559923172,
+        "pairwise_accuracy_ci95": [
+          0.5897419780492783,
+          0.6534474790096283
+        ],
+        "normalized_argmax_regret": 0.327342401680653,
+        "random_normalized_argmax_regret": 0.5326618761270462,
+        "all_gates_pass": false
+      }
+    },
+    "30": {
+      "registered_v7_1": {
+        "pairwise_accuracy": 0.5805960297584534,
+        "pairwise_accuracy_ci95": [
+          0.5545495733618736,
+          0.6081987619400024
+        ],
+        "normalized_argmax_regret": 0.31801654883232305,
+        "random_normalized_argmax_regret": 0.47836612167157,
+        "all_gates_pass": false
+      },
+      "full_observation": {
+        "pairwise_accuracy": 0.5874290466308594,
+        "pairwise_accuracy_ci95": [
+          0.5572913378477097,
+          0.617523330450058
+        ],
+        "normalized_argmax_regret": 0.33055169969884446,
+        "random_normalized_argmax_regret": 0.4490318104932764,
+        "all_gates_pass": false
+      },
+      "mechanistic_oracle": {
+        "pairwise_accuracy": 0.5816496014595032,
+        "pairwise_accuracy_ci95": [
+          0.5582609832286834,
+          0.6049898400902748
+        ],
+        "normalized_argmax_regret": 0.3063226598775752,
+        "random_normalized_argmax_regret": 0.4486363973010157,
+        "all_gates_pass": false
+      }
+    },
+    "120": {
+      "registered_v7_1": {
+        "pairwise_accuracy": 0.49999189376831055,
+        "pairwise_accuracy_ci95": [
+          0.4794017940759659,
+          0.5197363466024398
+        ],
+        "normalized_argmax_regret": 0.38241586877561956,
+        "random_normalized_argmax_regret": 0.4126008294206411,
+        "all_gates_pass": false
+      },
+      "full_observation": {
+        "pairwise_accuracy": 0.5110678672790527,
+        "pairwise_accuracy_ci95": [
+          0.48750696927309034,
+          0.535287182033062
+        ],
+        "normalized_argmax_regret": 0.3519761311498926,
+        "random_normalized_argmax_regret": 0.382096938516602,
+        "all_gates_pass": false
+      },
+      "mechanistic_oracle": {
+        "pairwise_accuracy": 0.5197532176971436,
+        "pairwise_accuracy_ci95": [
+          0.5003696188330651,
+          0.5405622363090515
+        ],
+        "normalized_argmax_regret": 0.34324997248146144,
+        "random_normalized_argmax_regret": 0.4608971597163786,
+        "all_gates_pass": false
+      }
+    },
+    "full": {
+      "registered_v7_1": {
+        "pairwise_accuracy": 0.502105712890625,
+        "pairwise_accuracy_ci95": [
+          0.4799933061003685,
+          0.5234332025051117
+        ],
+        "normalized_argmax_regret": 0.4485185334266008,
+        "random_normalized_argmax_regret": 0.5349481196895689,
+        "all_gates_pass": false
+      },
+      "full_observation": {
+        "pairwise_accuracy": 0.5217551589012146,
+        "pairwise_accuracy_ci95": [
+          0.5031470268964767,
+          0.5418192178010941
+        ],
+        "normalized_argmax_regret": 0.445218084469126,
+        "random_normalized_argmax_regret": 0.5285006338205076,
+        "all_gates_pass": false
+      },
+      "mechanistic_oracle": {
+        "pairwise_accuracy": 0.5252975225448608,
+        "pairwise_accuracy_ci95": [
+          0.5061849310994149,
+          0.5435636267066002
+        ],
+        "normalized_argmax_regret": 0.40273136738530707,
+        "random_normalized_argmax_regret": 0.5146142505482468,
+        "all_gates_pass": false
+      }
+    }
+  },
+  "decision": "RETURN_TARGET_NO_GO",
+  "selected_horizon": null,
+  "diagnosis": "The 12-decision target improves pairwise ordering but fails argmax regret; 30/120/full targets progressively lose action identifiability. No horizon satisfies both the oracle and response-predictable representation gates.",
+  "response_target_development_authorized": false,
+  "formal_test_generation_authorized": false,
+  "p1q_authorized": false,
+  "o0_authorized": false,
+  "long_training_authorized": false,
+  "artifact_sha256": {
+    "development_validation": "9895362a67d6c784a2fa4551c93275754f9ce6cefb1c5265bbe581fbfbc721cb",
+    "config": "2dd3e6191878f941368d5df83fa060818cd43fcfa5ace14a0aa53044e9145b40",
+    "train_seed63185": "72e7e85a03c43f533140fda514447f01ad745db78e921baeb3a695dc1cf8e0f8",
+    "train_seed64185": "607371c7b752426e3bf0c4d2b1101fce853e302e9145a2c274c85ddff77b4439",
+    "validation_seed65185": "3b922f66811a7d1f1bd7b312f3b14d00cbd9762fe3ee7b4bef832fc0984f1a16"
+  }
+}
