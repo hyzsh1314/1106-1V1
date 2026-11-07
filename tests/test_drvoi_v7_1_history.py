@@ -49,3 +49,24 @@ def test_v7_1_response_accepts_three_step_action_history():
     means, variances = model(torch.randn(4, 120), torch.zeros(4, 39))
     assert means.shape == variances.shape == (2, 4, 12)
     assert model.action_dim == 39
+
+
+def test_vector_history_preview_matches_append_without_mutation():
+    preview_buffer = VectorHistoryBuffer(2)
+    append_buffer = VectorHistoryBuffer(2)
+    first_obs = torch.ones(2, 39)
+    first_action = actions(2)
+    preview_buffer.append(first_obs, first_action)
+    append_buffer.append(first_obs, first_action)
+    before_observations = preview_buffer.observations.clone()
+    before_actions = preview_buffer.actions.clone()
+    next_obs = 2.0 * torch.ones(2, 39)
+    next_action = actions(2).flip(0)
+    reset = torch.tensor([True, False])
+    preview = preview_buffer.preview(next_obs, next_action, reset=reset)
+    appended = append_buffer.append(next_obs, next_action, reset=reset)
+    assert torch.equal(preview.observations, appended.observations)
+    assert torch.equal(preview.actions, appended.actions)
+    assert torch.equal(preview.valid, appended.valid)
+    assert torch.equal(preview_buffer.observations, before_observations)
+    assert torch.equal(preview_buffer.actions, before_actions)

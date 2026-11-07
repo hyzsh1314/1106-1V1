@@ -38,8 +38,9 @@ def main() -> None:
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
     payload = torch.load(args.checkpoint, map_location=device, weights_only=False)
-    if payload.get("algorithm") != "v7_b0_extrinsic_rhppo":
-        raise ValueError("checkpoint is not a V7 frozen B0")
+    if payload.get("algorithm") not in {
+            "v7_b0_extrinsic_rhppo", "mods_drvoi_rhppo"}:
+        raise ValueError("checkpoint is not a compatible recurrent WVR policy")
     model = RecurrentMultiDiscreteActorCritic(
         obs_dim=int(payload["obs_dim"]),
         hidden_size=int(payload["hidden_size"]),

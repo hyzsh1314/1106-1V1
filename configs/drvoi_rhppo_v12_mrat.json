@@ -1,0 +1,105 @@
+{
+  "protocol_version": "MRAT-RHPPO-V12-WVR-1",
+  "scientific_result": false,
+  "algorithm": "mrat_rhppo",
+  "method": "model_based_reachability_arbitration_and_termination",
+  "environment": {
+    "sim_freq_hz": 60,
+    "substeps_per_decision": 12,
+    "num_envs": 96,
+    "observation_version": "v4",
+    "reward_mode": "competitive",
+    "attack_quality_weight": 0.0,
+    "use_dynamic_launch_envelope": true,
+    "max_episode_steps": 1000,
+    "missiles_per_aircraft": 2
+  },
+  "budget": {
+    "total_online_environment_decisions": 10000000,
+    "initial_v9_environment_decisions": 1007616,
+    "count_initial_checkpoint_in_total": true,
+    "count_a1_main_trajectory_decisions_in_total": true,
+    "report_model_branch_decisions_separately": true
+  },
+  "training": {
+    "development_seeds": [85, 185, 285],
+    "formal_seeds": [85, 185, 285, 385, 485],
+    "num_envs": 96,
+    "rollout_steps": 256,
+    "epochs": 2,
+    "sequence_length": 64,
+    "burn_in": 20,
+    "chunks_per_minibatch": 16,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_ratio": 0.2,
+    "router_learning_rate": 0.0002,
+    "low_level_learning_rate": 0.00002,
+    "router_entropy_coef": 0.001,
+    "router_target_kl": 0.015,
+    "intervention_cost_candidates": [0.0001, 0.0002],
+    "switch_cost_candidates": [0.0005, 0.001],
+    "opponent_distribution": {
+      "hold": 0.3333333333333333,
+      "pursuit": 0.3333333333333333,
+      "evasive": 0.3333333333333333
+    }
+  },
+  "reachability": {
+    "ensemble_members": 3,
+    "candidate_horizons": [12, 30, 60],
+    "initial_horizon": 30,
+    "softmin_kappa": 10.0,
+    "rollout_discount": 0.98,
+    "legal_bonus": 1.0,
+    "crash_penalty": 1.0,
+    "opponent_softmin_temperature": 0.25,
+    "opponent_hypotheses": [
+      "hold",
+      "pursuit",
+      "evasive_left",
+      "evasive_right",
+      "bounded_turn_continuation"
+    ],
+    "lcb_z_candidates": [1.0, 1.64]
+  },
+  "option": {
+    "minimum_dwell_decisions": 6,
+    "maximum_dwell_decisions": 150,
+    "force_persistence_decisions": 12,
+    "release_persistence_decisions": 6,
+    "shield_bad_lcb_threshold": -0.1,
+    "shield_safe_lcb_threshold": 0.1,
+    "shield_intercept_advantage": 0.05,
+    "counterfactual_anneal_fraction": 0.1,
+    "freeze_v9_fraction_of_v12_continuation": 0.1
+  },
+  "evaluation": {
+    "development_seed": 10085,
+    "confirmation_seeds": [110085, 120085, 130085, 140085, 150085],
+    "episodes_per_opponent_per_evaluation_seed": 192,
+    "pair_initial_conditions": true,
+    "save_episode_records": true,
+    "save_option_segment_records": true
+  },
+  "stages": {
+    "a1_teacher_target_states": 50000,
+    "a2_reachability_epochs": 50,
+    "b0_smoke_environment_decisions": 98304
+  },
+  "logging": {
+    "write_progress_json": true,
+    "write_train_json": true,
+    "write_metrics_jsonl": true,
+    "required_metric_groups": [
+      "task_outcomes",
+      "weapon_chain",
+      "arbitration",
+      "reachability",
+      "ppo_stability",
+      "constraints",
+      "throughput",
+      "compute_budget"
+    ]
+  }
+}

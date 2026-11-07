@@ -98,6 +98,74 @@ def cross_fitted_voi(q_a: torch.Tensor, q_b: torch.Tensor,
     }
 
 
+def masked_soft_cross_fitted_voi(
+        q_a: torch.Tensor, q_b: torch.Tensor, weights: torch.Tensor,
+        legal_mask: torch.Tensor | None = None, temperature: float = 0.05,
+        top_k: int | None = 3) -> dict[str, torch.Tensor]:
+    """Cross-fitted Boltzmann VOI over legal actions.
+
+    ``q_a`` and ``q_b`` have shape ``[batch,responses,actions]``.  The
+    selector distribution is produced by one fold and evaluated by the other
+    fold.  Unlike hard argmax VOI, this operator varies continuously with Q.
+    """
+    if q_a.shape != q_b.shape or q_a.ndim != 3:
+        raise ValueError("q folds must share [B,S,A] shape")
+    if weights.shape != q_a.shape[:2]:
+        raise ValueError("candidate weights must have [B,S] shape")
+    if temperature <= 0:
+        raise ValueError("temperature must be positive")
+    actions = q_a.shape[-1]
+    if top_k is not None and not 1 <= int(top_k) <= actions:
+        raise ValueError("top_k must be between one and the action count")
+    if legal_mask is None:
+        legal = torch.ones_like(q_a, dtype=torch.bool)
+    elif legal_mask.shape == (q_a.shape[0], actions):
+        legal = legal_mask[:, None, :].expand_as(q_a)
+    elif legal_mask.shape == q_a.shape:
+        legal = legal_mask
+    else:
+        raise ValueError("legal_mask must have [B,A] or [B,S,A] shape")
+    legal = legal.to(device=q_a.device, dtype=torch.bool)
+    if bool((legal.sum(-1) == 0).any()):
+        raise ValueError("every response candidate needs a legal action")
+    normalized = weights / weights.sum(-1, keepdim=True).clamp_min(1.0e-12)
+
+    def boltzmann(values: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
+        allowed = mask
+        if top_k is not None and int(top_k) < values.shape[-1]:
+            ranked = values.masked_fill(~mask, -torch.inf)
+            indices = ranked.topk(int(top_k), dim=-1).indices
+            selected = torch.zeros_like(mask)
+            selected.scatter_(-1, indices, True)
+            allowed = mask & selected
+        logits = (values / temperature).masked_fill(~allowed, -torch.inf)
+        return torch.softmax(logits, -1)
+
+    def direction(select: torch.Tensor, evaluate: torch.Tensor):
+        posterior = boltzmann(select, legal)
+        marginal = (normalized.unsqueeze(-1) * select).sum(1)
+        common_legal = legal.all(1)
+        # A context-level action must be valid for every response candidate.
+        # Current WVR fire legality is response-independent, while ``all``
+        # keeps the interface correct for future response-dependent masks.
+        prior = boltzmann(marginal, common_legal)[:, None, :]
+        safe_evaluate = evaluate.masked_fill(~legal, 0.0)
+        posterior_value = (
+            normalized * (posterior * safe_evaluate).sum(-1)).sum(-1)
+        prior_value = (
+            normalized * (prior * safe_evaluate).sum(-1)).sum(-1)
+        return posterior_value, prior_value, posterior_value - prior_value
+
+    t1_ab, t2_ab, value_ab = direction(q_a, q_b)
+    t1_ba, t2_ba, value_ba = direction(q_b, q_a)
+    signed = 0.5 * (value_ab + value_ba)
+    return {
+        "t1_ab": t1_ab, "t2_ab": t2_ab, "value_ab": value_ab,
+        "t1_ba": t1_ba, "t2_ba": t2_ba, "value_ba": value_ba,
+        "signed_voi": signed, "positive_voi": signed.clamp_min(0.0),
+    }
+
+
 def ensemble_mi(means: torch.Tensor, variances: torch.Tensor,
                 side_probabilities: torch.Tensor,
                 epsilon: float = 1.0e-8) -> dict[str, torch.Tensor]:

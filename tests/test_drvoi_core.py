@@ -8,6 +8,7 @@ from benchmarks.drvoi import (
     HOTTab,
     action_ids_to_multi_one_hot,
     cross_fitted_voi,
+    masked_soft_cross_fitted_voi,
     ensemble_mi,
     extract_response_state,
 )
@@ -43,6 +44,26 @@ def test_cross_fitted_voi_matches_independent_manual_example():
     result = cross_fitted_voi(q, q.clone(), torch.tensor([[0.5, 0.5]]))
     assert torch.allclose(result["signed_voi"], torch.tensor([1.0]))
     assert torch.allclose(result["positive_voi"], torch.tensor([1.0]))
+
+
+def test_masked_soft_voi_is_zero_without_response_dependent_advantage():
+    action_value = torch.tensor([1.0, 0.5, -2.0])
+    response_offset = torch.tensor([0.0, 3.0, -1.0])
+    q = action_value[None, None, :] + response_offset[None, :, None]
+    legal = torch.tensor([[True, True, False]])
+    result = masked_soft_cross_fitted_voi(
+        q, q.clone(), torch.ones(1, 3), legal,
+        temperature=0.1, top_k=2)
+    assert torch.allclose(result["signed_voi"], torch.zeros(1), atol=1e-6)
+
+
+def test_masked_soft_voi_uses_response_specific_legal_action_preferences():
+    q = torch.tensor([[[3.0, 0.0, 100.0], [0.0, 3.0, 100.0]]])
+    legal = torch.tensor([[True, True, False]])
+    result = masked_soft_cross_fitted_voi(
+        q, q.clone(), torch.tensor([[0.5, 0.5]]), legal,
+        temperature=0.05, top_k=2)
+    assert result["signed_voi"].item() > 1.0
 
 
 def test_ensemble_mi_null_and_nonnegative():

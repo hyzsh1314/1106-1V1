@@ -154,6 +154,65 @@ class JointDuelingQ(nn.Module):
             -1, action_id[:, None]).squeeze(-1)
 
 
+class _ResidualSiLUBlock(nn.Module):
+    def __init__(self, hidden_size: int) -> None:
+        super().__init__()
+        self.norm = nn.LayerNorm(hidden_size)
+        self.linear = nn.Linear(hidden_size, hidden_size)
+
+    def forward(self, value: torch.Tensor) -> torch.Tensor:
+        return value + torch.nn.functional.silu(self.linear(self.norm(value)))
+
+
+class MacroOptionDuelingQ(nn.Module):
+    """Dueling critic for a small legal-mask-aware tactical option set."""
+
+    def __init__(self, context_dim: int, num_options: int = 7,
+                 hidden_size: int = 256) -> None:
+        super().__init__()
+        if num_options < 2:
+            raise ValueError("num_options must be at least two")
+        self.num_options = int(num_options)
+        self.input_norm = nn.LayerNorm(context_dim)
+        self.input_projection = nn.Linear(context_dim, hidden_size)
+        self.blocks = nn.Sequential(
+            _ResidualSiLUBlock(hidden_size),
+            _ResidualSiLUBlock(hidden_size))
+        self.value = nn.Linear(hidden_size, 1)
+        self.option_advantage = nn.Linear(hidden_size, self.num_options)
+
+    def _features(self, context: torch.Tensor) -> torch.Tensor:
+        value = torch.nn.functional.silu(
+            self.input_projection(self.input_norm(context)))
+        return self.blocks(value)
+
+    def all_options(self, context: torch.Tensor,
+                    legal_mask: torch.Tensor | None = None) -> torch.Tensor:
+        features = self._features(context)
+        advantage = self.option_advantage(features)
+        if legal_mask is None:
+            centered = advantage - advantage.mean(-1, keepdim=True)
+        else:
+            if legal_mask.shape != advantage.shape:
+                raise ValueError("legal_mask must share [batch,options] shape")
+            legal = legal_mask.to(device=advantage.device, dtype=torch.bool)
+            count = legal.sum(-1, keepdim=True)
+            if bool((count == 0).any()):
+                raise ValueError("every context needs at least one legal option")
+            mean = (advantage * legal).sum(-1, keepdim=True) / count
+            centered = advantage - mean
+        return self.value(features) + centered
+
+    def all_actions(self, context: torch.Tensor,
+                    legal_mask: torch.Tensor | None = None) -> torch.Tensor:
+        return self.all_options(context, legal_mask)
+
+    def forward(self, context: torch.Tensor, option: torch.Tensor,
+                legal_mask: torch.Tensor | None = None) -> torch.Tensor:
+        return self.all_options(context, legal_mask).gather(
+            -1, option.long().unsqueeze(-1)).squeeze(-1)
+
+
 @torch.no_grad()
 def double_q_target(reward_ext: torch.Tensor, done: torch.Tensor,
                     next_context: torch.Tensor, online: ActionEmbeddingQ,

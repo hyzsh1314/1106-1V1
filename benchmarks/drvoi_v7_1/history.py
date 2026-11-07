@@ -151,3 +151,40 @@ class VectorHistoryBuffer:
             valid=self.valid.clone(),
             wrong_delay_actions=multi_discrete_history_to_one_hot(wrong),
         )
+
+    def preview(self, observation: torch.Tensor, action: torch.Tensor,
+                reset: torch.Tensor | None = None) -> HistoryBatch:
+        """Return the batch that ``append`` would create without mutation."""
+        if observation.shape != (self.num_envs, self.observation_dim):
+            raise ValueError("observation shape does not match buffer")
+        if action.shape != (self.num_envs, 4):
+            raise ValueError("action must have [num_envs,4] shape")
+        observations = self.observations.clone()
+        actions = self.actions.clone()
+        valid = self.valid.clone()
+        action_lag = self._action_lag.clone()
+        if reset is not None:
+            selected = reset.to(device=self.device, dtype=torch.bool)
+            if selected.shape != (self.num_envs,):
+                raise ValueError("reset must have [num_envs] shape")
+            observations[selected] = 0.0
+            neutral = torch.tensor(
+                NEUTRAL_ACTION, dtype=actions.dtype, device=self.device)
+            actions[selected] = neutral
+            action_lag[selected] = neutral
+            valid[selected] = False
+        observations = torch.roll(observations, -1, dims=1)
+        actions = torch.roll(actions, -1, dims=1)
+        valid = torch.roll(valid, -1, dims=1)
+        action_lag = torch.roll(action_lag, -1, dims=1)
+        observations[:, -1] = observation
+        actions[:, -1] = action
+        valid[:, -1] = True
+        action_lag[:, -1] = action
+        return HistoryBatch(
+            observations=observations,
+            actions=multi_discrete_history_to_one_hot(actions),
+            valid=valid,
+            wrong_delay_actions=multi_discrete_history_to_one_hot(
+                action_lag[:, :self.length]),
+        )

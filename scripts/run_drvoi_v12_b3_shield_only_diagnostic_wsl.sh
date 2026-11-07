@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+python_bin="${WVR_PYTHON_BIN:-/home/hongyun0405/.venvs/bvr1022/bin/python}"
+run_dir="${WVR_V12_B3_DIR:-${project_root}/runs/drvoi_rhppo_v12/b3-shield-only-diagnostic-seed85}"
+analysis_dir="${WVR_V12_B3_ANALYSIS_DIR:-${project_root}/docs/analysis/drvoi-rhppo-v12-b3-shield-only-diagnostic}"
+b1_checkpoint="${project_root}/runs/drvoi_rhppo_v12/mrat-b1-frozen-seed85/latest.pt"
+model_checkpoint="${project_root}/runs/drvoi_rhppo_v12/reachability-model-a2-seed85/reachability.pt"
+v9_checkpoint="${project_root}/runs/drvoi_rhppo_v9/coach-online/development-1m-seed85/latest.pt"
+response_checkpoint="${project_root}/runs/drvoi_rhppo_v7_1/w3-confirmation/confirmation.pt"
+option_q_checkpoint="${project_root}/runs/drvoi_rhppo_v8/macro-option/development/cross-fitted-option-q.pt"
+
+mkdir -p "${run_dir}" "${analysis_dir}"
+cd "${project_root}"
+for opponent in hold pursuit evasive; do
+  evaluation="${run_dir}/eval-${opponent}.json"
+  episode_records="${run_dir}/eval-${opponent}-episodes.jsonl"
+  segment_records="${run_dir}/eval-${opponent}-segments.jsonl"
+  if [[ ! -s "${evaluation}" || ! -s "${episode_records}" || \
+        ! -s "${segment_records}" ]]; then
+    PYTHONPATH=. "${python_bin}" benchmarks/evaluate_torch_wvr_mrat_rhppo.py \
+      --checkpoint "${b1_checkpoint}" \
+      --v9-checkpoint "${v9_checkpoint}" \
+      --response-checkpoint "${response_checkpoint}" \
+      --option-q-checkpoint "${option_q_checkpoint}" \
+      --reachability-checkpoint "${model_checkpoint}" \
+      --opponent "${opponent}" \
+      --episodes 192 \
+      --num-envs 96 \
+      --seed 10085 \
+      --routing-mode shield_only \
+      --output "${evaluation}" \
+      --episode-records "${episode_records}" \
+      --segment-records "${segment_records}" \
+      2>&1 | tee -a "${run_dir}/eval-${opponent}.log"
+  fi
+done
+
+PYTHONPATH=. "${python_bin}" benchmarks/analyze_drvoi_v12_b0.py \
+  --run-dir "${run_dir}" \
+  --output-dir "${analysis_dir}" \
+  --method-label "V12 B3 shield-only diagnostic" \
+  --stage-label "B3-SHIELD-ONLY-DIAGNOSTIC" \
+  --extra-method "V12-Frozen B1 (seed85)=runs/drvoi_rhppo_v12/mrat-b1-frozen-seed85" \
+  --extra-method "V12 B2 cost-regularized (seed85)=runs/drvoi_rhppo_v12/mrat-b2-cost-regularized-frozen-seed85" \
+  --evaluation-only \
+  2>&1 | tee -a "${run_dir}/analysis.log"
+
